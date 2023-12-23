@@ -59,7 +59,7 @@ const Login = () => {
 				</p>
 				<img
 					className=" h-[11rem] rounded-lg"
-					src="../../public/blogvana.png"
+					src="/blogvana.png"
 					alt=""
 				/>
 			</div>
@@ -124,7 +124,7 @@ const Login = () => {
 						<span>
 							<Link
 								to="/register"
-								className=" text-colorPrimary  ml-2 hover:text-blue-400 transition-all"
+								className=" text-blue-400  ml-2 hover:text-blue-600 transition-all"
 							>
 								Register
 							</Link>

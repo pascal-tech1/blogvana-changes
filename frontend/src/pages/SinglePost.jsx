@@ -147,7 +147,7 @@ const SinglePost = () => {
 					{/*  the post content in the dom */}
 					<div
 						ref={lastPostRef}
-						className=" mt-4 dark:text-slate-300 "
+						className=" mt-4 dark:text-slate-300 font-inter "
 						dangerouslySetInnerHTML={{ __html: post?.content }}
 					/>
 
