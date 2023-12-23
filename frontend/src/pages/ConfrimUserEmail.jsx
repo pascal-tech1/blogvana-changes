@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { confirmSentEmail, verifyEmail } from "../redux/user/userSlice";
+import userSlice, {
+	confirmSentEmail,
+	verifyEmail,
+} from "../redux/user/userSlice";
 import { Spinner } from "../components";
 
 const ComfirmEmailPage = () => {
@@ -16,13 +19,17 @@ const ComfirmEmailPage = () => {
 
 	useEffect(() => {
 		if (confirmSentEmailStatus !== "idle") return;
-		console.log(confirmSentEmailStatus);
+
 		dispatch(confirmSentEmail(token));
 	}, []);
 
 	const { confirmSentEmailStatus } = useSelector(
 		(store) => store.userSlice
 	);
+
+	if (user?.isAccountVerified) {
+		return <h3>your Account is already verified</h3>;
+	}
 
 	return (
 		<div className=" font-inter">
