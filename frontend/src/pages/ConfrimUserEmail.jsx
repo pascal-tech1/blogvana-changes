@@ -14,6 +14,7 @@ const ComfirmEmailPage = () => {
 	const location = useLocation();
 
 	const searchParams = new URLSearchParams(location.search);
+	const {user} = useSelector((store)=>store.userSlice)
 
 	const email = searchParams.get("email");
 
