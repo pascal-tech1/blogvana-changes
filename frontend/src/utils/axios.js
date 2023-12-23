@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const customFetch = axios.create({
-	baseURL: "https://backendblogvana.onrender.com/api",
+	baseURL: "https://blogvana-backend.onrender.com/api",
 });
 
 export default customFetch;
