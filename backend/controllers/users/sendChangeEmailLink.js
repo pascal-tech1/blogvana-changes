@@ -55,11 +55,11 @@ const emailChangeVerificationHtml = (
 				you have requested to change your blogvana account email. To activate your new email, please
 				click the verification link below:
 			</p>
-			<a href= "https://blogvana-up63.onrender.com/confirm-sent-email/${verificationToken}?email=${email}" class="verification-link"
+			<a href= "https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${email}" class="verification-link"
 				>Verify Your Email</a
 			>
 			<p>if the button is not working copy the link below to your browser</p>
-			<p>https://blogvana-up63.onrender.com/confirm-sent-email/${verificationToken}?email=${email}</p>
+			<p>https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${email}</p>
 
 			<p>If you did not make this actionn, please disregard this email and contact blogvana admin immmediately</p>
 			<p>Best regards,<br />BlogVana</p>

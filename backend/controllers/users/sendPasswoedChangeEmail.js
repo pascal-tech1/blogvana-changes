@@ -50,7 +50,7 @@ const sendPasswoedChangeEmail = (firstName) => {
 			<p>
 				you have changed your blogvana account password successfully . 
 			</p>
-			<a href= "https://blogvana-up63.onrender.com/login" class="verification-link"
+			<a href= "https://blogvana-5l46.onrender.com/login" class="verification-link"
 				>login</a
 			>
 

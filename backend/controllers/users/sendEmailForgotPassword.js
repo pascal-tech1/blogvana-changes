@@ -50,12 +50,12 @@ const sendEmailForgotPassword = (foundUser, verificationToken) => {
 			<p>
 			you have requested to change your email click the below link to proceed 
 			</p>
-			<a href= "https://blogvana-up63.onrender.com/reset-password/${resetToken}" class="verification-link"
+			<a href= "https://blogvana-5l46.onrender.com/reset-password/${resetToken}" class="verification-link"
 				>Reset Password</a
 			>
 			<p>if the button is not working copy the below link to the browser </p>
 			
-			<p>https://blogvana-up63.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}</p>
+			<p>https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}</p>
 
 			<p>If you did initiate this action, please disregard this email.</p>
 			<p>Best regards,<br />BlogVana</p>

@@ -51,12 +51,12 @@ const emailVerificationHtml = (foundUser, verificationToken) => {
 				Thank you for creating an account. To activate your account, please
 				click the verification link below:
 			</p>
-			<a href= "https://blogvana-up63.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}" class="verification-link"
+			<a href= "https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}" class="verification-link"
 				>Verify Your Email</a
 			>
 			<p>if the button is not working click below</p>
 			
-			<p>https://blogvana-up63.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}</p>
+			<p>https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}</p>
 
 			<p>If you did not create an account, please disregard this email.</p>
 			<p>Best regards,<br />BlogVana</p>

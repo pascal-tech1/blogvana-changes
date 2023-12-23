@@ -51,7 +51,7 @@ const sendEmailVerified = (firstName) => {
 			<p>
 				your email have been verified and account fully active , thanks. 
 			</p>
-			<a href= "https://blogvana-up63.onrender.com/login" class="verification-link"
+			<a href= "https://blogvana-5l46.onrender.com/login" class="verification-link"
 				>login</a
 			>
 
