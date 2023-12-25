@@ -8,7 +8,6 @@ import {
 } from "../redux/post/singlePostSlice";
 import Spinner from "./Spinner";
 
-
 export const FollowingBtn = ({ userToFollowOrUnfollow, className }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -30,9 +29,9 @@ export const FollowingBtn = ({ userToFollowOrUnfollow, className }) => {
 	return (
 		<button onClick={handleFollowUser} className={className}>
 			{user?.following?.includes(userToFollowOrUnfollow?._id) ? (
-				<h3>following</h3>
+				<p>following</p>
 			) : (
-				<h3>follow</h3>
+				<p>follow</p>
 			)}
 		</button>
 	);

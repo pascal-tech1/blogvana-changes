@@ -47,6 +47,7 @@ const App = () => {
 	const { token, user, loginUserTokenStatus } = useSelector(
 		(store) => store.userSlice
 	);
+
 	useEffect(() => {
 		if (token) {
 			dispatch(loginUserWithToken());

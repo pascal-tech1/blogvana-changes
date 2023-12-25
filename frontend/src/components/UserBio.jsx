@@ -16,7 +16,7 @@ const UserBio = () => {
 			.min(10, "bio must not be less than 10 characters")
 			.max(600, "bio must be less than 600 characters"),
 	});
-		console.log("im here summary");
+		
 
 
 	const formik = useFormik({

@@ -6,7 +6,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchAllCategorys = createAsyncThunk(
 	"fetch/AllCategories",
 	async (_, { getState, rejectWithValue }) => {
-	
 		const { dashboardSearchTerm } = getState().userSlice;
 		try {
 			const resp = await customFetch(
@@ -94,6 +93,7 @@ const initialState = {
 	activeEditingCategory: "",
 	isSideBarOpen: false,
 	theme: localStorage.getItem("theme"),
+	isTableOfContentClciked: false,
 };
 
 const categorySlice = createSlice({
@@ -113,6 +113,10 @@ const categorySlice = createSlice({
 
 		setThemeInStore: (state, { payload }) => {
 			state.theme = payload;
+		},
+
+		setIsTAbleOfContentClick: (state, { payload }) => {
+			state.isTableOfContentClciked = payload;
 		},
 	},
 	extraReducers: {
@@ -184,4 +188,5 @@ export const {
 	setActiveEditingCategory,
 	setSideBarStateInStore,
 	setThemeInStore,
+	setIsTAbleOfContentClick,
 } = categorySlice.actions;

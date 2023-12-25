@@ -461,7 +461,7 @@ const userSlice = createSlice({
 			state.changeEmailStatus = !state.changeEmailStatus;
 		},
 		setChangePassword: (state) => {
-			console.log("im here");
+			
 			state.changePasswordStatus = !state.changePasswordStatus;
 		},
 		setUserState: (state, action) => {
@@ -520,7 +520,7 @@ const userSlice = createSlice({
 		},
 		[loginUser.rejected]: (state, { payload }) => {
 			state.isLoading = false;
-			console.log(payload);
+			
 			const error = payload?.message || error?.message;
 			toast.error(error);
 		},
@@ -547,7 +547,7 @@ const userSlice = createSlice({
 			state.registerUserStatus = "failed";
 
 			const error = action?.payload?.message || action?.error?.message;
-			console.log(error);
+			
 			toast.error(error);
 		},
 		[updateUser.pending]: (state) => {
@@ -782,7 +782,7 @@ const userSlice = createSlice({
 			state.updatePasswordStatus = "success";
 		},
 		[updatePassword.rejected]: (state, { payload }) => {
-			console.log(payload);
+			
 			state.updatePasswordStatus = "failed";
 			toast.error(payload?.message);
 		},

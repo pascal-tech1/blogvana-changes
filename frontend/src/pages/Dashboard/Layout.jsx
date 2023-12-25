@@ -43,7 +43,7 @@ const Layout = () => {
 			dispatch(setSideBarStateInStore(false));
 	}, [isOutsideClicked]);
 
-	console.log("im here all layout dashboard");
+	
 
 	useEffect(() => {
 		const handleKeyPress = (e) => {
@@ -94,7 +94,7 @@ const Layout = () => {
 						isSideBarOpen
 							? "absolute top-12 md:top-0  md:relative "
 							: "hidden "
-					}   col-start-1 col-span-2 row-start-1 row-span-full  h-screen  z-10 overflow-y-hidden overflow-x-hidden bg-white dark:bg-dark drop-shadow-sm rounded-md    `}
+					}   col-start-1 col-span-2 max-[768px]:w-[40vw] row-start-1 row-span-full  h-screen  z-10 overflow-y-hidden overflow-x-hidden bg-white dark:bg-dark drop-shadow-sm rounded-md    `}
 				>
 					<DashboardSideBar />
 				</div>

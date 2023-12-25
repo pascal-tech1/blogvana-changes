@@ -30,7 +30,45 @@
 @tailwind utilities;
 
 /* Custom Scrollbar Styling */
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+h2,
+h3 {
+	scroll-margin-top: 16px;
+}
 
+/* Safari-only */
+@supports (-webkit-hyphens: none) {
+	h2,
+	h3 {
+		padding-top: 16px;
+		margin-top: -16px;
+	}
+}
+.toc a h1 {
+	justify-self: start;
+}
+
+.toc a h2 {
+	margin-left: 10px;
+
+	padding: 0 5px;
+	/* display: none; */
+	justify-self: start;
+}
+
+.toc a h3 {
+	margin-left: 20px;
+
+	padding: 0 5px;
+	justify-self: start;
+}
+
+.is-active {
+	@apply text-blue-400;
+}
 .Toastify__toast--error {
 	border-left: 1px solid rgb(246, 76, 76);
 }
@@ -185,6 +223,14 @@ th {
 	grid-template-rows: 3rem 1fr;
 	height: 100vh;
 }
+.singlePostLayout {
+	display: grid;
+	grid-template-rows: 1fr;
+	height: 80vh;
+}
+/* Example styles, adjust as needed */
+
+/* Remove the focus outline from headings */
 
 .form-label {
 	@apply text-sm mt-2 text-gray-400 self-start;
@@ -222,7 +268,7 @@ th {
 	@apply border border-gray-200 dark:border-neutral-800;
 }
 .ql-syntax {
-	@apply max-h-[60vh]  !overflow-y-auto  rounded-md;
+	@apply max-h-fit  !overflow-y-auto  rounded-md;
 }
 .code-div {
 	@apply relative dark:bg-[#161618] bg-[#f7f7f7] px-2 pt-6 pb-2  rounded-lg p-4;

@@ -546,7 +546,7 @@ const updatePasswordCtrl = expressAsyncHandler(async (req, res) => {
 
 		const foundUser = await User.findById(req.user._id);
 		if (!foundUser) throw new Error("invalid login credentials");
-		console.log(foundUser);
+
 		const isPasswordMatch = await foundUser.isPasswordCorrect(oldPassword);
 		if (!isPasswordMatch) throw new Error("invalid password");
 
@@ -574,7 +574,6 @@ const updatePasswordCtrl = expressAsyncHandler(async (req, res) => {
 			return;
 		});
 	} catch (error) {
-		console.log("error", error.message);
 		res.status(400).json({ message: error.message });
 	}
 });
@@ -785,7 +784,7 @@ const fetchUserFollowingListCtrl = expressAsyncHandler(
 					skip: skip,
 				})
 				.select("following");
-			console.log(pageNumber, userfollowinglist.following.length);
+
 			const followinglistTotalNumber = following.length;
 			res.status(200).json({
 				followinglistTotalNumber,
@@ -895,7 +894,7 @@ const fetchWhoViewedUserProfileCtrl = expressAsyncHandler(
 		const numberPerPage = parseInt(req.query.numberPerPage);
 		const { _id } = req.user;
 		if (!_id) throw new Error("User Id is Required");
-		console.log(page);
+
 		try {
 			let total;
 			if (page === 1) {

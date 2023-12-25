@@ -9,7 +9,7 @@ import { logOutUser } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const MessageUser = ({ receiverId }) => {
-	console.log(receiverId);
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);

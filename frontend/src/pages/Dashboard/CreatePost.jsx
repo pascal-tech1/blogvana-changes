@@ -113,9 +113,9 @@ const CreatePost = () => {
 
 			// Get the innerText of the temporary element
 			const wordCount = tempElement.innerText.split(" ").length;
-			console.log(wordCount);
+			
 			const readingTime = Math.ceil(wordCount / wordsPerMinute);
-			console.log(readingTime);
+			
 			values.category = selectedFilter;
 			values.readingTime = readingTime;
 

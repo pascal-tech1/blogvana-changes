@@ -49,7 +49,7 @@ const AllPost = () => {
 			/>
 
 			{allPost.map((post, index) => {
-				console.log(searchQuery)
+			
 				return (
 					<div
 						key={index}

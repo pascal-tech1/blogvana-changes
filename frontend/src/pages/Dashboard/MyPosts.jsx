@@ -66,18 +66,18 @@ const MyPosts = () => {
 		[creatorPostStatus, hasMore]
 	);
 
+
 	useEffect(() => {
-		if (!id) return
-			page = 1;
-			dispatch(clearCreatorAllPost());
-			dispatch(
-				fetchCreatorPosts({
-					userId: id,
-					filter: MyPostSelectedFilter,
-					page,
-				})
-			);
-		
+		if (!id) return;
+		page = 1;
+		dispatch(clearCreatorAllPost());
+		dispatch(
+			fetchCreatorPosts({
+				userId: id,
+				filter: MyPostSelectedFilter,
+				page,
+			})
+		);
 	}, [MyPostSelectedFilter, id, dashboardSearchTerm]);
 
 	const posts = [

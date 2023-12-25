@@ -61,6 +61,7 @@ const DashboardCustomDropdown = ({
 							} bg-gray-100 dark:bg-lightdark hover:bg-gray-200 dark:hover:bg-gray-800 transition-all delay-75 rounded-md md:text-sm px-2 py-[0.12rem] my-1 `}
 							onClick={() => {
 								handleSelected(filter);
+								setIsOpen(false);
 							}}
 						>
 							{filter.charAt(0).toUpperCase() +

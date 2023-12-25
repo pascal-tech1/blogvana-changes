@@ -56,7 +56,7 @@ const UpdatePassword = () => {
 				newPassword: values.password,
 				oldPassword: values.oldPassword,
 			};
-			console.log(user);
+			
 			dispatch(updatePassword(user));
 			dispatch(setChangePassword());
 		},

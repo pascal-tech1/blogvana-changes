@@ -42,10 +42,10 @@ const LikesSaveViews = ({ post }) => {
 				<span>{post?.disLikes?.length}</span>
 			</span>
 
-			<h3 className="flex gap-1 items-center flex-nowrap">
+			<span className="flex gap-1 items-center flex-nowrap">
 				<span className="  ">{post?.numViews}</span>
 				{post?.numViews > 1 ? "views" : "view"}
-			</h3>
+			</span>
 			<button
 				onClick={() => dispatch(savePost(post?._id))}
 				className=" hover:bg-gray-400 p-1 rounded-full hover:text-white"
@@ -64,7 +64,7 @@ const LikesSaveViews = ({ post }) => {
 					post?.category?.slice(1).toLowerCase()}
 			</Link>
 			{post?.readingTime && (
-				<h3 className=" text-sm">{`${post?.readingTime} min read`}</h3>
+				<span className=" text-sm">{`${post?.readingTime} min read`}</span>
 			)}
 		</div>
 	);

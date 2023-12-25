@@ -8,7 +8,7 @@ const MessagesComp = ({ msg, length, IsMessage }) => {
 	return (
 		<div className="flex gap-6 flex-col font-inter max-w-fit">
 			{msg.map((message, index) => {
-				console.log(message?.sender?._id);
+				
 				return (
 					<div key={index} className="flex  justify-between gap-2">
 						<div className="flex gap-2">

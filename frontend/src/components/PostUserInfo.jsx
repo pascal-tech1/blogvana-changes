@@ -32,8 +32,8 @@ const PostUserInfo = ({ post }) => {
 						</div>
 
 						<div>
-							<h3 className=" text-xs">{formatDate(post?.createdAt)}</h3>
-							<h3 className=" text-xs">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</h3>
+							<p className=" text-xs">{formatDate(post?.createdAt)}</p>
+							<p className=" text-xs">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</p>
 						</div>
 					</Link>
 					{/* if its not the user that created the post render the follow button else render the edit button */}

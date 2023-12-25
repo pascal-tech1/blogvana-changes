@@ -43,7 +43,7 @@ const NavBar = () => {
 	}, [isOutsideClicked]);
 
 	return (
-		<div className=" flex w-full font-inter items-center justify-between border-b   dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200 py-3">
+		<div className=" flex w-full font-inter items-center justify-between border-b nav-bar   dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200 py-3">
 			<Link to="/" className="">
 				<img
 					src="/blogvana.png"
