@@ -1,4 +1,4 @@
-const sendEmailForgotPassword = (foundUser, verificationToken) => {
+const sendEmailForgotPassword = (foundUser, resetToken) => {
 	return `<!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -55,7 +55,7 @@ const sendEmailForgotPassword = (foundUser, verificationToken) => {
 			>
 			<p>if the button is not working copy the below link to the browser </p>
 			
-			<p>https://blogvana-5l46.onrender.com/confirm-sent-email/${verificationToken}?email=${foundUser.email}</p>
+			<p>https://blogvana-5l46.onrender.com/reset-password/${resetToken}</p>
 
 			<p>If you did initiate this action, please disregard this email.</p>
 			<p>Best regards,<br />BlogVana</p>

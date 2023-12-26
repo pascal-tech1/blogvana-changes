@@ -30,9 +30,8 @@
 @tailwind utilities;
 
 /* Custom Scrollbar Styling */
-html {
-	scroll-behavior: smooth;
-}
+
+
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -49,6 +48,9 @@ h3 {
 		padding-top: 16px;
 		margin-top: -16px;
 	}
+}
+.toc a:hover {
+	background-color: #565658;
 }
 .toc a h1 {
 	justify-self: start;

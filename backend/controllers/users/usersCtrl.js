@@ -472,7 +472,9 @@ const sendPasswordResetEmailCtrl = expressAsyncHandler(
 
 		try {
 			const resetToken = await foundUser.passwordResetHandler();
+			console.log(resetToken);
 			await foundUser.save(); // this save the user info altered in passwordResetHandler in the user model
+			console.log(resetToken);
 			const emailToSend = sendEmailForgotPassword(foundUser, resetToken);
 			let mailDetails = {
 				from: "pascalazubike003@gmail.com",

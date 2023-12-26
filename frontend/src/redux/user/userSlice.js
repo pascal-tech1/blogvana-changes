@@ -332,6 +332,7 @@ export const confirmSentEmail = createAsyncThunk(
 export const sendForgotPasswordEmail = createAsyncThunk(
 	"send/forgotPasswordEmail",
 	async (email, { getState, rejectWithValue }) => {
+		console.log('im here')
 		try {
 			const resp = await customFetch.post(`/users/forget-password`, email);
 

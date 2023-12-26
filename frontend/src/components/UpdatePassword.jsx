@@ -31,17 +31,19 @@ const UpdatePassword = () => {
 	};
 
 	const formSchema = Yup.object().shape({
-		oldPassword: Yup.string()
-			.required("Old Password is required")
-			.min(6, "Password must be at least 6 characters"),
+		oldPassword: Yup.string().required("Old Password is required"),
 
 		password: Yup.string()
-			.required("Password is required")
-			.min(6, "Password must be at least 6 characters"),
+			.required("No password provided.")
+
+			.matches(
+				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+				"Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long."
+			),
 
 		confirmPassword: Yup.string()
-			.oneOf([Yup.ref("password"), null], "Passwords must match")
-			.required("Confirm Password is required"),
+			.required("Confirm Password is required")
+			.oneOf([Yup.ref("password"), null], "Passwords must match"),
 	});
 
 	const formik = useFormik({
@@ -56,7 +58,7 @@ const UpdatePassword = () => {
 				newPassword: values.password,
 				oldPassword: values.oldPassword,
 			};
-			
+
 			dispatch(updatePassword(user));
 			dispatch(setChangePassword());
 		},
@@ -139,10 +141,10 @@ const UpdatePassword = () => {
 							{showPassword.password ? <BsEye /> : <BsEyeSlash />}
 						</span>
 					</div>
-					<div className=" relative mb-2 self-start">
-						<h1 className=" form-error-text">
+					<div className=" relative mb-2 self-start ">
+						<div className=" text-sm text-red-400">
 							{formik.touched.password && formik.errors.password}
-						</h1>
+						</div>
 					</div>
 
 					{/* confirm Password */}
@@ -170,12 +172,6 @@ const UpdatePassword = () => {
 								formik.errors.confirmPassword}
 						</h1>
 					</div>
-					{/* <button
-						className=" self-center text-center bg-blue-400 mt-4 px-2 py-1 rounded-lg text-white hover:bg-blue-600 transition-all duration-75"
-						type="submit"
-					>
-						{updatePasswordStatus === "loading" ? <Spinner /> : "Submit"}
-					</button> */}
 				</form>
 			</div>
 		</Modal>

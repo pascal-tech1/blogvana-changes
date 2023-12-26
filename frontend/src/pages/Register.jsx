@@ -8,6 +8,7 @@ import { RegisterUser } from "../redux/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Carousel, LoadingSpinner } from "../components";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const Register = () => {
 	const { registerUserStatus } = useSelector((store) => store.userSlice);
@@ -15,6 +16,8 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	const [isRegistering, setIsRegistering] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
+
 	useEffect(() => {
 		registerUserStatus === "success" &&
 			isRegistering &&
@@ -128,14 +131,23 @@ const Register = () => {
 				<label className=" form-label" htmlFor="password">
 					Password
 				</label>
-				<input
-					value={formik.values.password}
-					onChange={formik.handleChange("password")}
-					onBlur={formik.handleBlur("password")}
-					aria-label="Enter you password"
-					type="password"
-					className="form-input"
-				/>
+				<div className=" self-stretch relative">
+					<input
+						type={showPassword ? "text" : "password"}
+						className="form-input "
+						value={formik.values.password}
+						onChange={formik.handleChange("password")}
+						onBlur={formik.handleBlur("password")}
+					/>
+					<span
+						className=" absolute top-[30%] right-2  hover:cursor-pointer"
+						onClick={() => {
+							setShowPassword((prev) => !prev);
+						}}
+					>
+						{showPassword ? <BsEye /> : <BsEyeSlash />}
+					</span>
+				</div>
 				<div className=" relative mb-2 self-start ">
 					<div className=" text-sm text-red-400">
 						{formik.touched.password && formik.errors.password}

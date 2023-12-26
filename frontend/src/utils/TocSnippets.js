@@ -1,6 +1,7 @@
 import { store } from "../redux/Store";
 import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
 import scrollIntoView from "scroll-into-view-if-needed";
+import scrollIntoViewIfNeeded from "scroll-into-view-if-needed";
 // import Jump
 
 import jump from "jump.js";
@@ -38,23 +39,39 @@ export const createLinksForHeadings = (html) => {
 		linkElementChild.textContent = element.textContent;
 		linkElement.appendChild(linkElementChild);
 		linkElement.className = "toc-link";
-		// Append link to the new div (crucial step!)
-		linksDiv.appendChild(linkElement); // Append link before attaching events
+
+		// Append link to the new div
+		linksDiv.appendChild(linkElement);
 	});
 
-	return linksDiv.outerHTML; // Use outerHTML to capture complete structure
+	return linksDiv.outerHTML;
 };
-
 // add an event listener to all the heading tags h1,h2 and h3
 export const addClickEventToTocHeadings = () => {
 	const tocDiv = document.querySelector(".toc");
-
 	if (tocDiv) {
-		const headings = tocDiv.querySelectorAll("h1, h2, h3");
-
+		const headings = tocDiv.querySelectorAll("a");
 		headings.forEach((heading) => {
-			heading.addEventListener("click", (event) => {
-				store.dispatch(setIsTAbleOfContentClick(false)); // Close mobile dropdown state in categoryslice
+			heading.addEventListener("click", (e) => {
+				e.preventDefault();
+
+				// Extract the target ID from the href
+				const targetId = heading.getAttribute("href").substring(1);
+
+				// Find the target element by ID
+				const targetElement = document.getElementById(targetId);
+
+				if (targetElement) {
+					// Scroll to the target element with smooth behavior
+					scrollIntoView(targetElement, {
+						behavior: "smooth",
+						block: "start",
+					});
+					console.log("im here now");
+
+					// Close mobile dropdown state in categoryslice
+					store.dispatch(setIsTAbleOfContentClick(false));
+				}
 			});
 		});
 	}

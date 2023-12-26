@@ -25,17 +25,17 @@ import {
 } from "../redux/post/allPostSlice";
 import { addCopyButtons } from "../utils/PostCopyButton";
 import {
-	addClickEventToTocHeadings,
 	addIdsToHeadings,
 	createLinksForHeadings,
 	handleScroll,
 } from "../utils/TocSnippets";
+import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
 
 const SinglePost = () => {
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
 	const dispatch = useDispatch();
-
+	const [scrollTarget, setScrollTarget] = useState(null);
 	// state imports
 	const { post, status } = useSelector((store) => store.singlePostSlice);
 	const [htmlContent, setHtmlContent] = useState("");
@@ -61,8 +61,35 @@ const SinglePost = () => {
 		addCopyButtons();
 	}, [status]);
 
+	// add an event listener to all the heading tags h1,h2 and h3
+	const addClickEventToTocHeadings = () => {
+		const tocDiv = document.querySelector(".toc");
+
+		if (tocDiv) {
+			const headings = tocDiv.querySelectorAll("h1, h2, h3");
+
+			headings.forEach((heading) => {
+				heading.addEventListener("click", (event) => {
+					console.log(event);
+					dispatch(setIsTAbleOfContentClick(false)); // Close mobile dropdown state in categoryslice
+					console.log(event.target.getAttribute("href"))
+					const targetId = event.target.getAttribute("href")?.substring(1); // Extract ID from href
+					const targetElement = document.getElementById(targetId);
+					setScrollTarget(targetElement);
+				});
+			});
+		}
+	};
 	// call the isclicked function
 	addClickEventToTocHeadings();
+	// Effect to scroll to the target element when it changes
+	useEffect(() => {
+		if (scrollTarget) {
+			// Using scrollIntoView with smooth behavior
+			scrollTarget.scrollIntoView({ behavior: "smooth" });
+			setScrollTarget(null); // Reset scroll target after scrolling
+		}
+	}, [scrollTarget]);
 
 	const observer = useRef();
 
@@ -125,7 +152,7 @@ const SinglePost = () => {
 			<div className=" text-red-600">failed to fetch Post try again</div>
 		);
 	}
-	
+
 	if (post)
 		return (
 			<div className=" overscroll-y-auto ">

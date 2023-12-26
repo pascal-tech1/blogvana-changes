@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/user/userSlice";
 
 import { ForgotPassword, LoadingSpinner } from "../components";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -13,6 +14,8 @@ const Login = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const { user, isLoading } = useSelector((store) => store.userSlice);
+
+	const [showPassword, setShowPassword] = useState(false);
 
 	const formSchema = Yup.object().shape({
 		email: Yup.string().email().required("Email is Required."),
@@ -95,13 +98,25 @@ const Login = () => {
 				<label className=" form-label" htmlFor="password">
 					Password
 				</label>
-				<input
-					type="password"
-					className="form-input "
-					value={formik.values.password}
-					onChange={formik.handleChange("password")}
-					onBlur={formik.handleBlur("password")}
-				/>
+				<div className=" self-stretch relative">
+					<input
+						type={showPassword ? "text" : "password"}
+						className="form-input "
+						value={formik.values.password}
+						onChange={formik.handleChange("password")}
+						onBlur={formik.handleBlur("password")}
+					/>
+					<span
+						className=" absolute top-[30%] right-2  hover:cursor-pointer"
+						onClick={() => {
+							console.log("im here");
+							setShowPassword((prev) => !prev);
+							console.log("im here ,2");
+						}}
+					>
+						{showPassword ? <BsEye /> : <BsEyeSlash />}
+					</span>
+				</div>
 				<div className=" relative mb-2 self-start">
 					<h1 className=" form-error-text">
 						{formik.touched.password && formik.errors.password}
