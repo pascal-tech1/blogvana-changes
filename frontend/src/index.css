@@ -30,6 +30,9 @@
 @tailwind utilities;
 
 /* Custom Scrollbar Styling */
+html {
+	scroll-behavior: smooth;
+}
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

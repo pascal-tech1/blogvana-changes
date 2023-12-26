@@ -49,7 +49,6 @@ const AllPost = () => {
 			/>
 
 			{allPost.map((post, index) => {
-			
 				return (
 					<div
 						key={index}
@@ -75,3 +74,4 @@ const AllPost = () => {
 };
 
 export default AllPost;
+

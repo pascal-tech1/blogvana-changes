@@ -1,5 +1,9 @@
 import { store } from "../redux/Store";
 import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
+import scrollIntoView from "scroll-into-view-if-needed";
+// import Jump
+
+import jump from "jump.js";
 
 export const addIdsToHeadings = (html) => {
 	const doc = new DOMParser().parseFromString(html, "text/html");
@@ -51,8 +55,6 @@ export const addClickEventToTocHeadings = () => {
 		headings.forEach((heading) => {
 			heading.addEventListener("click", (event) => {
 				store.dispatch(setIsTAbleOfContentClick(false)); // Close mobile dropdown state in categoryslice
-
-				heading.scrollIntoView({ behavior: "smooth" }); // Scroll to heading
 			});
 		});
 	}
