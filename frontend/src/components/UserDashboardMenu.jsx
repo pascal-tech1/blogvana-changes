@@ -10,6 +10,7 @@ import { BsLock, BsMessenger } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { IoMdHelp } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
+import ContactMe from "./ContactMe";
 
 const UserDashboardMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 	const navigate = useNavigate();
@@ -36,8 +37,8 @@ const UserDashboardMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 
 	return (
 		<>
-			<div className="absolute top-8 right-4 drop-shadow-lg h-[50vh] rounded-lg z-[500] dark:bg-lightdark border dark:border-gray-700   bg-white">
-				<div className=" flex flex-col px-4 justify-start whitespace-nowrap  items-start font-inter gap-3 py-3 md:text-sm  ">
+			<div className="absolute top-8 right-4 md:text-sm px-4  flex justify-between flex-col drop-shadow-lg h-[60vh] rounded-lg z-[500] dark:bg-lightdark border dark:border-gray-700   bg-white">
+				<div className=" flex flex-col justify-start whitespace-nowrap  items-start font-inter gap-3 py-3  ">
 					<button
 						onClick={() => {
 							handleProfileClick();
@@ -88,6 +89,9 @@ const UserDashboardMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 						<FiLogOut />
 						logout
 					</button>
+				</div>
+				<div className=" text-xs">
+					<ContactMe copyrightNeeded={true} nameNeeded={true} />
 				</div>
 			</div>
 		</>

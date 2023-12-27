@@ -39,7 +39,24 @@ export const fetchMsg = createAsyncThunk(
 		}
 	}
 );
+// this is to send me (pascal) creator message
 
+export const sendPascalMsg = createAsyncThunk(
+	"send/pascal-message",
+	async (sendingData, { getState, rejectWithValue, h }) => {
+		console.log(sendingData);
+		try {
+			const resp = await customFetch.post(
+				"/message/contact-me",
+				sendingData
+			);
+			return resp.data;
+		} catch (error) {
+			if (!error.response) throw new Error(error);
+			return rejectWithValue(error.response.data);
+		}
+	}
+);
 const initialState = {
 	msg: [],
 	receivedMessageCount: 0,
@@ -80,6 +97,18 @@ const messageSlice = createSlice({
 		},
 		[fetchMsg.rejected]: (state) => {
 			state.fetchMessageStatus = "failed";
+		},
+		[sendPascalMsg.pending]: (state) => {
+			state.SendingPascalMsgtatus = "loading";
+		},
+		[sendPascalMsg.fulfilled]: (state, { payload }) => {
+			state.SendingPascalMsgtatus = "success";
+			toast.success(payload.message);
+		},
+		[sendPascalMsg.rejected]: (state, { payload }) => {
+			state.isBlocked = payload.isBlocked;
+			state.SendingPascalMsgtatus = "failed";
+			toast.error(payload.message);
 		},
 	},
 });

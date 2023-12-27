@@ -5,7 +5,6 @@ import {
 	LoadingSpinner,
 	MessagesComp,
 	PostDashboard,
-	Spinner,
 	Tooltip,
 	UserDetailsCount,
 	UserToFollow,
@@ -30,6 +29,7 @@ import { GiShadowFollower } from "react-icons/gi";
 import { BsEye, BsPostcardFill } from "react-icons/bs";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { MdOutlineFollowTheSigns } from "react-icons/md";
+import { formatNumber } from "../../utils/formatNumbersIn1000";
 
 const Dashboard = () => {
 	useEffect(() => {
@@ -89,24 +89,24 @@ const Dashboard = () => {
 				<div className=" grid grid-cols-1 min-[350px]:grid-cols-2 min-[500px]:grid-cols-3 gap-2 ">
 					<div className="">
 						<UserDetailsCount
-							text="Post"
-							count={userDetailsCount?.postCount}
+							text="post"
+							count={formatNumber(userDetailsCount?.postCount)}
 						>
 							<BsPostcardFill className="text-purple-600 font-bold text-4xl  bg-purple-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>
 					</div>
 					<div className="  ">
 						<UserDetailsCount
-							text="Likes"
-							count={userDetailsCount?.likesCount}
+							text="likes"
+							count={formatNumber(userDetailsCount?.likesCount)}
 						>
 							<AiFillLike className="text-orange-600 font-bold text-4xl  bg-orange-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>
 					</div>
 					<div className=" ">
 						<UserDetailsCount
-							text="Viewers"
-							count={userDetailsCount?.viewsCount}
+							text="views"
+							count={formatNumber(userDetailsCount?.viewsCount)}
 						>
 							<BsEye className="text-green-600 font-bold text-4xl  bg-green-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>
@@ -115,7 +115,7 @@ const Dashboard = () => {
 					<div className="">
 						<UserDetailsCount
 							text="dislikes"
-							count={userDetailsCount?.disLikesCount}
+							count={formatNumber(userDetailsCount?.disLikesCount)}
 						>
 							<AiFillDislike className="text-red-600 font-bold text-4xl  bg-yellow-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>
@@ -124,16 +124,16 @@ const Dashboard = () => {
 						<UserDetailsCount
 							bgColor={"bg-green-100"}
 							textColor={"text-green-600"}
-							text={"Followers"}
-							count={userDetailsCount?.followersCount}
+							text={"followers"}
+							count={formatNumber(userDetailsCount?.followersCount)}
 						>
 							<GiShadowFollower className="text-yellow-600 font-bold text-4xl  bg-yellow-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>
 					</div>
 					<div className=" ">
 						<UserDetailsCount
-							text="Following"
-							count={userDetailsCount?.followingCount}
+							text="following"
+							count={formatNumber(userDetailsCount?.followingCount)}
 						>
 							<MdOutlineFollowTheSigns className="text-blue-600 font-bold text-4xl  bg-blue-100 rounded-md py-1 px-1" />
 						</UserDetailsCount>

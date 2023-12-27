@@ -72,10 +72,7 @@ const Saved = () => {
 				handleClearSearch={handleClearSearch}
 			/>
 			{Object.keys(organizedPosts).map((dateKey, firstIndex) => (
-				<div
-					key={dateKey}
-					className=" border-b dark:border-b-gray-800 "
-				>
+				<div key={dateKey} className=" border-b dark:border-b-gray-800 ">
 					<h2 className=" text-colorPrimary my-3 ">{dateKey}</h2>
 					<div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
 						{organizedPosts[dateKey].map((item, index) => {
@@ -130,11 +127,12 @@ const Saved = () => {
 			</div>
 
 			<div>
-				{userPostHistory.length === 0 && (
-					<h3 className=" text-center text-yellow-400 py-4">
-						No Post found
-					</h3>
-				)}
+				{userPostHistory.length === 0 &&
+					userPostHistoryStatus !== "loading" && (
+						<h3 className=" text-center text-yellow-400 py-4">
+							No Post found
+						</h3>
+					)}
 			</div>
 
 			<div>

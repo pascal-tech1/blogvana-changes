@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { Category, PostSearch, UserToFollow } from "../components";
+import {
+	Category,
+	ContactMe,
+	PostSearch,
+	UserToFollow,
+} from "../components";
 import AllPost from "./AllPost";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRandomUser } from "../redux/user/userSlice";
@@ -81,6 +86,9 @@ const Home = () => {
 							allCategory={allCategoryArray}
 							handleSelected={handleSelected}
 						/>
+					</section>
+					<section className=" text-sm self-center dark:text-slate-200 mt-4">
+						<ContactMe copyrightNeeded={true} nameNeeded={true} />
 					</section>
 				</div>
 			</div>

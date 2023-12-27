@@ -123,11 +123,12 @@ const Saved = () => {
 				{userSavedPostStatus === "loading" && <Spinner />}
 			</div>
 			<div>
-				{userSavedPost.length === 0 && (
-					<h3 className=" text-center text-yellow-400 py-4">
-						No Post found
-					</h3>
-				)}
+				{userSavedPost.length === 0 &&
+					userSavedPostStatus !== "loading" && (
+						<h3 className=" text-center text-yellow-400 py-4">
+							No Post found
+						</h3>
+					)}
 			</div>
 
 			<div>

@@ -17,7 +17,7 @@ import { FiLogOut, FiUser } from "react-icons/fi";
 import { LuLogIn } from "react-icons/lu";
 import useClickOutside from "../customHooks/useClickOutside.js";
 
-import { Theme } from "../components";
+import { ContactMe, Theme } from "../components";
 
 import { useSearchWithDebounce } from "../customHooks/SearchWithDebounce.js";
 
@@ -104,22 +104,27 @@ const NavBar = () => {
 							ref={divRef}
 							className={`${
 								showLogOut ? "" : "hidden"
-							} flex flex-col  absolute drop-shadow-lg text-lg md:text-base h-[30vh] gap-4 ]  top-12 z-50 right-[0.5rem] md:right-20 border dark:border-slate-700 bg-slate-50 rounded-md px-6 py-6  transition-all dark:bg-lightdark `}
+							} flex flex-col items-center  absolute drop-shadow-lg text-lg md:text-base h-[40vh] gap-4 ] py-3 justify-between  top-12 z-50 right-[0.5rem] md:right-20 border dark:border-slate-700 bg-slate-50 rounded-md px-6  transition-all dark:bg-lightdark `}
 						>
-							<Link
-								to="/stats"
-								className="bg-blue-400 flex gap-2 items-center  px-1 rounded-md  text-slate-100 hover:shadow-md transition-all hover:bg-blue-600"
-							>
-								<FiUser />
-								Profile
-							</Link>
-							<button
-								onClick={handleLogOut}
-								className="bg-red-500 flex gap-2 items-center px-1 rounded-md text-white hover:shadow-md transition-all hover:bg-red-600"
-							>
-								<FiLogOut />
-								Log Out
-							</button>
+							<div className="flex flex-col gap-3">
+								<Link
+									to="/stats"
+									className="bg-blue-400 flex gap-2 items-center  px-1 rounded-md  text-slate-100 hover:shadow-md transition-all hover:bg-blue-600"
+								>
+									<FiUser />
+									Profile
+								</Link>
+								<button
+									onClick={handleLogOut}
+									className="bg-red-500 flex gap-2 items-center px-1 rounded-md text-white hover:shadow-md transition-all hover:bg-red-600"
+								>
+									<FiLogOut />
+									Log Out
+								</button>
+							</div>
+							<div className=" text-sm">
+								<ContactMe copyrightNeeded={true} nameNeeded={true} />
+							</div>
 						</div>
 						<Link
 							to="/post-Create"
@@ -130,7 +135,7 @@ const NavBar = () => {
 						</Link>
 					</div>
 				) : (
-					<div className="flex gap-4">
+					<div className="flex gap-4 items-center">
 						<Link
 							to="/login"
 							className=" flex gap-2 items-center bg-blue-400 text-white  py-[0.1rem] px-2 rounded-lg   hover:bg-blue-600 transition-all"
@@ -145,6 +150,9 @@ const NavBar = () => {
 							<MdOutlineAppRegistration className="hidden md:flex" />
 							Register
 						</Link>
+						<div className=" self-center">
+							<ContactMe />
+						</div>
 					</div>
 				)}
 			</div>

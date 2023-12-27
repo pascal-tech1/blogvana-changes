@@ -4,6 +4,7 @@ const mailTransporter = require("../../config/sendEmail/sendEmailConfig");
 const checkProfanity = require("../../utils/profanWords");
 const Message = require("../../model/message/message");
 const User = require("../../model/user/User");
+const sendPasswoedChangeEmail = require("../users/sendPasswoedChangeEmail");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //   creating email messaging
@@ -49,7 +50,7 @@ const createMsgCtrl = expressAsyncHandler(async (req, res) => {
 	};
 	mailTransporter.sendMail(mailDetails, async function (err, data) {
 		if (err) {
-			res.json({
+			res.status(500).json({
 				status: "failed",
 				message: "sending message failed try again",
 			});
@@ -113,4 +114,52 @@ const fetchMsgCtrl = expressAsyncHandler(async (req, res) => {
 		});
 	}
 });
-module.exports = { createMsgCtrl, fetchMsgCtrl };
+
+const MsgPascalCtrl = expressAsyncHandler(async (req, res) => {
+	const { sendingData } = req.body;
+
+	const subject = `Message from BlogVana user to Pascal`;
+	function flattenObjectToString(obj, parentKey = "") {
+		let result = "";
+
+		for (let key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				let newKey = parentKey ? `${parentKey}.${key}` : key;
+
+				if (typeof obj[key] === "object" && obj[key] !== null) {
+					// Recursively flatten nested objects
+					result += flattenObjectToString(obj[key], newKey);
+				} else {
+					result += `${newKey}: ${obj[key].toString()}\n`;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	const data = flattenObjectToString(sendingData);
+	console.log(data);
+	let mailDetails = {
+		from: "pascalazubike003@gmail.com",
+		to: "pascalazubike10@gmail.com",
+		subject,
+		html: data,
+	};
+	mailTransporter.sendMail(mailDetails, async function (err, data) {
+		if (err) {
+			console.log(err);
+			res.status(500).json({
+				status: "failed",
+				message: "sending  pascal message failed please try again",
+			});
+		} else {
+			res.status(200).json({
+				status: "success",
+				message: "message sent to Azubike Pascal successfull",
+			});
+		}
+	});
+});
+
+module.exports = { createMsgCtrl, fetchMsgCtrl, MsgPascalCtrl };

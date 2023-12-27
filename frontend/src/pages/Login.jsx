@@ -109,9 +109,7 @@ const Login = () => {
 					<span
 						className=" absolute top-[30%] right-2  hover:cursor-pointer"
 						onClick={() => {
-							console.log("im here");
 							setShowPassword((prev) => !prev);
-							console.log("im here ,2");
 						}}
 					>
 						{showPassword ? <BsEye /> : <BsEyeSlash />}

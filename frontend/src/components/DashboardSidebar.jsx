@@ -114,7 +114,7 @@ const DashboardSideBar = () => {
 
 	return (
 		<aside className=" flex flex-col  font-medium font-inter  md:h-[95vh] h-[85vh] pt-4 overflow-y-auto overflow-x-hidden   custom-scrollbar    ">
-			<div className=" bg-lightdark grid place-content-center py-4 rounded-t-lg mx-3">
+			<div className=" bg-gray-50 dark:bg-lightdark grid place-content-center py-4 rounded-t-lg mx-3">
 				<Link to="/" className="">
 					<img
 						src="/blogvana.png"

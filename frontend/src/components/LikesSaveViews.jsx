@@ -12,6 +12,7 @@ import {
 	fetchPostByCategory,
 	setFetchFirstCategory,
 } from "../redux/post/allPostSlice";
+import { formatNumber } from "../utils/formatNumbersIn1000";
 
 const LikesSaveViews = ({ post }) => {
 	const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const LikesSaveViews = ({ post }) => {
 			</span>
 
 			<span className="flex gap-1 items-center flex-nowrap">
-				<span className="  ">{post?.numViews}</span>
+				<span className="  ">{formatNumber(post?.numViews)}</span>
 				{post?.numViews > 1 ? "views" : "view"}
 			</span>
 			<button

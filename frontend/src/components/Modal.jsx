@@ -1,13 +1,22 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
-function Modal({ isOpen, onClose, onContinue, children }) {
+function Modal({
+	isOpen,
+	onClose,
+	onContinue,
+	children,
+	Actiontext,
+	enterNeeded,
+}) {
+	console.log(enterNeeded);
 	useEffect(() => {
 		const handleKeyPress = (e) => {
 			if (isOpen && e.key === "Escape") {
 				onClose();
 			}
-			if (isOpen && e.key === "Enter") {
+
+			if (isOpen && e.key === "Enter" && enterNeeded === undefined) {
 				onContinue();
 				onClose();
 			}
@@ -52,7 +61,7 @@ function Modal({ isOpen, onClose, onContinue, children }) {
 										className="bg-blue-500 hover:bg-blue-700 rounded-md py-1 text-white px-2"
 										onClick={continueAction}
 									>
-										Continue
+										{Actiontext ? Actiontext : "continue"}
 									</button>
 								</div>
 								<div className="">
@@ -69,7 +78,9 @@ function Modal({ isOpen, onClose, onContinue, children }) {
 									pres ESC key on your keyboard or click on the overlay to
 									close
 								</h4>
-								<h4>pres Enter key to continue</h4>
+								{enterNeeded === undefined && (
+									<h4>pres Enter key to continue</h4>
+								)}
 							</div>
 						</div>
 					</div>

@@ -48,7 +48,7 @@ const sendEmailForgotPassword = (foundUser, resetToken) => {
 			<h2>Account Verification</h2>
 			<p>Dear ${foundUser.firstName},</p>
 			<p>
-			you have requested to change your email click the below link to proceed 
+			you have requested to change your password click the below link to proceed 
 			</p>
 			<a href= "https://blogvana-5l46.onrender.com/reset-password/${resetToken}" class="verification-link"
 				>Reset Password</a
