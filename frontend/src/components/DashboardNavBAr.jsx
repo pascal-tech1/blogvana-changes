@@ -88,14 +88,13 @@ const DashboardNavBAr = ({ refOpt, screenWidth }) => {
 	}, [isSearching]);
 	return (
 		<div className=" flex font-inter  w-full bg-opacity-0 backdrop-blur top-0 right-0 justify-between   dark:bg-dark  border-b dark:border-b-gray-900 z-50 items-center relative   py-2 dark:text-slate-300 ">
-			{isMenuOpen && (
-				<div ref={divRef} className=" absolute right-0 ">
-					<UserDashboardMenu
-						isMenuOpen={isMenuOpen}
-						setIsMenuOpen={setIsMenuOpen}
-					/>
-				</div>
-			)}
+			<div ref={divRef} className={`absolute right-0`}>
+				<UserDashboardMenu
+					isMenuOpen={isMenuOpen}
+					setIsMenuOpen={setIsMenuOpen}
+				/>
+			</div>
+
 			<div
 				ref={screenWidth <= 798 ? refOpt : null}
 				onClick={handleOnclick}

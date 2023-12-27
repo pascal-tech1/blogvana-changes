@@ -113,16 +113,14 @@ const DashboardSideBar = () => {
 	user?.isAdmin && sideBarItems.push(AdminObject);
 
 	return (
-		<aside className=" flex flex-col  font-medium font-inter  md:h-[95vh] h-[85vh] pt-4 overflow-y-auto overflow-x-hidden   custom-scrollbar    ">
-			<div className=" bg-gray-50 dark:bg-lightdark grid place-content-center py-4 rounded-t-lg mx-3">
-				<Link to="/" className="">
-					<img
-						src="/blogvana.png"
-						alt=""
-						className="w-14 border h-14 border-blue-400"
-					/>
-				</Link>
-			</div>
+		<aside className=" flex flex-col  font-medium font-inter md:h-[95vh] h-[85vh] overflow-y-auto overflow-x-hidden   custom-scrollbar   ">
+			<Link to="/" className="mt-1 md:mt-4 self-center md:flex">
+				<img
+					src="/blogvana.png"
+					alt=""
+					className="w-14 border h-14 border-blue-400"
+				/>
+			</Link>
 
 			<div className="pb-6 self-center max-w-fit   ">
 				{sideBarItems.map((sideBarItem, index) => {
@@ -188,9 +186,9 @@ const DashboardSideBar = () => {
 													to={`${sideBarItem.title}-${submenuItem?.title}`}
 													className={`${
 														sideBarItem.menuOpen ? "" : "hidden"
-													}  flex mt-1   py-[0.2rem] px-2 hover:text-white hover:bg-blue-400   w-max aria-[current=page]:text-white rounded-lg aria-[current=page]:bg-blue-400`}
+													}  flex mt-1   py-[0.2rem] hover:text-white hover:bg-blue-400   w-max aria-[current=page]:text-white rounded-lg aria-[current=page]:bg-blue-400`}
 												>
-													<h1 className=" ">{submenuItem.title}</h1>
+													<h1 className=" ml-4 ">{submenuItem.title}</h1>
 												</NavLink>
 											);
 										})}
@@ -199,7 +197,7 @@ const DashboardSideBar = () => {
 							) : (
 								<NavLink
 									to={sideBarItem.title}
-									className="flex gap-2 items-center px-2  pl-[0.35rem] hover:text-white hover:bg-blue-400 py-[0.2rem] w-full rounded-lg aria-[current=page]:text-white aria-[current=page]:bg-blue-400"
+									className="flex gap-2 items-center ml-4 pl-[0.35rem] hover:text-white hover:bg-blue-400 py-[0.2rem] w-full rounded-lg aria-[current=page]:text-white aria-[current=page]:bg-blue-400"
 								>
 									<IconComponent className="  " />
 

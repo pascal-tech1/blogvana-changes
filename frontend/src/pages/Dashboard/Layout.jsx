@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useClickOutside, useScreenWidth } from "../../customHooks";
 import { setSideBarStateInStore } from "../../redux/category/categorySlice";
+import Fade from "react-reveal/Fade";
 
 const Layout = () => {
 	const navigate = useNavigate();
@@ -42,8 +43,6 @@ const Layout = () => {
 			!isOutsideClicked &&
 			dispatch(setSideBarStateInStore(false));
 	}, [isOutsideClicked]);
-
-	
 
 	useEffect(() => {
 		const handleKeyPress = (e) => {
@@ -90,13 +89,14 @@ const Layout = () => {
 				</div>
 				<div
 					ref={screenWidth <= 798 ? divRef : null}
-					className={`${
-						isSideBarOpen
-							? "absolute top-12 md:top-0  md:relative "
-							: "hidden "
-					}   col-start-1 col-span-2 max-[768px]:w-[40vw] row-start-1 row-span-full  h-screen  z-10 overflow-y-hidden overflow-x-hidden bg-white dark:bg-dark drop-shadow-sm rounded-md    `}
+					className={`absolute top-12 md:top-0  md:relative 
+					 col-start-1 col-span-2  row-start-1 row-span-full   z-10`}
 				>
-					<DashboardSideBar />
+					<Fade left Cascade collapse when={isSideBarOpen}>
+						<div className="bg-white max-[768px]:w-[50vw] overflow-y-hidden overflow-x-hidden h-screen dark:bg-dark drop-shadow-sm rounded-md ">
+							<DashboardSideBar />
+						</div>
+					</Fade>
 				</div>
 			</section>
 		</div>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useClickOutside } from "../customHooks";
+import Fade from "react-reveal/Fade";
 
 const DashboardCustomDropdown = ({
 	allFilters,
@@ -45,15 +46,18 @@ const DashboardCustomDropdown = ({
 				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
 			</button>
 
-			{isOpen && (
-				<div
-					ref={divRef}
-					className={`${left ? left : "-left-12"} ${
-						dropdownWidth ? dropdownWidth : " w-[80vw]"
-					}  absolute flex top-10 self-center md:text-sm gap-1 flex-wrap max-h-[50vh] z-50 overflow-y-auto custom-scrollbar justify-evenly  px-2  items-center  rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-lightdark shadow-lg`}
-				>
-					{allFilters.map((filter, index) => (
-						<button
+			<ul
+				ref={divRef}
+				className={`${left ? left : "-left-12"} ${
+					dropdownWidth ? dropdownWidth : " w-[80vw]"
+				} ${
+					isOpen &&
+					"rounded border border-gray-300 dark:border-gray-700 overflow-y-auto custom-scrollbar bg-white dark:bg-lightdark shadow-lg"
+				} absolute flex top-10 self-center md:text-sm  flex-wrap max-h-[50vh] z-50  justify-evenly   items-center  `}
+			>
+				{allFilters.map((filter, index) => (
+					<Fade top opposite collapse when={isOpen}>
+						<li
 							key={index}
 							type="button"
 							className={`${
@@ -66,10 +70,10 @@ const DashboardCustomDropdown = ({
 						>
 							{filter.charAt(0).toUpperCase() +
 								filter.slice(1).toLowerCase()}
-						</button>
-					))}
-				</div>
-			)}
+						</li>
+					</Fade>
+				))}
+			</ul>
 		</div>
 	);
 };
