@@ -18,8 +18,8 @@ import { LuLogIn } from "react-icons/lu";
 import useClickOutside from "../customHooks/useClickOutside.js";
 
 import { ContactMe, Theme } from "../components";
-
 import { useSearchWithDebounce } from "../customHooks/SearchWithDebounce.js";
+import Fade from "react-reveal/Fade";
 
 const NavBar = () => {
 	const user = useSelector((store) => store?.userSlice.user);
@@ -99,32 +99,35 @@ const NavBar = () => {
 								)}
 							</div>
 						</button>
-
 						<div
 							ref={divRef}
-							className={`${
-								showLogOut ? "" : "hidden"
-							} flex flex-col items-center  absolute drop-shadow-lg text-lg md:text-base h-[40vh] gap-4 ] py-3 justify-between  top-12 z-50 right-[0.5rem] md:right-20 border dark:border-slate-700 bg-slate-50 rounded-md px-6  transition-all dark:bg-lightdark `}
+							className="top-12 z-50 right-[0.5rem] md:right-20 absolute "
 						>
-							<div className="flex flex-col gap-3">
-								<Link
-									to="/stats"
-									className="bg-blue-400 flex gap-2 items-center  px-1 rounded-md  text-slate-100 hover:shadow-md transition-all hover:bg-blue-600"
+							<Fade bottom collapse when={showLogOut}>
+								<div
+									className={` flex flex-col items-center  drop-shadow-lg text-lg md:text-base h-[40vh] gap-4 py-3 justify-between   border dark:border-slate-700 bg-slate-50 rounded-md px-6  transition-all dark:bg-lightdark `}
 								>
-									<FiUser />
-									Profile
-								</Link>
-								<button
-									onClick={handleLogOut}
-									className="bg-red-500 flex gap-2 items-center px-1 rounded-md text-white hover:shadow-md transition-all hover:bg-red-600"
-								>
-									<FiLogOut />
-									Log Out
-								</button>
-							</div>
-							<div className=" text-sm">
-								<ContactMe copyrightNeeded={true} nameNeeded={true} />
-							</div>
+									<div className="flex flex-col gap-3">
+										<Link
+											to="/stats"
+											className="bg-blue-400 flex gap-2 items-center  px-1 rounded-md  text-slate-100 hover:shadow-md transition-all hover:bg-blue-600"
+										>
+											<FiUser />
+											Profile
+										</Link>
+										<button
+											onClick={handleLogOut}
+											className="bg-red-500 flex gap-2 items-center px-1 rounded-md text-white hover:shadow-md transition-all hover:bg-red-600"
+										>
+											<FiLogOut />
+											Log Out
+										</button>
+									</div>
+									<div className=" text-sm">
+										<ContactMe copyrightNeeded={true} nameNeeded={true} />
+									</div>
+								</div>
+							</Fade>
 						</div>
 						<Link
 							to="/post-Create"

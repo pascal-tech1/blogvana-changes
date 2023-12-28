@@ -99,7 +99,7 @@ const DashboardNavBAr = ({ refOpt, screenWidth }) => {
 				ref={screenWidth <= 798 ? refOpt : null}
 				onClick={handleOnclick}
 			>
-				<FiMenu className=" text-2xl ml-4  text-gray-900 dark:text-slate-300" />
+				<FiMenu className=" text-2xl ml-4  cursor-pointer text-gray-900 dark:text-slate-300" />
 			</div>
 			{isSearchBarNeeded && (
 				<div className="flex items-center">

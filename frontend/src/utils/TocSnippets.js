@@ -1,10 +1,6 @@
 import { store } from "../redux/Store";
 import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
 import scrollIntoView from "scroll-into-view-if-needed";
-import scrollIntoViewIfNeeded from "scroll-into-view-if-needed";
-// import Jump
-
-import jump from "jump.js";
 
 export const addIdsToHeadings = (html) => {
 	const doc = new DOMParser().parseFromString(html, "text/html");

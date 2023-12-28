@@ -20,6 +20,7 @@ import Following from "./Dashboard/Following";
 
 import { MdOutlineLanguage, MdWork } from "react-icons/md";
 import { BiMap, BiSolidUserAccount } from "react-icons/bi";
+import Fade from "react-reveal/Fade";
 
 /////////////////////////////////////////////////////////////
 const UserPage = () => {
@@ -83,55 +84,59 @@ const UserPage = () => {
 				<PostSearch />
 				<div className=" md:grid lg:grid-cols-3 mt-2  font-inter  gap-10   ">
 					<div className=" flex flex-col gap-4 col-start-1 col-span-2   md:pt-4 h-max ">
-						<div className="w-full">
-							<div className=" w-full  relative">
-								{!postCreatorProfile?.blurCoverPhoto && (
-									<img
-										src={postCreatorProfile?.coverPhoto}
-										alt=""
-										className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md  "
-									/>
-								)}
-								{postCreatorProfile?.blurCoverPhoto && (
-									<div className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md">
+						<Fade bottom>
+							<div className="w-full">
+								<div className=" w-full  relative">
+									{!postCreatorProfile?.blurCoverPhoto && (
+										<img
+											src={postCreatorProfile?.coverPhoto}
+											alt=""
+											className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md  "
+										/>
+									)}
+									{postCreatorProfile?.blurCoverPhoto && (
+										<div className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md">
+											<LazyLoadImg
+												backgroundClassName={
+													"   w-full h-full  relative rounded-md"
+												}
+												imgClassName={
+													"absolute inset-0 w-full h-full rounded-md "
+												}
+												originalImgUrl={postCreatorProfile?.coverPhoto}
+												blurImageStr={postCreatorProfile?.blurCoverPhoto}
+												optimizationStr={"q_auto,f_auto,w_1000"}
+												paddingBottom={"10%"}
+											/>
+										</div>
+									)}
+									{/* lazy loading image? */}
+									<div className=" absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600">
 										<LazyLoadImg
 											backgroundClassName={
-												"   w-full h-full  relative rounded-md"
+												" rounded-full  w-full h-full  relative"
 											}
 											imgClassName={
-												"absolute inset-0 w-full h-full rounded-md "
+												"absolute inset-0 w-full h-full  object-cover rounded-full "
 											}
-											originalImgUrl={postCreatorProfile?.coverPhoto}
-											blurImageStr={postCreatorProfile?.blurCoverPhoto}
-											optimizationStr={"q_auto,f_auto,w_1000"}
-											paddingBottom={"10%"}
+											originalImgUrl={postCreatorProfile?.profilePhoto}
+											blurImageStr={postCreatorProfile?.blurProfilePhoto}
+											optimizationStr={"q_auto,f_auto,w_200"}
+											paddingBottom={"100%"}
 										/>
 									</div>
-								)}
-								{/* lazy loading image? */}
-								<div className=" absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600">
-									<LazyLoadImg
-										backgroundClassName={
-											" rounded-full  w-full h-full  relative"
-										}
-										imgClassName={
-											"absolute inset-0 w-full h-full  object-cover rounded-full "
-										}
-										originalImgUrl={postCreatorProfile?.profilePhoto}
-										blurImageStr={postCreatorProfile?.blurProfilePhoto}
-										optimizationStr={"q_auto,f_auto,w_200"}
-										paddingBottom={"100%"}
-									/>
 								</div>
 							</div>
-						</div>
+						</Fade>
 						{/* large screen more posts */}
 
 						<div className=" md:mt-8 ">
-							<h1 className="font-semibold  max-w-max dark:text-slate-200 ">
-								Professional Summary
-							</h1>
-							<p className=" pr-4 py-2">{postCreatorProfile?.bio}</p>
+							<Fade bottom>
+								<h1 className="font-semibold  max-w-max dark:text-slate-200 ">
+									Professional Summary
+								</h1>
+								<p className=" pr-4 py-2">{postCreatorProfile?.bio}</p>
+							</Fade>
 						</div>
 						<div className=" hidden lg:flex flex-col col-start-1 col-span-2   border-t dark:border-t-slate-700 ">
 							<h1 className="font-semibold  max-w-max py-4  dark:text-slate-200 ">
@@ -166,48 +171,50 @@ const UserPage = () => {
 					{/* left */}
 
 					<div className="  flex gap-3 lg:px-4 flex-col lg:sticky lg:top-0  overflow-y-auto custom-scrollbar lg:pb-6 lg:dark:bg-lightdark rounded-lg lg:h-[80vh] ">
-						<div className="flex gap-3 items-center lg:pt-4 ">
-							<h1 className="font-semibold   text-black  dark:text-slate-200 ">
-								{`${postCreatorProfile?.firstName} ${postCreatorProfile?.lastName} Profile`}
-							</h1>
-							<FollowingBtn
-								className="self-center text-colorPrimary  text-center  hover:text-blue-600 rounded-lg transition-all delay-75"
-								userToFollowOrUnfollow={postCreatorProfile}
-							/>
-							<MessageUser receiverId={postCreatorProfile?._id} />
-						</div>
-
-						<h1 className=" ">{`${postCreatorProfile?.followersCount} followers`}</h1>
-						<div className=" mb-2  flex gap-1 items-center">
-							<MdWork className="text-colorPrimary " />{" "}
-							{postCreatorProfile?.profession}
-						</div>
-						<div className=" mb-2  flex gap-1 items-center">
-							<MdOutlineLanguage className="text-colorPrimary " />{" "}
-							{postCreatorProfile?.language}
-						</div>
-						<div className="  mb-2  flex gap-1 items-center">
-							<BiSolidUserAccount className="text-colorPrimary " />{" "}
-							{postCreatorProfile?.nickName}
-						</div>
-
-						<div className=" mb-2  flex gap-1 items-center">
-							<BiMap className="text-colorPrimary " />{" "}
-							{postCreatorProfile?.location}
-						</div>
-
-						<h1 className="font-semibold  max-w-max pt-3 ">following</h1>
-
-						<div className="">
-							{postCreatorProfile?._id && (
-								<Following
-									id={
-										loginUserId !== postCreatorProfile?._id &&
-										postCreatorProfile?._id
-									}
+						<Fade bottom>
+							<div className="flex gap-3 items-center lg:pt-4 ">
+								<h1 className="font-semibold   text-black  dark:text-slate-200 ">
+									{`${postCreatorProfile?.firstName} ${postCreatorProfile?.lastName} Profile`}
+								</h1>
+								<FollowingBtn
+									className="self-center text-colorPrimary  text-center  hover:text-blue-600 rounded-lg transition-all delay-75"
+									userToFollowOrUnfollow={postCreatorProfile}
 								/>
-							)}
-						</div>
+								<MessageUser receiverId={postCreatorProfile?._id} />
+							</div>
+
+							<h1 className=" ">{`${postCreatorProfile?.followersCount} followers`}</h1>
+							<div className=" mb-2  flex gap-1 items-center">
+								<MdWork className="text-colorPrimary " />{" "}
+								{postCreatorProfile?.profession}
+							</div>
+							<div className=" mb-2  flex gap-1 items-center">
+								<MdOutlineLanguage className="text-colorPrimary " />{" "}
+								{postCreatorProfile?.language}
+							</div>
+							<div className="  mb-2  flex gap-1 items-center">
+								<BiSolidUserAccount className="text-colorPrimary " />{" "}
+								{postCreatorProfile?.nickName}
+							</div>
+
+							<div className=" mb-2  flex gap-1 items-center">
+								<BiMap className="text-colorPrimary " />{" "}
+								{postCreatorProfile?.location}
+							</div>
+
+							<h1 className="font-semibold  max-w-max pt-3 ">following</h1>
+
+							<div className="">
+								{postCreatorProfile?._id && (
+									<Following
+										id={
+											loginUserId !== postCreatorProfile?._id &&
+											postCreatorProfile?._id
+										}
+									/>
+								)}
+							</div>
+						</Fade>
 					</div>
 					{/* small screen more post */}
 
