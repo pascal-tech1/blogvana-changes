@@ -35,7 +35,7 @@ export default {
 			colors: {
 				lightdark: "#202127",
 				dark: "#1b1b1f",
-				colorPrimary: "#a8b1ff",
+				colorPrimary: "#2196F3",
 				// ... and so on for other properties
 			},
 		},

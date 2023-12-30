@@ -6,11 +6,9 @@ import SinglePost from "./SinglePost";
 import AllPost from "./AllPost";
 
 import VerifyEmail from "./VerifyEmail";
-import ConfirmUserEmail from "./ConfrimUserEmail";
-import PasswordReset from "./PasswordReset";
 
-import UserPage from "./UserPage";
 import Error from "./Error";
+import PagesLayout from "./PagesLayout";
 
 export {
 	Home,
@@ -19,9 +17,7 @@ export {
 	Login,
 	SinglePost,
 	AllPost,
-	UserPage,
 	VerifyEmail,
-	ConfirmUserEmail,
-	PasswordReset,
 	Error,
+	PagesLayout,
 };

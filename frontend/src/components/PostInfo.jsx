@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LikesSaveViews from "./LikesSaveViews";
-import PostUserInfo from "./PostUserInfo";
+import { LikesSaveViews, PostUserInfo, LazyLoadImg } from ".";
 
-import LazyLoadImg from "./LazyLoadImg";
 //
 
 const PostInfo = ({ post }) => {

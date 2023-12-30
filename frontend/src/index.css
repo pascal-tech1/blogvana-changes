@@ -31,77 +31,91 @@
 
 /* Custom Scrollbar Styling */
 
-.dropdown_menu_open {
-	animation: growDown 300ms ease-in-out;
+/*
 
-	transform-origin: top center;
-}
-.sidebar_menu_open {
-	animation: growDown 300ms ease-in;
 
-	transform-origin: top center;
-}
-.dropdown_menu_close {
-	animation: growUp 300ms ease-in-out;
 
-	transform-origin: top center;
-	animation-fill-mode: forwards;
-}
-.dropdown_menu_close li {
-	opacity: 0;
-}
-@keyframes growDown {
-	0% {
-		transform: scaleY(0);
-	}
+*/
+/* ///////////////////////////////////////////////////////////////////////////////////////////// */
+/* highlight js styles for highlighting */
 
-	80% {
-		transform: scaleY(1.1);
-	}
-
-	100% {
-		transform: scaleY(1);
-	}
-}
-@keyframes growUp {
-	0% {
-		transform: scaleY(1);
-	}
-	20% {
-		transform: scaleY(0.8);
-	}
-	40% {
-		transform: scaleY(0.6);
-	}
-	60% {
-		transform: scaleY(0.4);
-	}
-	80% {
-		transform: scaleY(0.2);
-	}
-
-	100% {
-		transform: scaleY(0);
-	}
+.hljs {
+	color: #abb2bf;
+	background: #282c34;
 }
 
-body {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-h2,
-h3 {
-	scroll-margin-top: 16px;
+.hljs-comment,
+.hljs-quote {
+	color: #5c6370;
+	font-style: italic;
 }
 
-/* Safari-only */
-@supports (-webkit-hyphens: none) {
-	h2,
-	h3 {
-		padding-top: 16px;
-		margin-top: -16px;
-	}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+	color: #c678dd;
 }
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+	color: #e06c75;
+}
+
+.hljs-literal {
+	color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+	color: #98c379;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+	color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+	color: #61aeee;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+	color: #e6c07b;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+
+.hljs-link {
+	text-decoration: underline;
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////// */
+/* Table of content styles */
 .toc a:hover {
 	background-color: #565658;
 }
@@ -123,10 +137,24 @@ h3 {
 	padding: 0 5px;
 	justify-self: start;
 }
-
 .is-active {
 	@apply text-blue-400;
 }
+
+.copy-button {
+	background-color: rgb(106, 162, 218);
+	padding: 0 6px;
+	position: absolute;
+	top: 0;
+	right: 6px;
+	color: #fff;
+	border-radius: 5px;
+}
+.copy-button:hover {
+	background-color: rgb(37, 140, 235);
+}
+/* ///////////////////////////////////////////////////////////////////////////////////////////// */
+/* Toastify styles/ */
 .Toastify__toast--error {
 	border-left: 1px solid rgb(246, 76, 76);
 }
@@ -144,23 +172,8 @@ h3 {
 	border-left: 1px solid rgb(218, 234, 75);
 }
 
-.copy-button {
-	background-color: rgb(106, 162, 218);
-	padding: 0 6px;
-	position: absolute;
-	top: 0;
-	right: 6px;
-	color: #fff;
-	border-radius: 5px;
-}
-.copy-button:hover {
-	background-color: rgb(37, 140, 235);
-}
-table {
-	border-collapse: collapse;
-	margin-top: 10px;
-	width: 100%;
-}
+/* ///////////////////////////////////////////////////////////////////////////////////////////////// */
+/* React quill custom styles */
 
 .ql-toolbar.ql-snow {
 	background: #bfcbda;
@@ -184,6 +197,13 @@ table {
 	background-color: transparent;
 	border-radius: 6px;
 }
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////// */
+/* Dashboard table sytles */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
 th,
 td {
 	padding: 6px;
@@ -197,12 +217,14 @@ td {
 td:last-child,
 th:last-child {
 	position: sticky;
+	position: -webkit-sticky;
 	right: 0;
 	/* width: 85px; */
 }
 td:first-child,
 th:first-child {
 	position: sticky;
+	position: -webkit-sticky;
 	left: -5px;
 	width: 30px;
 }
@@ -214,6 +236,10 @@ th:last-child {
 td:first-child,
 td:last-child {
 	z-index: 1;
+}
+th {
+	border: none;
+	z-index: 100;
 }
 
 .stickyRight {
@@ -236,10 +262,6 @@ td:last-child {
 	background-color: white;
 	padding: 10px 0;
 }
-th {
-	border: none;
-	z-index: 100;
-}
 
 .tableHeading {
 	position: sticky;
@@ -253,27 +275,6 @@ th {
 .tableAction {
 	position: sticky;
 	position: -webkit-sticky;
-
-	/* background-color: white; Set background color as needed */
-}
-.custom-scrollbar::-webkit-scrollbar {
-	scroll-behavior: smooth;
-	width: 7px;
-	height: 5px;
-
-	cursor: progress;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-	background-color: #565658;
-	border-radius: 7px;
-	height: 1rem;
-	cursor: grab;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-	background-color: transparent;
-	border-radius: 6px;
 }
 
 .dashboardLayout {
@@ -281,14 +282,36 @@ th {
 	grid-template-rows: 3rem 1fr;
 	height: 100vh;
 }
+
 .singlePostLayout {
 	display: grid;
 	grid-template-rows: 1fr;
 	height: 80vh;
 }
-/* Example styles, adjust as needed */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* custom scroll bar  */
+.custom-scrollbar::-webkit-scrollbar {
+	scroll-behavior: smooth;
+	width: 10px;
+	height: 10px;
+	cursor: grab;
+}
 
-/* Remove the focus outline from headings */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: #565658;
+	border-radius: 10px;
+	height: 1rem;
+	cursor: grab;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* custom tailwind styles */
 
 .form-label {
 	@apply text-sm mt-2 text-gray-400 self-start;
@@ -326,11 +349,73 @@ th {
 	@apply border border-gray-200 dark:border-neutral-800;
 }
 .ql-syntax {
-	@apply max-h-fit  !overflow-y-auto  rounded-md;
+	@apply !max-h-fit !bg-white max-[350px]:text-xs text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
 }
 .code-div {
-	@apply relative dark:bg-[#161618] bg-[#f7f7f7] px-2 pt-6 pb-2  rounded-lg p-4;
+	@apply relative  px-2 pt-6 pb-2  rounded-lg p-4;
 }
 .copy-button {
 	@apply dark:bg-gray-900 drop-shadow-sm text-sm;
+}
+
+/* create post switch */
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 28px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 22px;
+	width: 22px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:checked + .slider {
+	background-color: #2196f3;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
 }

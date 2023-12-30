@@ -1,13 +1,15 @@
 import React from "react";
-import { FollowingBtn } from "./FollowingBtn";
+import {  LazyLoadImg } from ".";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import { formatDate } from "../utils/dataFormatter";
+import MessageUser from "../Dashboard/components/MessageUser";
+import FollowingBtn from "./FollowingBtn";
 
-import MessageUser from "./MessageUser";
-import LazyLoadImg from "./LazyLoadImg";
+// import { MessageUser } from "../Dashboard/components";
 
-const UserToFollow = ({ user, index, date, numberOfView }) => {
+const UserToFollow = ({ user, index, date }) => {
 	const loginUser = useSelector((store) => store.userSlice?.user);
 	return (
 		<div

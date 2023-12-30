@@ -2,9 +2,9 @@ import customFetch from "./axios";
 import { store } from "../redux/Store";
 import { uptimizeCloudinaryImage } from "./imageCloudinaryOptimizer";
 import { toast } from "react-toastify";
-import hljs from "highlight.js";
-import "highlight.js/styles/monokai-sublime.css";
+// import hljs from "highlight.js";
 
+// import "highlight.js/styles/github.css";
 const toolbarOptions = [
 	["bold", "italic", "underline", "strike"], // toggled buttons
 	["blockquote", "code-block"],
@@ -19,14 +19,18 @@ const toolbarOptions = [
 	["clean"],
 ];
 
-hljs.configure({
-	// optionally configure hljs
-	languages: ["javascript", "ruby", "python"],
-});
+// Call the function to load Highlight.js before rendering your component
 
 export const modules = {
 	syntax: {
-		highlight: (text) => hljs.highlightAuto(text).value,
+		highlight: (text) => {
+			if (window.hljs) {
+				return hljs.highlightAuto(text).value;
+			} else {
+				// Handle the case where Highlight.js is not yet loaded
+				return text; // Or display a placeholder message
+			}
+		},
 	},
 	toolbar: toolbarOptions,
 	blotFormatter: {
@@ -75,3 +79,12 @@ export const modules = {
 		},
 	},
 };
+
+function loadHighlightJS() {
+	const script = document.createElement("script");
+	script.src =
+		"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
+	document.head.appendChild(script);
+}
+
+export default loadHighlightJS;

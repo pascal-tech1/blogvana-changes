@@ -369,6 +369,7 @@ const sendAcctVerificationEmailCtrl = expressAsyncHandler(
 	async (req, res) => {
 		try {
 			const { email } = req.body;
+
 			if (!email) throw Error("email is required");
 			const foundUser = await User.findOne({ email: email });
 
@@ -402,13 +403,14 @@ const sendAcctVerificationEmailCtrl = expressAsyncHandler(
 		} catch (error) {
 			res.status(400).json({
 				status: "failed",
-				message: error.message,
+				message: "sending verification email link failed try again later",
 			});
 		}
 	}
 );
 const confirmSentEmailCtrl = expressAsyncHandler(async (req, res) => {
-	const { token } = req?.body;
+	const { token, newEmail } = req?.body.token;
+	console.log(token, newEmail);
 
 	try {
 		const acctVerificationToken = crypto
@@ -420,20 +422,25 @@ const confirmSentEmailCtrl = expressAsyncHandler(async (req, res) => {
 			accountVerificationToken: acctVerificationToken,
 			accountVerificationTokenExpires: { $gt: new Date() },
 		});
-
+		console.log(foundUser);
 		if (!foundUser) throw new Error("Token expired, try again");
-		if (foundUser.isAccountVerified === true) {
-			foundUser.accountVerificationToken = undefined;
-			foundUser.accountVerificationTokenExpires = undefined;
-			res.json({ message: "your Account is Already verified" });
-			return;
-		}
 
-		foundUser.isAccountVerified = true;
-		foundUser.accountVerificationToken = undefined;
-		foundUser.accountVerificationTokenExpires = undefined;
-		await foundUser.save();
-		const emailToSend = sendEmailVerified(foundUser?.firstName);
+		const updatedUser = await User.findByIdAndUpdate(
+			foundUser._id,
+			{
+				isAccountVerified: true,
+				accountVerificationToken: undefined,
+				accountVerificationTokenExpires: undefined,
+				email: newEmail,
+			},
+			{
+				new: true,
+				runValidators: true,
+			}
+		);
+
+		console.log(updatedUser);
+		const emailToSend = sendEmailVerified(updatedUser?.firstName);
 		let mailDetails = {
 			from: "pascalazubike003@gmail.com",
 			to: `${foundUser.email}`,
@@ -443,19 +450,23 @@ const confirmSentEmailCtrl = expressAsyncHandler(async (req, res) => {
 
 		mailTransporter.sendMail(mailDetails, function (err, data) {
 			if (err) {
-				throw new Error(
-					"Sending verification email failed please try again"
-				);
+				res.status(500).json({
+					message: "sending email change notification change failed",
+				});
 				return;
 			} else {
-				res.json({
+				res.status(200).json({
+					user: updatedUser,
 					message: "your email address has been successfully verified. ",
 				});
 				return;
 			}
 		});
 	} catch (error) {
-		res.status(400).json({ status: "failed", message: error.message });
+		res.status(400).json({
+			status: "failed",
+			message: "failed to change email try again later",
+		});
 	}
 });
 
@@ -584,20 +595,23 @@ const ChangeEmailCtrl = expressAsyncHandler(async (req, res) => {
 		const { email } = req?.body;
 		const { password } = req?.body;
 		const { newEmail } = req?.body;
+
 		const loginUser = req.user;
 		if (email === newEmail)
 			throw new Error("old and new Email can't be the same");
 		if (email !== loginUser.email) throw new Error("invalid credentials");
 
-		const foundUser = await User.findOne({ email: email });
-		const isPasswordMatch = await foundUser.isPasswordCorrect(password);
+		const foundUser = await User.findOne({ email: newEmail });
+		if (foundUser) throw new Error("email not available try another one");
+		if (loginUser.email !== email) throw new Error("invalid credentials");
+		const isPasswordMatch = await loginUser.isPasswordCorrect(password);
 		if (!isPasswordMatch) throw new Error("invalid credentials");
 
-		const verificationToken = await foundUser.accountVerificationHandler();
-		await foundUser.save();
+		const verificationToken = await loginUser.accountVerificationHandler();
+		await loginUser.save();
 
 		const emailToSend = emailChangeVerificationHtml(
-			foundUser.firstName,
+			loginUser.firstName,
 			verificationToken,
 			newEmail
 		);
@@ -611,32 +625,26 @@ const ChangeEmailCtrl = expressAsyncHandler(async (req, res) => {
 		mailTransporter.sendMail(mailDetails, function (err, data) {
 			if (err) {
 				// "throw new Error("failed to send message");"
-				res.status(500).json({ message: "failed to send message" });
+				res
+					.status(500)
+					.json({ message: "sending verification mail failed try again" });
+				return;
 			} else {
+				res.json({
+					message:
+						"verification email sent successfully, check your inbox to verify your new email ",
+					mailDetails,
+				});
 			}
 		});
-		updateduser = await User.findByIdAndUpdate(
-			foundUser._id,
-			{
-				email: newEmail,
-				isAccountVerified: false,
-			},
-			{
-				new: true,
-				runValidators: true,
-			}
-		);
 
-		res.json({
-			message:
-				"email change successfully, check your email to verify your new email",
-			mailDetails,
-		});
 		return;
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({
 			status: "failed",
-			message: error.message,
+			message:
+				"failed to send verification message token, try again later",
 		});
 	}
 });

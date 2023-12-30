@@ -1,6 +1,5 @@
 import { store } from "../redux/Store";
 import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
-import scrollIntoView from "scroll-into-view-if-needed";
 
 export const addIdsToHeadings = (html) => {
 	const doc = new DOMParser().parseFromString(html, "text/html");
@@ -42,6 +41,7 @@ export const createLinksForHeadings = (html) => {
 
 	return linksDiv.outerHTML;
 };
+
 // add an event listener to all the heading tags h1,h2 and h3
 export const addClickEventToTocHeadings = () => {
 	const tocDiv = document.querySelector(".toc");
@@ -59,11 +59,10 @@ export const addClickEventToTocHeadings = () => {
 
 				if (targetElement) {
 					// Scroll to the target element with smooth behavior
-					scrollIntoView(targetElement, {
+					targetElement.scrollIntoView({
 						behavior: "smooth",
 						block: "start",
 					});
-					console.log("im here now");
 
 					// Close mobile dropdown state in categoryslice
 					store.dispatch(setIsTAbleOfContentClick(false));

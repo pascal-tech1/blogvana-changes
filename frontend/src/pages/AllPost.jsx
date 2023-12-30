@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useCallback } from "react";
 import { ClearSearch, PostInfo, Spinner } from "../components";
-import Reveal from "react-reveal/Reveal";
-import Fade from "react-reveal/Fade";
 import {
 	IncreasePageNumber,
 	fetchPostByCategory,
@@ -50,23 +48,19 @@ const AllPost = () => {
 				handleClearSearch={handleClearSearch}
 			/>
 
-			<div>
-				{allPost.map((post, index) => {
-					return (
-						<div
-							key={index}
-							ref={allPost.length === index + 1 ? lastPostRef : null}
-							className=" pr-[2px] "
-						>
-							<Fade bottom>
-								{/* The post info's including the user info */}
-								<PostInfo post={post} />
-							</Fade>
-						</div>
-					);
-					//
-				})}
-			</div>
+			{allPost.map((post, index) => {
+				return (
+					<div
+						key={index}
+						ref={allPost.length === index + 1 ? lastPostRef : null}
+						className=" pr-[2px] "
+					>
+						{/* The post info's including the user info */}
+						<PostInfo post={post} />
+					</div>
+				);
+				//
+			})}
 
 			{/* loading Spinner */}
 			<div className=" grid place-content-center">

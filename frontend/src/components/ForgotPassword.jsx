@@ -1,10 +1,10 @@
 import React from "react";
-import { sendForgotPasswordEmail } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { MdCancel } from "react-icons/md";
-import { LoadingSpinner } from "./LoadingSpinner";
+import { LoadingSpinner } from ".";
+import { sendForgotPasswordEmail } from "../redux/user/userSlice";
 
 const ForgotPassword = ({ setIsOpen }) => {
 	const dispatch = useDispatch();
@@ -27,7 +27,6 @@ const ForgotPassword = ({ setIsOpen }) => {
 	});
 	return (
 		<div className=" w-[90vw] h-[70vh] lg:w-[60vw] font-inter z-50 bg-white  border dark:border-gray-900 flex gap-4 dark:bg-dark items-center justify-center flex-col rounded-s-lg px-4 relative rounded-lg">
-			
 			<h3 className=" text-blue-400 drop-shadow-md">Forgot Password</h3>
 			<div
 				onClick={() => setIsOpen(false)}

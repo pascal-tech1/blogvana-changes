@@ -15,7 +15,6 @@ import {
 } from "../redux/post/allPostSlice";
 
 import { useNavigate } from "react-router-dom";
-import Fade from "react-reveal/Fade";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -37,7 +36,7 @@ const Home = () => {
 		navigate("/");
 	};
 	return (
-		<div className={`font-inter mt-2 text-lg lg:text-base `}>
+		<div className={`font-inter text-lg lg:text-base `}>
 			<div className=" md:grid grid-cols-5 ">
 				{/* right section */}
 				<main className=" col-span-3  ">
@@ -49,8 +48,8 @@ const Home = () => {
 				</main>
 				{/* left section */}
 
-				<div className="hidden md:flex flex-col col-start-4 col-span-full  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark px-2 !h-[87vh] ">
-					<Fade bottom>
+				<div className="hidden md:flex flex-col justify-between col-start-4 col-span-full  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark px-2 !h-[87vh] ">
+					<div>
 						<div className="flex gap-2  bg-gray-100 justify-between py-2  text-lg md:text-sm px-2 rounded-lg dark:bg-lightdark dark:text-slate-300  ">
 							<div className="flex flex-col justify-center items-center text-center gap-2">
 								<h3 className=" font-medium hidden lg:flex ">
@@ -73,11 +72,13 @@ const Home = () => {
 								People you might be interested in
 							</h2>
 							{/* renders random users */}
-							{randomUsers?.map((user, index) => {
-								return (
-									<UserToFollow key={index} user={user} index={index} />
-								);
-							})}
+							<div className="text-sm">
+								{randomUsers?.map((user, index) => {
+									return (
+										<UserToFollow key={index} user={user} index={index} />
+									);
+								})}
+							</div>
 							{/* more interesting topic */}
 						</section>
 						<section className="flex justify-center flex-col">
@@ -89,10 +90,10 @@ const Home = () => {
 								handleSelected={handleSelected}
 							/>
 						</section>
-						<section className=" text-sm self-center dark:text-slate-200 mt-4">
-							<ContactMe copyrightNeeded={true} nameNeeded={true} />
-						</section>
-					</Fade>
+					</div>
+					<section className=" text-sm self-center justify-self-end dark:text-slate-200 mt-4">
+						<ContactMe copyrightNeeded={true} nameNeeded={true} />
+					</section>
 				</div>
 			</div>
 		</div>

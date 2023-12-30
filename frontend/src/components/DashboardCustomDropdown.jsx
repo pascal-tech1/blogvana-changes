@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useClickOutside } from "../customHooks";
-import Fade from "react-reveal/Fade";
 
 const DashboardCustomDropdown = ({
 	allFilters,
@@ -46,34 +45,31 @@ const DashboardCustomDropdown = ({
 				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
 			</button>
 
-			<ul
+			<div
 				ref={divRef}
 				className={`${left ? left : "-left-12"} ${
 					dropdownWidth ? dropdownWidth : " w-[80vw]"
 				} ${
-					isOpen &&
-					"rounded border border-gray-300 dark:border-gray-700 overflow-y-auto custom-scrollbar bg-white dark:bg-lightdark shadow-lg"
-				} absolute flex top-10 self-center md:text-sm  flex-wrap max-h-[50vh] z-50  justify-evenly   items-center  `}
+					// isOpen ? " translate-y-1 duration-300 ease-in-out" : " -translate-y-2 duration-300 ease-in-out opacity-0 "
+					isOpen ? "" : "hidden"
+				} absolute flex top-10 self-center md:text-sm gap-1 flex-wrap max-h-[50vh] z-50 overflow-y-auto custom-scrollbar justify-evenly  px-2  items-center  rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-lightdark shadow-lg`}
 			>
 				{allFilters.map((filter, index) => (
-					<Fade top opposite collapse when={isOpen}>
-						<li
-							key={index}
-							type="button"
-							className={`${
-								selectedFilter === filter && " border-b border-b-blue-600"
-							} bg-gray-100 dark:bg-lightdark hover:bg-gray-200 dark:hover:bg-gray-800 transition-all delay-75 rounded-md md:text-sm px-2 py-[0.12rem] my-1 `}
-							onClick={() => {
-								handleSelected(filter);
-								setIsOpen(false);
-							}}
-						>
-							{filter.charAt(0).toUpperCase() +
-								filter.slice(1).toLowerCase()}
-						</li>
-					</Fade>
+					<div
+						key={index}
+						className={`${
+							selectedFilter === filter && " border-b border-b-blue-600"
+						} bg-gray-100 dark:bg-lightdark hover:bg-gray-200 dark:hover:bg-gray-800 transition-all delay-75 rounded-md md:text-sm px-2 py-[0.12rem] my-1 `}
+						onClick={() => {
+							handleSelected(filter);
+							setIsOpen(false);
+						}}
+					>
+						{filter.charAt(0).toUpperCase() +
+							filter.slice(1).toLowerCase()}
+					</div>
 				))}
-			</ul>
+			</div>
 		</div>
 	);
 };

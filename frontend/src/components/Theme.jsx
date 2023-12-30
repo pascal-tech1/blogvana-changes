@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDarkMode } from "../customHooks";
-import DashboardCustomDropdown from "./DashboardCustomDropdown";
+import { DashboardCustomDropdown } from ".";
 
 const Theme = () => {
 	const isSystemInDakMode = useDarkMode();

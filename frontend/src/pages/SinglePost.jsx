@@ -2,23 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSinglePost, setStatus } from "../redux/post/singlePostSlice";
 import { useParams } from "react-router-dom";
-import Fade from "react-reveal/Fade";
 
-import {
-	LazyLoadImg,
-	LikesSaveViews,
-	MessageUser,
-	PostSearch,
-} from "../components";
+import { LazyLoadImg, LikesSaveViews, PostSearch } from "../components";
 
 import { clearUserPost, fetchUserPost } from "../redux/post/morePostSlice";
 
-import {
-	FollowingBtn,
-	Spinner,
-	MorePost,
-	PostUserInfo,
-} from "../components";
+import { Spinner, MorePost, PostUserInfo } from "../components";
 import {
 	clearMorePost,
 	clearSearchAndCategory,
@@ -32,6 +21,10 @@ import {
 	handleScroll,
 } from "../utils/TocSnippets";
 import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
+import MessageUser from "../Dashboard/components/MessageUser";
+import loadHighlightJS from "../utils/quil";
+import FollowingBtn from "../components/FollowingBtn";
+
 
 const SinglePost = () => {
 	const { id } = useParams();
@@ -60,7 +53,6 @@ const SinglePost = () => {
 	useEffect(() => {
 		const copyButton = document.querySelector(".copy-button");
 		if (copyButton) return;
-		console.log("im here");
 		addCopyButtons();
 	}, [htmlContent]);
 
@@ -74,6 +66,10 @@ const SinglePost = () => {
 			setScrollTarget(null); // Reset scroll target after scrolling
 		}
 	}, [scrollTarget]);
+
+	useEffect(() => {
+		loadHighlightJS;
+	}, [status]);
 
 	useEffect(() => {
 		id !== post?._id && dispatch(fetchSinglePost(id));
@@ -132,62 +128,59 @@ const SinglePost = () => {
 				<div className="post-search">
 					<PostSearch categoryNumber={6} isTableOfContent={true} />
 				</div>
-				<div className="singlePostLayout single-post gap-12  md:grid md:grid-cols-12 relative">
+				<div className="singlePostLayout single-post   md:grid md:grid-cols-12 relative">
 					<div
 						className={`${
 							isTableOfContentClciked ? "relative " : "hidden"
-						} h-fit md:grid border-x  max-h-[50vh]  md:max-h-[70vh] overflow-auto custom-scrollbar dark:border-gray-800 col-start-1 z-10 md:z-0 col-span-3 bg-white dark:bg-lightdark rounded-lg p-4 md:mt-4`}
+						} h-fit md:grid border-x  max-h-[50vh]  md:max-h-[70vh] overflow-auto custom-scrollbar dark:border-gray-800 col-start-1 z-10 md:z-0 col-span-4 lg:col-span-3 bg-white dark:bg-lightdark rounded-lg p-4 md:mt-4`}
 					>
-						<Fade bottom>
-							<h3 className=" relative flex flex-col items-center mb-2">
-								Table of Contents
-								<span class=" border-b w-20 mt-[0.2rem] self-center border-b-blue-400"></span>
-							</h3>
-							<div
-								dangerouslySetInnerHTML={{ __html: toc }}
-								className=" toc flex overflow-y-auto flex-col  "
-							/>
-						</Fade>
+						<h3 className=" relative flex flex-col items-center mb-2">
+							Table of Contents
+							<span class=" border-b w-20 mt-[0.2rem] self-center border-b-blue-400"></span>
+						</h3>
+						<div
+							dangerouslySetInnerHTML={{ __html: toc }}
+							className=" toc flex overflow-y-auto flex-col  "
+						/>
 					</div>
 					<div
 						onScroll={handleScroll}
-						className=" col-start-4 col-span-full font-inter  overflow-x-hidden overflow-y-auto custom-scrollbar max-w-[50rem]  gap-[0.5rem]  px-2  md:px-10 "
+						className=" col-start-5 lg:col-start-4 col-span-full font-inter  overflow-x-hidden overflow-y-auto custom-scrollbar max-w-[50rem]  gap-[0.5rem]  px-2  md:px-10 "
 					>
 						<div className=" flex flex-col gap-2">
-							<Fade bottom>
-								<div>
-									<h1
-										id="title"
-										className=" font-bold text-xl  lg:text-3xl  my-2 md:my-4 dark:text-slate-200"
-									>
-										{post?.title}
-									</h1>
-								</div>
-								{/* about the user who created the post and post likes and views */}
-								<div className="flex flex-wrap flex-col">
-									<PostUserInfo post={post} />
-									<LikesSaveViews post={post} />
-								</div>
-								<div>
-									<p className="text-sm text-gray-500 ">
-										{post?.description}
-									</p>
-								</div>
+							<div>
+								<h1
+									id="title"
+									className=" font-bold text-xl  lg:text-3xl  my-2 md:my-4 dark:text-slate-200"
+								>
+									{post?.title}
+								</h1>
+							</div>
+							{/* about the user who created the post and post likes and views */}
+							<div className="flex flex-wrap flex-col">
+								<PostUserInfo post={post} />
+								<LikesSaveViews post={post} />
+							</div>
+							<div>
+								<p className="text-sm text-gray-500 ">
+									{post?.description}
+								</p>
+							</div>
 
-								<div className=" flex items-center ">
-									<LazyLoadImg
-										backgroundClassName={
-											" w-full h-auto rounded-md relative overflow-hidden"
-										}
-										imgClassName={
-											"absolute inset-0 w-full h-auto object-cover rounded-md"
-										}
-										originalImgUrl={post?.image}
-										blurImageStr={post?.blurImageUrl}
-										optimizationStr={`q_auto,f_auto,w_800`}
-									/>
-								</div>
-							</Fade>
+							<div className=" flex items-center ">
+								<LazyLoadImg
+									backgroundClassName={
+										" w-full h-auto rounded-md relative overflow-hidden"
+									}
+									imgClassName={
+										"absolute inset-0 w-full h-auto object-cover rounded-md"
+									}
+									originalImgUrl={post?.image}
+									blurImageStr={post?.blurImageUrl}
+									optimizationStr={`q_auto,f_auto,w_800`}
+								/>
+							</div>
+
 							<div
 								className="post-content mt-4 dark:text-slate-300 font-inter "
 								dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -198,68 +191,66 @@ const SinglePost = () => {
 						{/* when the user scroll to this div with lasPostRef a fetch request for 
 					userPost and morePost is trigered in the useCallBackHook */}
 						<div className=" border-y dark:border-y-lightdark py-4 my-4 ">
-							<Fade bottom>
-								<div className="flex justify-between flex-col my-4">
-									<LazyLoadImg
-										backgroundClassName={"w-20 h-20 rounded-full relative"}
-										imgClassName={
-											"absolute inset-0 w-full h-full object-cover rounded-full"
-										}
-										originalImgUrl={post?.user?.profilePhoto}
-										blurImageStr={post?.user?.blurProfilePhoto}
-										optimizationStr={`q_auto,f_auto,w_400`}
-										paddingBottom={"6%"}
-									/>
+							<div className="flex justify-between flex-col my-4">
+								<LazyLoadImg
+									backgroundClassName={"w-20 h-20 rounded-full relative"}
+									imgClassName={
+										"absolute inset-0 w-full h-full object-cover rounded-full"
+									}
+									originalImgUrl={post?.user?.profilePhoto}
+									blurImageStr={post?.user?.blurProfilePhoto}
+									optimizationStr={`q_auto,f_auto,w_400`}
+									paddingBottom={"6%"}
+								/>
 
-									<div className=" flex justify-between  items-center">
-										<p className=" font-md mt-3 text-2xl dark:text-slate-200">
-											Written by{" "}
-											<span>
-												{post?.user?.firstName} {post?.user?.lastName}
-											</span>
-										</p>
-										<div className="flex items-center gap-2">
-											{/* followingBtn component */}
-											<FollowingBtn
-												userToFollowOrUnfollow={post?.user}
-												className={` border self-center hover:bg-blue-800 text-center px-2 bg-blue-900 text-white hover:text-white rounded-lg transition-all delay-75`}
-											/>
+								<div className=" flex justify-between  items-center">
+									<p className=" font-md mt-3 text-2xl dark:text-slate-200">
+										Written by{" "}
+										<span>
+											{post?.user?.firstName} {post?.user?.lastName}
+										</span>
+									</p>
+									<div className="flex items-center gap-2">
+										{/* followingBtn component */}
+										<FollowingBtn
+											userToFollowOrUnfollow={post?.user}
+											className={` border self-center hover:bg-blue-800 text-center px-2 bg-blue-900 text-white hover:text-white rounded-lg transition-all delay-75`}
+										/>
 
-											{/* message component */}
-											<MessageUser receiverId={post?.user?._id} />
-										</div>
-									</div>
-									<div className="flex gap-3">
-										<p>
-											{post?.user?.followers?.length}
-											<span className=" ml-1">Followers</span>
-										</p>
-										<p>{post?.user?.profession}</p>
+										{/* message component */}
+										<MessageUser receiverId={post?.user?._id} />
 									</div>
 								</div>
-							</Fade>
+								<div className="flex gap-3">
+									<p>
+										{post?.user?.followers?.length}
+										<span className=" ml-1">Followers</span>
+									</p>
+									<p>{post?.user?.profession}</p>
+								</div>
+							</div>
 						</div>
 
 						{/* more post from the user */}
-						<Fade bottom>
-							<div className=" my-6">
-								<h1
-									id="userPost"
-									className=" text-center font-bold text-xl dark:text-slate-200"
-								>
-									More Posts from{" "}
-									{`${post?.user?.firstName} ${post?.user?.lastName}`}
-								</h1>
-							</div>
-						</Fade>
 
-						{userPost && (
-							<MorePost
-								post={userPost}
-								status={userPostStatus}
-								titleLength={43}
-							/>
-						)}
+						<div className=" my-6">
+							<h1
+								id="userPost"
+								className=" text-center font-bold text-xl dark:text-slate-200"
+							>
+								More Posts from{" "}
+								{`${post?.user?.firstName} ${post?.user?.lastName}`}
+							</h1>
+						</div>
+						<div className="  font-inter grid grid-cols-1   gap-12 lg:grid-cols-2 w-[100%]">
+							{userPost && (
+								<MorePost
+									post={userPost}
+									status={userPostStatus}
+									titleLength={43}
+								/>
+							)}
+						</div>
 
 						{/* more post from blogvana */}
 						<div className=" my-6 flex flex-col justify-center items-center mx-auto ">
@@ -276,7 +267,11 @@ const SinglePost = () => {
 									/>
 								</span>
 							</h1>
-							{morePost && <MorePost post={morePost} status={isLoading} />}
+							<div className="  font-inter grid grid-cols-1   gap-12 lg:grid-cols-2 w-[100%]">
+								{morePost && (
+									<MorePost post={morePost} status={isLoading} />
+								)}
+							</div>
 
 							<div className=" ">
 								{morePostHasMore ? (

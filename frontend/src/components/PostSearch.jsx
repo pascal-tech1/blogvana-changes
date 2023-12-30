@@ -10,10 +10,11 @@ import {
 	fetchPostByCategory,
 	setFetchFirstCategory,
 } from "../redux/post/allPostSlice";
-import Category from "./Category";
-import DashboardCustomDropdown from "./DashboardCustomDropdown";
+
+
 import { TfiMenuAlt } from "react-icons/tfi";
-import Tooltip from "./Tooltip";
+
+import { Category, DashboardCustomDropdown, Tooltip } from ".";
 
 const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	const dispatch = useDispatch();

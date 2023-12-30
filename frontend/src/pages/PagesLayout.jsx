@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { NavBar, PostSearch } from "../components";
+import { NavBar } from "../components";
 
 const PagesLayout = () => {
 	return (
@@ -10,7 +10,7 @@ const PagesLayout = () => {
 				
 			</div>
 
-			<div className="row-start-2 mt-4 row-span-full overflow-y-auto custom-scrollbar w-full z-10 px-4  md:px-8 ">
+			<div className="row-start-2 mt-1 row-span-full overflow-y-auto custom-scrollbar w-full z-10 px-4  md:px-8 ">
 				<Outlet />
 			</div>
 		</section>

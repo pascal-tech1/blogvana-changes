@@ -1,9 +1,13 @@
 import React from "react";
 import { formatDate } from "../utils/dataFormatter";
 import { Link } from "react-router-dom";
-import { EditPostBtn, FollowingBtn } from "./FollowingBtn";
+
 import { useSelector } from "react-redux";
-import LazyLoadImg from "./LazyLoadImg";
+
+import { LazyLoadImg } from ".";
+import FollowingBtn from "./FollowingBtn";
+import EditPostBtn from "./EditPostBtn";
+
 
 const PostUserInfo = ({ post }) => {
 	const loginUser = useSelector((store) => store.userSlice.user);

@@ -332,7 +332,7 @@ export const confirmSentEmail = createAsyncThunk(
 export const sendForgotPasswordEmail = createAsyncThunk(
 	"send/forgotPasswordEmail",
 	async (email, { getState, rejectWithValue }) => {
-		console.log('im here')
+		console.log("im here");
 		try {
 			const resp = await customFetch.post(`/users/forget-password`, email);
 
@@ -462,7 +462,6 @@ const userSlice = createSlice({
 			state.changeEmailStatus = !state.changeEmailStatus;
 		},
 		setChangePassword: (state) => {
-			
 			state.changePasswordStatus = !state.changePasswordStatus;
 		},
 		setUserState: (state, action) => {
@@ -521,7 +520,7 @@ const userSlice = createSlice({
 		},
 		[loginUser.rejected]: (state, { payload }) => {
 			state.isLoading = false;
-			
+
 			const error = payload?.message || error?.message;
 			toast.error(error);
 		},
@@ -548,7 +547,7 @@ const userSlice = createSlice({
 			state.registerUserStatus = "failed";
 
 			const error = action?.payload?.message || action?.error?.message;
-			
+
 			toast.error(error);
 		},
 		[updateUser.pending]: (state) => {
@@ -783,7 +782,6 @@ const userSlice = createSlice({
 			state.updatePasswordStatus = "success";
 		},
 		[updatePassword.rejected]: (state, { payload }) => {
-			
 			state.updatePasswordStatus = "failed";
 			toast.error(payload?.message);
 		},

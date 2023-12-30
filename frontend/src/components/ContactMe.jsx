@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BiCopy, BiCopyright } from "react-icons/bi";
+import { BiCopyright } from "react-icons/bi";
 import Modal from "./Modal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -155,7 +155,7 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 			{nameNeeded && <h3> Made By Adoh Azubike</h3>}
 			<button
 				onClick={() => setIsModalOpen(true)}
-				className=" text-base hover:bg-blue-600  text-white bg-blue-500 px-1 py-1  rounded-lg transition-all duration-75"
+				className=" text-base hover:bg-blue-600  text-white bg-blue-500 px-1 py-[0.15rem]  rounded-lg transition-all duration-75"
 			>
 				contact me
 			</button>

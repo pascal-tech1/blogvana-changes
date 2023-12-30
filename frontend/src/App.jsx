@@ -7,41 +7,44 @@ import {
 	Login,
 	Register,
 	SinglePost,
-	UserPage,
 	VerifyEmail,
-	PasswordReset,
 	Error,
-	ConfirmUserEmail,
+	PagesLayout,
 } from "./pages";
-import {
-	Dashboard,
-	Followers,
-	CreatePost,
-	ProfileView,
-	PostHistory,
-	SavedPost,
-	MyPosts,
-	Following,
-	Messages,
-	WhoViewedMyProfile,
-	Layout,
-} from "./pages/Dashboard";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserWithToken } from "./redux/user/userSlice";
-import { AllUsers, AllUsersPost, AdminAllCategory } from "./AdminPages";
-import { CropImage, LoadingSpinner } from "./components";
 
-import PagesLayout from "./pages/PagesLayout";
+import { LoadingSpinner, SuspenseLoadingSpinner } from "./components";
+
 import { useDarkMode } from "./customHooks";
-import { getUserFromLocalStorage } from "./utils/localStorage";
 
-const AdminProtectedPage = lazy(() =>
-	import("./pages/AdminProtectedPage")
-);
+import {
+	AdminAllCategory,
+	AdminProtectedPage,
+	AllUsers,
+	AllUsersPost,
+} from "./AdminPages/pages";
+import {
+	CreatePost,
+	Followers,
+	Following,
+	Layout,
+	Messages,
+	MyPosts,
+	PostHistory,
+	ProfileView,
+	SavedPost,
+	Stats,
+	WhoViewedMyProfile,
+	CropImage,
+	ConfirmUserEmail,
+	UserPage,
+	PasswordReset,
+} from "./Dashboard/pages";
 
 const App = () => {
 	const { token, user, loginUserTokenStatus } = useSelector(
@@ -113,7 +116,15 @@ const App = () => {
 					/>
 					<Route
 						path="/profile/:userId"
-						element={token ? <UserPage /> : <Login />}
+						element={
+							token ? (
+								<Suspense fallback={<SuspenseLoadingSpinner />}>
+									<UserPage />
+								</Suspense>
+							) : (
+								<Login />
+							)
+						}
 					/>
 
 					<Route
@@ -127,8 +138,14 @@ const App = () => {
 					<Route path="*" element={<Error />} />
 				</Route>
 
-				<Route element={<Layout />}>
-					<Route index path="stats" element={<Dashboard />} />
+				<Route
+					element={
+						<Suspense fallback={<SuspenseLoadingSpinner />}>
+							<Layout />
+						</Suspense>
+					}
+				>
+					<Route index path="stats" element={<Stats />} />
 					<Route path="profile-view" element={<ProfileView />} />
 					<Route path="profile-Message" element={<Messages />} />
 					<Route
@@ -146,7 +163,7 @@ const App = () => {
 
 					<Route
 						element={
-							<Suspense fallback={<div>loading..</div>}>
+							<Suspense fallback={<SuspenseLoadingSpinner />}>
 								<AdminProtectedPage />
 							</Suspense>
 						}
