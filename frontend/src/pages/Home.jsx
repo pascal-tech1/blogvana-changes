@@ -62,7 +62,7 @@ const Home = () => {
 							</div>
 							<img
 								src="/blogvana.png"
-								alt=""
+								alt="blogvana logo"
 								className=" w-20 border border-blue-400 self-center mr-4"
 							/>
 						</div>

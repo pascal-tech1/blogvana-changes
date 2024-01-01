@@ -16,9 +16,10 @@ const AllPost = () => {
 
 	useEffect(() => {
 		if (isLoading) return;
-		allPost.length === 0 &&
-			searchQuery.length === 0 &&
-			dispatch(fetchPostByCategory());
+		if (allPost.length === 0) {
+			console.log('im fetching')
+			searchQuery.length === 0 && dispatch(fetchPostByCategory());
+		}
 	}, []);
 
 	const observer = useRef();

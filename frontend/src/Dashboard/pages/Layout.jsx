@@ -67,9 +67,9 @@ const Layout = () => {
 				<div
 					className={`${
 						isSideBarOpen
-							? "md:col-start-3  col-start-1"
+							? "md:col-start-4 lg:col-start-3  col-start-1"
 							: " col-start-1 md:col-start-1"
-					}  col-span-full row-start-1 row-span-1 `}
+					}  col-span-full  row-start-1 row-span-1 `}
 				>
 					<Suspense fallback={<SuspenseLoadingSpinner />}>
 						<DashboardNavBAr refOpt={iconRef} screenWidth={screenWidth} />
@@ -79,7 +79,7 @@ const Layout = () => {
 				<div
 					className={` ${
 						isSideBarOpen
-							? "md:col-start-3 col-start-1"
+							? "col-start-1 md:col-start-4 lg:col-start-3 "
 							: " col-start-1 md:col-start-1 "
 					}  col-span-full row-start-2 overflow-y-auto px-4 mt-4 md:px-8 scroll-m-0 z-10 scroll-smooth  custom-scrollbar  `}
 				>
@@ -90,12 +90,12 @@ const Layout = () => {
 				<div
 					ref={screenWidth <= 798 ? divRef : null}
 					className={`absolute top-12 md:top-0  md:relative 
-					 col-start-1 col-span-2  row-start-1 row-span-full   z-10`}
+					 col-start-1 lg:col-span-2 md:col-span-3 row-start-1 row-span-full z-10`}
 				>
 					<div
 						className={`${
 							isSideBarOpen ? "flex" : "hidden"
-						} bg-white max-[768px]:w-[40vw] items-center overflow-y-hidden overflow-x-hidden h-screen dark:bg-dark drop-shadow-sm rounded-md `}
+						} bg-white max-[768px]:w-[40vw]  overflow-y-hidden overflow-x-hidden h-screen dark:bg-dark shadow-lg md:shadow-sm rounded-md`}
 					>
 						<Suspense fallback={<SuspenseLoadingSpinner />}>
 							<DashboardSideBar />

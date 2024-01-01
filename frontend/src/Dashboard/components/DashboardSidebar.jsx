@@ -1,219 +1,189 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+// DashboardSideBar.js
+import { FaUser, FaUsers } from "react-icons/fa";
+
 import { LuLayoutDashboard } from "react-icons/lu";
-import { AiOutlineComment } from "react-icons/ai";
-import { BiMessageDetail } from "react-icons/bi";
-import { CiUser } from "react-icons/ci";
+import { FaUsersGear } from "react-icons/fa6";
+
 import {
-	MdOutlineAdminPanelSettings,
+	BiBookContent,
+	BiHistory,
+	BiInfoCircle,
+	BiMessage,
+} from "react-icons/bi";
+import { CiSaveDown1, CiSettings } from "react-icons/ci";
+import { RiBookReadLine, RiUserFollowFill } from "react-icons/ri";
+import {
+	MdAdminPanelSettings,
+	MdCategory,
 	MdOutlineArrowDropDown,
-	MdOutlineArrowDropUp,
-	MdOutlineSignpost,
+	MdOutlineCreate,
 } from "react-icons/md";
 import { GiShadowFollower } from "react-icons/gi";
+import React, { useState } from "react";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { BsEye } from "react-icons/bs";
+import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
+
+const Entry = React.memo(({ entry, depth, path }) => {
+	const location = useLocation();
+	const page = location.pathname.substring(
+		location.pathname.lastIndexOf("/") + 1
+	);
+	const [isExpanded, setIsExpanded] = useState(false);
+	// Construct the path for the current entry
+	const currentPath = path
+		? `${path}-${entry?.title?.replace(/ /g, "-")}`
+		: entry?.title;
+	const to = entry?.children ? null : currentPath;
+	const Icon = entry?.icon;
+
+	return (
+		<div className=" w-[7rem] my-1">
+			<NavLink
+				to={to}
+				className={`${
+					page === currentPath && "text-blue-500"
+				} flex gap-1 items-center hover:bg-gray-300 rounded-lg  hover:dark:bg-gray-700 px-2 py-1  `}
+				onClick={(e) => {
+					entry?.children && setIsExpanded((prev) => !prev);
+				}}
+			>
+				{entry.icon && <Icon />}
+				<h1>{entry?.title}</h1>
+				{entry?.children &&
+					(isExpanded ? (
+						<MdOutlineArrowDropDown className=" text-center" />
+					) : (
+						<IoMdArrowDropright className=" text-center" />
+					))}
+			</NavLink>
+			<div className=" px-4">
+				<div className={`border-l-[0.7px] dark:border-l-gray-800`}>
+					<div className="ml-2">
+						{isExpanded &&
+							entry?.children?.map((childEntry) => (
+								<Entry
+									key={childEntry.title} // Make sure to use a unique key
+									entry={childEntry}
+									depth={depth + 1}
+									path={currentPath} // Pass the current path to children
+									isExpanded={isExpanded}
+									setIsExpanded={setIsExpanded}
+								/>
+							))}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+});
 
 const DashboardSideBar = () => {
 	const { user } = useSelector((store) => store.userSlice);
-	const [isMenuOpen, setIsMenuOpen] = useState({
-		profile: false,
-		messages: false,
-		post: false,
-		follows: false,
-	});
-
-	const toggleMenuOption = (title) => {
-		setIsMenuOpen((prev) => ({
-			...prev,
-			[title]: !prev[title],
-		}));
-	};
-
-	const closeMenu = (title) => {
-		setIsMenuOpen((prev) => ({
-			...prev,
-		}));
-	};
-	const sideBarItems = [
-		{
-			title: "stats",
-			icon: "LuLayoutDashboard",
-		},
-		{
-			title: "profile",
-			icon: "CiUser",
-			menuOpen: isMenuOpen.profile,
-			hasSubMenu: true,
-			submenu: [
-				{
-					title: "View",
-				},
-				{
-					title: "Message",
-				},
-				{
-					title: "Profile Views",
-				},
-			],
-		},
-		{
-			title: "post",
-			icon: "MdOutlineSignpost",
-			menuOpen: isMenuOpen.post,
-			hasSubMenu: true,
-			submenu: [
-				{
-					title: "My Posts",
-				},
-				{
-					title: "Create",
-				},
-				{
-					title: "History",
-				},
-				{
-					title: "Saved",
-				},
-			],
-		},
-		{
-			title: "follows",
-			icon: "BiMessageDetail",
-			menuOpen: isMenuOpen.follows,
-			hasSubMenu: true,
-			submenu: [
-				{
-					title: "followers",
-				},
-				{
-					title: "following",
-				},
-			],
-		},
-	];
-
-	const AdminObject = {
-		title: "Admin",
-		icon: "MdOutlineAdminPanelSettings",
-		menuOpen: isMenuOpen.Admin,
-		hasSubMenu: true,
-		submenu: [
+	const sideBarItems = {
+		children: [
 			{
-				title: "All Users",
+				title: "Stats",
+				icon: LuLayoutDashboard,
 			},
 			{
-				title: "All Posts",
+				title: "Profile",
+				icon: FaUser,
+
+				children: [
+					{
+						title: "details",
+						icon: BiInfoCircle,
+					},
+					{
+						title: "message",
+						icon: BiMessage,
+					},
+					{
+						title: "views",
+						icon: BsEye,
+					},
+				],
 			},
 			{
-				title: "Category",
+				title: "Post",
+				icon: BiBookContent,
+
+				children: [
+					{
+						title: "my posts",
+						icon: CiSettings,
+					},
+					{
+						title: "create",
+						icon: MdOutlineCreate,
+					},
+					{
+						title: "history",
+						icon: BiHistory,
+					},
+					{
+						title: "saved",
+						icon: CiSaveDown1,
+					},
+				],
+			},
+			{
+				title: "Follows",
+				icon: GiShadowFollower,
+				children: [
+					{
+						title: "followers",
+						icon: FaUsers,
+					},
+					{
+						title: "following",
+						icon: RiUserFollowFill,
+					},
+				],
 			},
 		],
 	};
 
-	user?.isAdmin && sideBarItems.push(AdminObject);
+	const AdminObject = {
+		title: "Admin",
+		icon: MdAdminPanelSettings,
+
+		children: [
+			{
+				title: "all users",
+				icon: FaUsersGear,
+			},
+
+			{
+				title: "category",
+				icon: MdCategory,
+			},
+			{
+				title: "all posts",
+				icon: RiBookReadLine,
+			},
+		],
+	};
+
+	user?.isAdmin && sideBarItems.children.push(AdminObject);
 
 	return (
-		<aside className=" flex flex-col  font-medium font-inter md:h-[95vh] h-[85vh] overflow-y-auto overflow-x-hidden   custom-scrollbar   ">
-			<Link to="/" className="mt-1 md:mt-4 self-center md:flex">
-				<img
-					src="/blogvana.png"
-					alt=""
-					className="w-14 border h-14 border-blue-400"
-				/>
+		<div className="px-4 mt-1 lg:mt-4 overflow-y-auto overflow-x-hidden h-[83vh] md:h-[90vh] w-full  custom-scrollbar">
+			<Link
+				to={"/"}
+				className="  flex items-center justify-center w-[100%] bg-gray-50 dark:bg-lightdark rounded-md"
+			>
+				<img src="blogvana.png" alt="" className=" h-20 w-20" />
 			</Link>
 
-			<div className="pb-6 self-center max-w-fit   ">
-				{sideBarItems.map((sideBarItem, index) => {
-					let IconComponent;
-
-					switch (sideBarItem.icon) {
-						case "GiShadowFollower":
-							IconComponent = GiShadowFollower;
-							break;
-						case "MdOutlineSignpost":
-							IconComponent = MdOutlineSignpost;
-							break;
-						case "CiUser":
-							IconComponent = CiUser;
-							break;
-						case "BiMessageDetail":
-							IconComponent = BiMessageDetail;
-							break;
-						case "AiOutlineComment":
-							IconComponent = AiOutlineComment;
-							break;
-
-						case "LuLayoutDashboard":
-							IconComponent = LuLayoutDashboard;
-							break;
-						case "MdOutlineAdminPanelSettings":
-							IconComponent = MdOutlineAdminPanelSettings;
-							break;
-						default:
-							IconComponent = AiOutlineComment; // Default icon
-					}
-					return (
-						<div
-							key={index}
-							className=" flex justify-start items-center px-6 mt-4 text-lg md:text-base "
-						>
-							{sideBarItem.hasSubMenu ? (
-								<div className="flex flex-col">
-									<div
-										onClick={() => {
-											toggleMenuOption(sideBarItem.title);
-										}}
-										className=" hover:bg-blue-400 hover:text-white  flex items-center gap-2  pl-[0.35rem] cursor-pointer py-[0.2rem] rounded-lg"
-									>
-										<IconComponent className=" text-lg" />
-										<h1 className=" ">{sideBarItem.title}</h1>
-
-										{isMenuOpen[sideBarItem.title] ? (
-											<MdOutlineArrowDropUp className=" text-center" />
-										) : (
-											<MdOutlineArrowDropDown className=" text-center" />
-										)}
-									</div>
-
-									<div className=" flex flex-col items-start ml-2 border-l dark:border-l-gray-800 justify-start ">
-										{sideBarItem.submenu?.map((submenuItem, index) => {
-											return (
-												<NavLink
-													key={index}
-													onClick={() => {
-														closeMenu(sideBarItem.title);
-													}}
-													to={`${sideBarItem.title}-${submenuItem?.title}`}
-													className={`${
-														sideBarItem.menuOpen ? "" : "hidden"
-													}  flex mt-1   py-[0.2rem] hover:text-white hover:bg-blue-400   w-max aria-[current=page]:text-white rounded-lg aria-[current=page]:bg-blue-400`}
-												>
-													<h1
-														
-														className=" ml-4 "
-													>
-														{submenuItem.title}
-													</h1>
-												</NavLink>
-											);
-										})}
-									</div>
-								</div>
-							) : (
-								<NavLink
-									to={sideBarItem.title}
-									className="flex gap-2 items-center pl-[0.35rem] hover:text-white hover:bg-blue-400 py-[0.2rem] w-full rounded-lg aria-[current=page]:text-white aria-[current=page]:bg-blue-400"
-								>
-									<IconComponent className="  " />
-
-									<h1 className=" font-inter  ">{sideBarItem.title}</h1>
-								</NavLink>
-							)}
-						</div>
-					);
-				})}
+			<div className=" mt-3 grid place-content-center">
+				{sideBarItems.children.map((entry) => (
+					<Entry key={entry.title} entry={entry} depth={1} path="" />
+				))}
 			</div>
-		</aside>
+		</div>
 	);
 };
 

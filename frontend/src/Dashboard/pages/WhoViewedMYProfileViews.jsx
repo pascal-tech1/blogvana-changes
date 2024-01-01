@@ -39,17 +39,22 @@ const WhoViewedMyProfile = () => {
 	return (
 		<div>
 			<div className="flex gap-3 font-inter  flex-col rounded-lg dark:bg-dark px-4">
-				<h1 className="font-semibold place-self-center text-colorPrimary max-w-max pb-1 ">
+				<h1 className="font-semibold place-self-center text-colorPrimary max-w-max mb-3 mt-2">
 					Who view your profile
 				</h1>
 				{whoViewUserProfileStatus === "loading" && !whoViewUserProfile ? (
 					<LoadingSpinner />
 				) : (
 					<div>
-						<h3 className=" font-medium text-gray-900 drop-shadow-md dark:text-slate-200">
-							who viewed your profile count:
-							<span>{whoViewUserProfileCount} </span>
-						</h3>
+						{whoViewUserProfileCount > 0 && (
+							<h3 className=" font-medium text-gray-900 drop-shadow-md dark:text-slate-200 mb-3 ">
+								<span>{whoViewUserProfileCount} </span>{" "}
+								<span>
+									{whoViewUserProfileCount > 1 ? "people" : "person"}
+								</span>{" "}
+								have viewed your profile
+							</h3>
+						)}
 
 						{whoViewUserProfileCount === 0 && (
 							<h1>NO one have viewed your profile yet</h1>

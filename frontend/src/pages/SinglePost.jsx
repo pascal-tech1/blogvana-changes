@@ -188,8 +188,6 @@ const SinglePost = () => {
 						</div>
 						{/*  the post content in the dom */}
 
-						{/* when the user scroll to this div with lasPostRef a fetch request for 
-					userPost and morePost is trigered in the useCallBackHook */}
 						<div className=" border-y dark:border-y-lightdark py-4 my-4 ">
 							<div className="flex justify-between flex-col my-4">
 								<LazyLoadImg

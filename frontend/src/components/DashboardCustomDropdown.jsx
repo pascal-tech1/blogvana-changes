@@ -17,11 +17,6 @@ const DashboardCustomDropdown = ({
 	// using custom hook to close the open UserDashboardMenu
 	const divRef = useRef();
 	const iconRef = useRef();
-	const isOutsideClicked = useClickOutside(divRef, iconRef);
-
-	useEffect(() => {
-		isOpen && !isOutsideClicked && setIsOpen(false);
-	}, [isOutsideClicked]);
 
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen);
@@ -30,6 +25,27 @@ const DashboardCustomDropdown = ({
 	const handleSelectedFilter = (filter) => {
 		dispatch(setSelectedFilter(filter));
 	};
+	useEffect(() => {
+		const handleClick = (event) => {
+			if (
+				(divRef.current && divRef.current.contains(event.target)) ||
+				(iconRef?.current && iconRef?.current.contains(event.target))
+			) {
+				// Click occurred inside the div
+				console.log("clicked inside");
+			} else {
+				// Click occurred outside the div
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener("click", handleClick);
+
+		return () => {
+			// Cleanup: Remove event listener when component unmounts
+			document.removeEventListener("click", handleClick);
+		};
+	}, [divRef, iconRef]);
 
 	handleSelected = handleSelected ? handleSelected : handleSelectedFilter;
 
@@ -39,10 +55,10 @@ const DashboardCustomDropdown = ({
 				ref={iconRef}
 				type="button"
 				onClick={toggleDropdown}
-				className="bg-white dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-2 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
+				className="bg-white gap-1  dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
 			>
-				{selectedFilter}
-				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+				<h3>{selectedFilter}</h3>
+				<h3>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</h3>
 			</button>
 
 			<div
@@ -55,7 +71,7 @@ const DashboardCustomDropdown = ({
 				} absolute flex top-10 self-center md:text-sm gap-1 flex-wrap max-h-[50vh] z-50 overflow-y-auto custom-scrollbar justify-evenly  px-2  items-center  rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-lightdark shadow-lg`}
 			>
 				{allFilters.map((filter, index) => (
-					<div
+					<button
 						key={index}
 						className={`${
 							selectedFilter === filter && " border-b border-b-blue-600"
@@ -65,9 +81,9 @@ const DashboardCustomDropdown = ({
 							setIsOpen(false);
 						}}
 					>
-						{filter.charAt(0).toUpperCase() +
-							filter.slice(1).toLowerCase()}
-					</div>
+						{filter?.charAt(0).toUpperCase() +
+							filter?.slice(1).toLowerCase()}
+					</button>
 				))}
 			</div>
 		</div>

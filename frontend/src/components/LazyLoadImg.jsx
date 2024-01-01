@@ -42,7 +42,7 @@ const LazyLoadImg = ({
 			<img
 				className={imgClassName}
 				src={optimizedImageUrl}
-				alt=""
+				alt={`${optimizedImageUrl}`}
 				onLoad={() => setIsLoaded(true)}
 				style={{ visibility: isLoaded ? "visible" : "hidden" }}
 				loading="lazy"

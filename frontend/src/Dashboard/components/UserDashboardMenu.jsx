@@ -42,7 +42,7 @@ const UserDashboardMenu = ({ isMenuOpen, setIsMenuOpen }) => {
 			<div
 				className={`${
 					isMenuOpen ? "  " : "hidden "
-				} absolute top-8 right-4 md:text-sm px-4  flex justify-between flex-col drop-shadow-lg z-[500] h-[60vh] rounded-lg  dark:bg-lightdark border dark:border-gray-700   bg-white`}
+				} absolute top-8 right-4 md:text-sm px-4  flex justify-between flex-col drop-shadow-lg z-[500] h-[50vh] rounded-lg  dark:bg-lightdark border dark:border-gray-700   bg-white`}
 			>
 				<div className=" flex flex-col justify-start whitespace-nowrap  items-start font-inter gap-3 py-3  ">
 					<button

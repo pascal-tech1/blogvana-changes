@@ -146,18 +146,13 @@ const App = () => {
 					}
 				>
 					<Route index path="stats" element={<Stats />} />
-					<Route path="profile-view" element={<ProfileView />} />
-					<Route path="profile-Message" element={<Messages />} />
-					<Route
-						path="profile-Profile Views"
-						element={<WhoViewedMyProfile />}
-					/>
-					<Route path="post-My Posts" element={<MyPosts />} />
+					<Route path="profile-details" element={<ProfileView />} />
+					<Route path="profile-message" element={<Messages />} />
+					<Route path="profile-views" element={<WhoViewedMyProfile />} />
+					<Route path="post-my-posts" element={<MyPosts />} />
 					<Route path="post-Create" element={<CreatePost />} />
-					<Route path="post-History" element={<PostHistory />} />
+					<Route path="post-history" element={<PostHistory />} />
 					<Route path="post-Saved" element={<SavedPost />} />
-					<Route path="followers" element={<Followers />} />
-
 					<Route path="follows-followers" element={<Followers />} />
 					<Route path="follows-following" element={<Following />} />
 
@@ -168,9 +163,9 @@ const App = () => {
 							</Suspense>
 						}
 					>
-						<Route path="Admin-All Users" element={<AllUsers />} />
-						<Route path="Admin-All Posts" element={<AllUsersPost />} />
-						<Route path="Admin-Category" element={<AdminAllCategory />} />
+						<Route path="Admin-all-users" element={<AllUsers />} />
+						<Route path="Admin-all-Posts" element={<AllUsersPost />} />
+						<Route path="Admin-category" element={<AdminAllCategory />} />
 					</Route>
 				</Route>
 			</Routes>

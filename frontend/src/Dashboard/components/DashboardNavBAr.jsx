@@ -88,7 +88,7 @@ const DashboardNavBAr = ({ refOpt, screenWidth }) => {
 		isSearching && searchInputRef.current.focus();
 	}, [isSearching]);
 	return (
-		<div className=" flex font-inter  w-full bg-opacity-0 backdrop-blur top-0 right-0 justify-between   dark:bg-dark  border-b dark:border-b-gray-900 z-50 items-center relative   py-2 dark:text-slate-300 ">
+		<div className="  flex font-inter  w-full top-0 right-0 justify-between  bg-white dark:bg-dark  border-b dark:border-b-gray-900 z-50 items-center relative   py-2 dark:text-slate-300 ">
 			<div ref={divRef} className={`absolute right-0`}>
 				<UserDashboardMenu
 					isMenuOpen={isMenuOpen}

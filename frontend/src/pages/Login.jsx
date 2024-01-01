@@ -7,6 +7,7 @@ import { loginUser } from "../redux/user/userSlice";
 
 import { ForgotPassword, LoadingSpinner } from "../components";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { prefetchComponents } from "../Dashboard/pages";
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const Login = () => {
 			navigate("/");
 		}
 	}, [user]);
+	useEffect(() => {
+		const comp = prefetchComponents();
+		console.log(comp)
+	}, []);
 
 	const formik = useFormik({
 		initialValues: {

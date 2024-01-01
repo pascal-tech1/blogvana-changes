@@ -9,7 +9,7 @@ function Modal({
 	Actiontext,
 	enterNeeded,
 }) {
-	console.log(enterNeeded);
+
 	useEffect(() => {
 		const handleKeyPress = (e) => {
 			if (isOpen && e.key === "Escape") {
@@ -49,10 +49,10 @@ function Modal({
 				>
 					{/* ... modal content ... */}
 					<div
-						className="  bg-white  text-black dark:text-white p-4 w-[90%] rounded-lg md:w-1/2 flex flex-col items-center gap-6 dark:bg-dark border dark:border-gray-800  "
+						className=" overflow-y-auto bg-white max-h-[100vh]  text-black dark:text-white p-4 w-[90%] rounded-lg md:w-1/2 flex flex-col items-center gap-6 dark:bg-dark border dark:border-gray-800  "
 						onClick={(e) => e.stopPropagation()}
 					>
-						<div className="p-4">{children}</div>
+						<div className="p-4 overflow-y-auto">{children}</div>
 						<div className=" flex flex-col items-center gap-2">
 							<div className="flex gap-4 items-center">
 								<div className="">

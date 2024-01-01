@@ -33,3 +33,29 @@ export {
 	CropImage,
 	PasswordReset,
 };
+
+
+export const prefetchComponents = () => {
+	console.log('i have run componetn fetch')
+	const componentsToPrefetch = [
+	  import("./Layout"),
+	  import("./Followers"),
+	  import("./Messages"),
+	  import("./CreatePost"),
+	  import("./ProfileView"),
+	  import("./SavedPost"),
+	  import("./PostHistory"),
+	  import("./MyPosts"),
+	//   import("./ConfirmUserEmail"),
+	  import("./Following"),
+	  import("./UserPage"),
+	  import("./WhoViewedMYProfileViews"),
+	  import("./Stats"),
+	  import("./CropImage"),
+	  import("./PasswordReset"),
+	];
+	console.log(componentsToPrefetch)
+  
+	return Promise.all(componentsToPrefetch);
+  };
+  

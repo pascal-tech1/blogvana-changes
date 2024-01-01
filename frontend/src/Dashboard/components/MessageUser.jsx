@@ -7,7 +7,7 @@ import * as Yup from "yup";
 
 import { LuSendHorizonal } from "react-icons/lu";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Modal } from "../../components";
 import { sendMsg } from "../../redux/message/messageSlice";
 import { logOutUser } from "../../redux/user/userSlice";
@@ -20,6 +20,8 @@ const MessageUser = ({ receiverId }) => {
 	const { SendingMessageStatus, isBlocked } = useSelector(
 		(store) => store.messageSlice
 	);
+	const { user } = useSelector((store) => store.userSlice);
+
 	const formSchema = Yup.object().shape({
 		message: Yup.string().required("messge is Required."),
 	});
@@ -34,7 +36,7 @@ const MessageUser = ({ receiverId }) => {
 		},
 		validationSchema: formSchema,
 	});
-	console.log(SendingMessageStatus, isBlocked);
+
 	useEffect(() => {
 		if (SendingMessageStatus === "success") {
 			formik.resetForm({
@@ -53,6 +55,10 @@ const MessageUser = ({ receiverId }) => {
 	}, [isBlocked]);
 
 	const openModal = () => {
+		if (!user) {
+			navigate("/login");
+			return;
+		}
 		setIsModalOpen(true);
 	};
 	const closeModal = () => {

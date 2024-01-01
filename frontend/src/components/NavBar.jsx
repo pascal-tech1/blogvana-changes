@@ -47,17 +47,17 @@ const NavBar = () => {
 			<Link to="/" className="">
 				<img
 					src="/blogvana.png"
-					alt=""
+					alt="Blog post icon: A dynamic symbol representing insightful content, diverse perspectives, and engaging storytelling"
 					className="w-[2.5rem] border hidden md:flex border-blue-400"
 				/>
-				<h1 className=" md:hidden text-blue-400 font-bold">Blogvana</h1>
+				<h1 className=" md:hidden text-blue-500 text-2xl font-bold">Blogvana</h1>
 			</Link>
 
 			<form className="relative md:w-1/3 justify-center z-50  items-center">
 				<input
 					className={` hidden md:flex text-xs  font-sm dark:bg-dark px-1 md:py-2 border border-gray-100 dark:border-gray-800 focus:border-b-gray-300 dark:border-b-gray-600   rounded-full bg-gray-100 text-center focus:outline-none  w-full bg-transparent `}
 					type="text"
-					id="searchInput"
+					id="searchPost"
 					placeholder="Search"
 					value={searchTerm}
 					onChange={handleInputChange}
@@ -119,7 +119,7 @@ const NavBar = () => {
 									onClick={handleLogOut}
 									className="bg-red-500 flex gap-2 items-center px-1 rounded-md text-white hover:shadow-md transition-all hover:bg-red-600"
 								>
-									<FiLogOut />
+									<FiLogOut className="" />
 									Log Out
 								</button>
 							</div>
@@ -139,16 +139,18 @@ const NavBar = () => {
 					<div className="flex gap-4 items-center">
 						<Link
 							to="/login"
+							id="login"
 							className=" flex gap-2 items-center text-blue-500 hover:text-white  py-[0.2rem] px-2 rounded-lg   hover:bg-blue-600 transition-all"
 						>
-							<LuLogIn className="  text-xl md:flex" />
+							<LuLogIn className="  text-2xl md:text-xl md:flex" />
 							<h1 className=" hidden md:flex">login</h1>
 						</Link>
 						<Link
 							to="/register"
+							id="logOut"
 							className=" flex gap-2 items-center   py-[0.2rem] px-2 rounded-lg hover:text-white text-red-500 hover:bg-red-500 transition-all"
 						>
-							<LuLogOut className="text-xl md:flex " />
+							<LuLogOut className="text-2xl md:text-xl md:flex " />
 							<h1 className=" hidden md:flex">Register</h1>
 						</Link>
 					</div>

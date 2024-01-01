@@ -27,16 +27,16 @@ const LikesSaveViews = ({ post }) => {
 			<span className="flex gap-1 items-center">
 				<button
 					onClick={() => handleLikes(post?._id)}
-					className=" hover:cursor-pointer  px-1 py-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className=" text-base hover:cursor-pointer  px-1 py-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
 				>
 					<AiOutlineLike className="" />
 				</button>
-				<span>{post?.likes?.length}</span>
+				<span >{post?.likes?.length}</span>
 			</span>
 			<span className="flex gap-1 items-center">
 				<button
 					onClick={() => handleDislikes(post?._id)}
-					className=" hover:cursor-pointer  px-1 py-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className="text-base hover:cursor-pointer  px-1 py-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
 				>
 					<AiOutlineDislike className="" />
 				</button>
@@ -49,7 +49,7 @@ const LikesSaveViews = ({ post }) => {
 			</span>
 			<button
 				onClick={() => dispatch(savePost(post?._id))}
-				className=" hover:bg-gray-400 p-1 rounded-full hover:text-white"
+				className=" text-base hover:bg-gray-400 p-1 rounded-full hover:text-white"
 			>
 				<MdOutlineBookmarkAdd />
 			</button>

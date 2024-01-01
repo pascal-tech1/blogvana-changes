@@ -79,7 +79,7 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 	}, [SendingPascalMsgtatus]);
 
 	return (
-		<div className=" text-center py-4 flex flex-col gap-1">
+		<div className=" text-center py-4 flex flex-col gap-1 font-inter ">
 			<Modal
 				isOpen={isModalOpen}
 				onClose={closeModal}
@@ -92,12 +92,20 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 					className="flex flex-col w-full min-w-[60vw] md:min-w-[45vw]  lg:min-w-[36vw]  items-center  px-4  rounded-md p-2 border dark:border-gray-800"
 				>
 					<h1 className=" relative flex flex-col items-center mb-2">
-						Message Adoh Azubike Pascal
+						Contact me
 						<span class=" border-b w-20 mt-[0.2rem] self-center border-b-blue-400"></span>
 					</h1>
+					<p className=" dark:text-gray-300 text-sm">
+						I'm Adoh Azubike Pascal, the creator of this blog. I'm a
+						tech enthusiast actively seeking impactful collaborations and
+						exciting opportunities. I'm open to connecting with fellow
+						innovators, entrepreneurs, and hiring managers. Let's push
+						boundaries together!
+					</p>
 					<label className="form-label " htmlFor="name">
 						name
 					</label>
+
 					<input
 						value={formik.values.name}
 						onChange={formik.handleChange("name")}
@@ -137,7 +145,7 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 						onBlur={formik.handleBlur("message")}
 						aria-label="Please enter your message"
 						type="text"
-						className="form-input  h-[10rem]"
+						className="form-input  h-[6rem]"
 					/>
 					<div className=" relative mb-2 self-start ">
 						<h1 className=" form-error-text ">

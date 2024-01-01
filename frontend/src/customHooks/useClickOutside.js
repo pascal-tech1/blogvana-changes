@@ -24,7 +24,7 @@ const useClickOutside = (divRef, iconRef) => {
 			// Cleanup: Remove event listener when component unmounts
 			document.removeEventListener("click", handleClick);
 		};
-	}, [divRef]);
+	}, [divRef,iconRef]);
 
 	return isOutsideClicked;
 };

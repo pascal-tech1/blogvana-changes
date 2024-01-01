@@ -85,7 +85,7 @@ const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 					<input
 						className={` text-xs  px-1 font-sm rounded-lg bg-gray-100 border dark:border-gray-800 focus:border-b-gray-300 dark:bg-lightdark py-2  text-center focus:outline-none w-full  dark:focus:border-b-gray-600`}
 						type="text"
-						id="searchInput"
+						id="searchInputPostMobile"
 						placeholder="Search"
 						value={searchTerm}
 						onChange={handleInputChange}
