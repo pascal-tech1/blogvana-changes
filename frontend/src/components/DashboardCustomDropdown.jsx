@@ -57,8 +57,8 @@ const DashboardCustomDropdown = ({
 				onClick={toggleDropdown}
 				className="bg-white gap-1  dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
 			>
-				<h3>{selectedFilter}</h3>
-				<h3>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</h3>
+				{selectedFilter}
+				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
 			</button>
 
 			<div

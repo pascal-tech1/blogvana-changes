@@ -9,7 +9,7 @@ const PostInfo = ({ post }) => {
 	const user = useSelector((store) => store?.userSlice?.user);
 
 	return (
-		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark rounded-md px-3 ">
+		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
 			{/* user who created the post  */}
 			<div className=" self-start">
 				<PostUserInfo post={post} />
@@ -18,7 +18,7 @@ const PostInfo = ({ post }) => {
 			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				<div className=" self-start">
 					<Link to={`/single-post/${post?._id}`}>
-						<h3 className=" text-sm font-semibold min-[350px]:text-sm lg:text-lg mb-2 dark:text-slate-100 ">
+						<h3 className=" text-sm font-semibold lg:text-lg mb-2 dark:text-slate-100 ">
 							{post?.title}
 						</h3>
 					</Link>
@@ -28,7 +28,8 @@ const PostInfo = ({ post }) => {
 
 							<Link
 								to={`/single-post/${post?._id}`}
-								className="ml-1 text-colorPrimary  hover:text-blue-400 transition-all cursor-pointer"
+								className="ml-1 text-blue-500 dark:text-colorPrimary hover:text-blue-400 transition-all cursor-pointer"
+								aria-label={`Read more about ${post?.title}`}
 							>
 								Read more
 							</Link>

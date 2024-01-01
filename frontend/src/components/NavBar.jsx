@@ -45,12 +45,28 @@ const NavBar = () => {
 	return (
 		<div className=" max-[318px]:flex-wrap flex w-full font-inter  items-center justify-between border-b nav-bar py-2 md:py-[0.2rem]  dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200">
 			<Link to="/" className="">
-				<img
-					src="/blogvana.png"
-					alt="Blog post icon: A dynamic symbol representing insightful content, diverse perspectives, and engaging storytelling"
-					className="w-[2.5rem] border hidden md:flex border-blue-400"
-				/>
-				<h1 className=" md:hidden text-blue-500 text-2xl font-bold">Blogvana</h1>
+				<div className="hidden md:flex">
+					<LazyLoadImg
+						backgroundClassName={
+							" rounded-full w-10 h-10  relative border border-blue-400  "
+						}
+						imgClassName={
+							"absolute inset-0 w-full h-full  object-cover rounded-full "
+						}
+						originalImgUrl={
+							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_300/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+						}
+						blurImageStr={
+							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+						}
+						optimizationStr={"q_auto,f_auto,w_100"}
+						paddingBottom={"100%"}
+					/>
+				</div>
+				
+				<h1 className=" md:hidden text-blue-500 text-2xl font-bold">
+					Blogvana
+				</h1>
 			</Link>
 
 			<form className="relative md:w-1/3 justify-center z-50  items-center">
@@ -140,7 +156,8 @@ const NavBar = () => {
 						<Link
 							to="/login"
 							id="login"
-							className=" flex gap-2 items-center text-blue-500 hover:text-white  py-[0.2rem] px-2 rounded-lg   hover:bg-blue-600 transition-all"
+							aria-label="Login"
+							className=" flex gap-2 items-center text-blue-600 md:text-white hover:text-white md:bg-blue-500  py-[0.2rem] px-2 rounded-lg   hover:bg-blue-600 transition-all"
 						>
 							<LuLogIn className="  text-2xl md:text-xl md:flex" />
 							<h1 className=" hidden md:flex">login</h1>
@@ -148,7 +165,8 @@ const NavBar = () => {
 						<Link
 							to="/register"
 							id="logOut"
-							className=" flex gap-2 items-center   py-[0.2rem] px-2 rounded-lg hover:text-white text-red-500 hover:bg-red-500 transition-all"
+							aria-label="Register"
+							className=" flex gap-2 items-center md:text-white text-red-600 hover:text-white  py-[0.2rem] px-2 rounded-lg md:bg-red-500 hover:bg-red-600 transition-all"
 						>
 							<LuLogOut className="text-2xl md:text-xl md:flex " />
 							<h1 className=" hidden md:flex">Register</h1>

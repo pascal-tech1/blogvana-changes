@@ -157,7 +157,6 @@
 /* Toastify styles/ */
 .Toastify__toast--error {
 	border-left: 1px solid rgb(246, 76, 76);
-	color: black;
 }
 .Toastify__toast-body {
 	margin: 0;
@@ -359,10 +358,9 @@ th {
 	@apply dark:bg-gray-900 drop-shadow-sm text-sm;
 }
 
-button{
+button {
 	outline: none;
 }
-
 
 /* create post switch */
 

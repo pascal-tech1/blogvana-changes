@@ -172,7 +172,7 @@ const App = () => {
 			<ToastContainer
 				position="top-right"
 				draggable={true}
-				className={` text-xs max-w-fit font-inter py-0 `}
+				className={` text-xs max-w-fit font-inter py-0 text-black dark:text-white `}
 				theme={theme ? theme : isSystemInDakMode ? "dark" : "light"}
 			/>
 		</BrowserRouter>

@@ -24,6 +24,7 @@ import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { LazyLoadImg } from "../../components";
 
 const Entry = React.memo(({ entry, depth, path }) => {
 	const location = useLocation();
@@ -170,15 +171,28 @@ const DashboardSideBar = () => {
 	user?.isAdmin && sideBarItems.children.push(AdminObject);
 
 	return (
-		<div className="px-4 mt-1 lg:mt-4 overflow-y-auto overflow-x-hidden h-[83vh] md:h-[90vh] w-full  custom-scrollbar">
+		<div className="px-8 mt-4 overflow-y-auto overflow-x-hidden h-[83vh] md:h-[90vh]  custom-scrollbar">
 			<Link
 				to={"/"}
 				className="  flex items-center justify-center w-[100%] bg-gray-50 dark:bg-lightdark rounded-md"
 			>
-				<img src="blogvana.png" alt="" className=" h-20 w-20" />
+				<div className="">
+					<LazyLoadImg
+						backgroundClassName={"h-20 w-20 relative  "}
+						imgClassName={"absolute inset-0 w-full h-full  object-cover"}
+						originalImgUrl={
+							"https://res.cloudinary.com/da3q9dbku/image/upload/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+						}
+						blurImageStr={
+							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+						}
+						optimizationStr={"w_800"}
+						paddingBottom={"100%"}
+					/>
+				</div>
 			</Link>
 
-			<div className=" mt-3 grid place-content-center">
+			<div className=" mt-4 md:grid place-content-center">
 				{sideBarItems.children.map((entry) => (
 					<Entry key={entry.title} entry={entry} depth={1} path="" />
 				))}

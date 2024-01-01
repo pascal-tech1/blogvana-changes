@@ -10,7 +10,7 @@ const connectDB = async () => {
 	}
 };
 
-module.exports = connectDB;
+// module.exports = connectDB;
 
 // const url = "mongodb://127.0.0.1:27017/mern-blog-app";
 

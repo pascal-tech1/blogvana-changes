@@ -8,7 +8,7 @@ const Error = () => {
 			<div className="flex font-inter items-center justify-center flex-col mt-16 dark:bg-dark">
 				<img
 					src="/undraw_page_not_found_re_e9o6.svg"
-					alt=""
+					alt="error icon"
 					className=" max-w-sm"
 				/>
 				<Link

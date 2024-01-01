@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
 	Category,
 	ContactMe,
+	LazyLoadImg,
 	PostSearch,
 	UserToFollow,
 } from "../components";
@@ -56,15 +57,26 @@ const Home = () => {
 									Get unlimited access to everything on BlogVana
 								</h3>
 
-								<h1 className=" bg-colorPrimary text-white py-1 px-2 rounded-lg ">
+								<h1 className=" dark:bg-colorPrimary bg-blue-500 text-white py-1 px-2 rounded-lg ">
 									Premium comming soon
 								</h1>
 							</div>
-							<img
-								src="/blogvana.png"
-								alt="blogvana logo"
-								className=" w-20 border border-blue-400 self-center mr-4"
-							/>
+							<div className="hidden md:flex">
+								<LazyLoadImg
+									backgroundClassName={"h-20 w-20 relative  "}
+									imgClassName={
+										"absolute inset-0 w-full h-full  object-cover"
+									}
+									originalImgUrl={
+										"https://res.cloudinary.com/da3q9dbku/image/upload/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+									}
+									blurImageStr={
+										"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
+									}
+									optimizationStr={"w_800"}
+									paddingBottom={"100%"}
+								/>
+							</div>
 						</div>
 						{/* followers section */}
 						<section className="">
