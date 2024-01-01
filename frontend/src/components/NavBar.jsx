@@ -46,24 +46,13 @@ const NavBar = () => {
 		<div className=" max-[318px]:flex-wrap flex w-full font-inter  items-center justify-between border-b nav-bar py-2 md:py-[0.2rem]  dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200">
 			<Link to="/" className="">
 				<div className="hidden md:flex">
-					<LazyLoadImg
-						backgroundClassName={
-							" rounded-full w-10 h-10  relative border border-blue-400  "
-						}
-						imgClassName={
-							"absolute inset-0 w-full h-full  object-cover rounded-full "
-						}
-						originalImgUrl={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_300/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						blurImageStr={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						optimizationStr={"q_auto,f_auto,w_100"}
-						paddingBottom={"100%"}
+					<img
+						src="/blogvana.png"
+						alt="Blog post icon: A dynamic symbol representing insightful content, diverse perspectives, and engaging storytelling"
+						className="w-[2.5rem] border hidden md:flex border-blue-400"
 					/>
 				</div>
-				
+
 				<h1 className=" md:hidden text-blue-500 text-2xl font-bold">
 					Blogvana
 				</h1>

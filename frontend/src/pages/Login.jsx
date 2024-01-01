@@ -5,11 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/user/userSlice";
 
-import {
-	ForgotPassword,
-	LazyLoadImg,
-	LoadingSpinner,
-} from "../components";
+import { ForgotPassword, LoadingSpinner } from "../components";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { prefetchComponents } from "../Dashboard/pages";
 
@@ -69,20 +65,11 @@ const Login = () => {
 					Explore our latest blog posts and embark on a journey of
 					discovery
 				</p>
-				<div className="hidden md:flex">
-					<LazyLoadImg
-						backgroundClassName={"h-[10rem] w-[10rem] relative  "}
-						imgClassName={"absolute inset-0 w-full h-full  object-cover"}
-						originalImgUrl={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						blurImageStr={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						optimizationStr={"w_800"}
-						paddingBottom={"100%"}
-					/>
-				</div>
+				<img
+					className=" h-[11rem] rounded-lg"
+					src="/blogvana.png"
+					alt="blogvana-imgage"
+				/>
 			</div>
 
 			{/* form starts here */}

@@ -176,20 +176,11 @@ const DashboardSideBar = () => {
 				to={"/"}
 				className="  flex items-center justify-center w-[100%] bg-gray-50 dark:bg-lightdark rounded-md"
 			>
-				<div className="">
-					<LazyLoadImg
-						backgroundClassName={"h-20 w-20 relative  "}
-						imgClassName={"absolute inset-0 w-full h-full  object-cover"}
-						originalImgUrl={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						blurImageStr={
-							"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-						}
-						optimizationStr={"w_800"}
-						paddingBottom={"100%"}
-					/>
-				</div>
+				<img
+					src="blogvana.png"
+					alt="blogvana-logo-image"
+					className="h-20 w-20"
+				/>
 			</Link>
 
 			<div className=" mt-4 md:grid place-content-center">
