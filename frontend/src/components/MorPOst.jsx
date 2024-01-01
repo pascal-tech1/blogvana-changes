@@ -22,6 +22,7 @@ const MorePost = ({ post, status }) => {
 					<Link
 						to={`/single-post/${post?._id}`}
 						className=" hover:cursor-pointer"
+						aria-label={`${post?.title}-link`}
 					>
 						<LazyLoadImg
 							backgroundClassName={" w-full   rounded-md relative "}
@@ -29,7 +30,7 @@ const MorePost = ({ post, status }) => {
 								"absolute inset-0 w-full h-full object-cover rounded-md"
 							}
 							originalImgUrl={post?.image}
-							blurImageStr={post.blurImageUrl}
+							blurImageStr={post?.blurImageUrl}
 							optimizationStr={`q_auto,f_auto,w_384`}
 							paddingBottom={"50%"}
 						/>
@@ -37,7 +38,7 @@ const MorePost = ({ post, status }) => {
 
 					<div className=" px-2 pb-2">
 						<div className=" dark:text-slate-300">
-							<Tooltip info={post.title}>
+							<Tooltip info={post?.title}>
 								<h3>{post.title}</h3>
 							</Tooltip>
 						</div>

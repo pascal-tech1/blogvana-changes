@@ -128,7 +128,7 @@ const SinglePost = () => {
 				<div className="post-search">
 					<PostSearch categoryNumber={6} isTableOfContent={true} />
 				</div>
-				<div className="singlePostLayout single-post   md:grid md:grid-cols-12 relative">
+				<div className="singlePostLayout single-post  lg:gap-12 md:grid md:grid-cols-12 relative">
 					<div
 						className={`${
 							isTableOfContentClciked ? "relative " : "hidden"

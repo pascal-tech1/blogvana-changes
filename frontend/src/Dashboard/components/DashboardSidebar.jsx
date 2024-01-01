@@ -20,11 +20,10 @@ import {
 } from "react-icons/md";
 import { GiShadowFollower } from "react-icons/gi";
 import React, { useState } from "react";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { LazyLoadImg } from "../../components";
 
 const Entry = React.memo(({ entry, depth, path }) => {
 	const location = useLocation();

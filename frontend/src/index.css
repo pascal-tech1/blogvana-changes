@@ -290,25 +290,27 @@ th {
 }
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* custom scroll bar  */
-.custom-scrollbar::-webkit-scrollbar {
-	scroll-behavior: smooth;
-	width: 10px;
-	height: 10px;
-	cursor: grab;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-	background-color: #565658;
-	border-radius: 10px;
-	height: 1rem;
-	cursor: grab;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-	background-color: transparent;
-	border-radius: 10px;
-}
-
+@media (hover: hover) {
+	.custom-scrollbar::-webkit-scrollbar {
+	  scroll-behavior: smooth;
+	  width: 10px;
+	  height: 10px;
+	  cursor: grab;
+	}
+  
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+	  background-color: #565658;
+	  border-radius: 10px;
+	  height: 1rem;
+	  cursor: grab;
+	}
+  
+	.custom-scrollbar::-webkit-scrollbar-track {
+	  background-color: transparent;
+	  border-radius: 10px;
+	}
+  }
+  
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 /* custom tailwind styles */

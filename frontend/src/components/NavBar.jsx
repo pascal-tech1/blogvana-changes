@@ -49,7 +49,7 @@ const NavBar = () => {
 					<img
 						src="/blogvana.png"
 						alt="Blog post icon: A dynamic symbol representing insightful content, diverse perspectives, and engaging storytelling"
-						className="w-[2.5rem] border hidden md:flex border-blue-400"
+						className="w-[2.5rem] h-[2.5rem] border hidden md:flex border-blue-400"
 					/>
 				</div>
 
@@ -146,7 +146,7 @@ const NavBar = () => {
 							to="/login"
 							id="login"
 							aria-label="Login"
-							className=" flex gap-2 items-center text-blue-600 md:text-white hover:text-white md:bg-blue-500  py-[0.2rem] px-2 rounded-lg   hover:bg-blue-600 transition-all"
+							className=" flex gap-2 hover:bg-blue-700 bg-blue-600 font-medium shadow-md hover:shadow-none text-white hover:text-white   items-center  py-[0.2rem] px-2 rounded-lg  transition-all duration-200"
 						>
 							<LuLogIn className="  text-2xl md:text-xl md:flex" />
 							<h1 className=" hidden md:flex">login</h1>
@@ -155,7 +155,7 @@ const NavBar = () => {
 							to="/register"
 							id="logOut"
 							aria-label="Register"
-							className=" flex gap-2 items-center md:text-white text-red-600 hover:text-white  py-[0.2rem] px-2 rounded-lg md:bg-red-500 hover:bg-red-600 transition-all"
+							className=" flex gap-2 hover:bg-green-700 bg-green-600 font-medium shadow-md hover:shadow-none text-white hover:text-white   items-center  py-[0.2rem] px-2 rounded-lg  transition-all duration-200"
 						>
 							<LuLogOut className="text-2xl md:text-xl md:flex " />
 							<h1 className=" hidden md:flex">Register</h1>

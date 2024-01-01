@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
 	Category,
 	ContactMe,
-	LazyLoadImg,
 	PostSearch,
 	UserToFollow,
 } from "../components";
@@ -38,7 +37,7 @@ const Home = () => {
 	};
 	return (
 		<div className={`font-inter text-lg lg:text-base `}>
-			<div className=" md:grid grid-cols-5 ">
+			<div className=" md:grid grid-cols-5 gap-10 ">
 				{/* right section */}
 				<main className=" col-span-3  ">
 					<div className="">
@@ -49,7 +48,7 @@ const Home = () => {
 				</main>
 				{/* left section */}
 
-				<div className="hidden md:flex flex-col justify-between col-start-4 col-span-full  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark px-2 !h-[87vh] ">
+				<div className="hidden md:flex flex-col font-inter justify-between col-start-4 col-span-full  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark px-2 !h-[87vh] ">
 					<div>
 						<div className="flex gap-2  bg-gray-100 justify-between py-2  text-lg md:text-sm px-2 rounded-lg dark:bg-lightdark dark:text-slate-300  ">
 							<div className="flex flex-col justify-center items-center text-center gap-2">
@@ -57,26 +56,15 @@ const Home = () => {
 									Get unlimited access to everything on BlogVana
 								</h3>
 
-								<h1 className=" dark:bg-colorPrimary bg-blue-500 text-white py-1 px-2 rounded-lg ">
+								<p className=" bg-blue-300 text-gray-900 font-medium py-1 px-2 rounded-lg ">
 									Premium comming soon
-								</h1>
+								</p>
 							</div>
-							<div className="hidden md:flex">
-								<LazyLoadImg
-									backgroundClassName={"h-20 w-20 relative  "}
-									imgClassName={
-										"absolute inset-0 w-full h-full  object-cover"
-									}
-									originalImgUrl={
-										"https://res.cloudinary.com/da3q9dbku/image/upload/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-									}
-									blurImageStr={
-										"https://res.cloudinary.com/da3q9dbku/image/upload/q_auto,f_auto,w_10/v1704106557/mern-blog-app/pascalazubike003%40gmail.com/profilePhoto/zn9kxlenc3ttw6mpxrrg.png"
-									}
-									optimizationStr={"w_800"}
-									paddingBottom={"100%"}
-								/>
-							</div>
+							<img
+								src="/blogvana.png"
+								alt="blogvana logo"
+								className=" w-20 border border-blue-400 self-center mr-4"
+							/>
 						</div>
 						{/* followers section */}
 						<section className="">
