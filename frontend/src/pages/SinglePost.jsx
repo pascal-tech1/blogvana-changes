@@ -25,7 +25,6 @@ import MessageUser from "../Dashboard/components/MessageUser";
 import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
 
-
 const SinglePost = () => {
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
@@ -78,6 +77,7 @@ const SinglePost = () => {
 		if (status !== "success") return;
 		dispatch(clearUserPost());
 		dispatch(clearMorePost());
+		setPageNumber(1);
 		dispatch(
 			fetchUserPost({ postId: post?._id, userId: post?.user?._id })
 		);
