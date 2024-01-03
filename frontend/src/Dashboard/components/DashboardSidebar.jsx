@@ -60,7 +60,7 @@ const Entry = React.memo(({ entry, depth, path }) => {
 			</NavLink>
 			<div className=" px-4">
 				<div className={`border-l-[0.7px] dark:border-l-gray-800`}>
-					<div className="ml-2">
+					<div className="ml-1">
 						{isExpanded &&
 							entry?.children?.map((childEntry) => (
 								<Entry

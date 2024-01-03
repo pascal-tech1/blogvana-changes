@@ -9,7 +9,7 @@ const PagesLayout = () => {
 				<NavBar />
 			</div>
 
-			<div className="row-start-2 mt-1 row-span-full overflow-y-auto custom-scrollbar w-full z-10 px-2 md:px-8 ">
+			<div className="row-start-2 mt-1 row-span-full overflow-y-auto custom-scrollbar w-full z-10 px-3 md:px-8 ">
 				<Outlet />
 			</div>
 		</section>

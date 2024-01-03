@@ -38,14 +38,30 @@ const AdditionalUserProfile = () => {
 		onSubmit: (values) => {
 			setIsUserProfileClicked(!isUserProfileClicked);
 			if (!isUserProfileClicked) return;
+			const { language, nickName, education } = user;
+			console.log(
+				language,
+				values.language,
+				nickName,
+				values.nickName,
+				education,
+				values.education
+			);
 
-			const user = {
-				email: values.email,
+			if (
+				language === values.language &&
+				nickName === values.nickName &&
+				education === values.education
+			) {
+				console.log("im her returng");
+				return;
+			}
+			const userData = {
 				language: values.language,
 				nickName: values.nickName,
 				education: values.education,
 			};
-			dispatch(updateUser(user));
+			dispatch(updateUser(userData));
 		},
 		validationSchema: formSchema,
 	});
@@ -119,39 +135,40 @@ const AdditionalUserProfile = () => {
 				// display
 				<div className="flex flex-col gap-4 mt-2">
 					<div className=" flex gap-3 items-center">
-						<MdOutlineEmail className=" dark:text-colorPrimary text-blue-400  font-medium text-lg" />
+						<MdOutlineLanguage className=" dark:text-colorPrimary text-blue-400  " />
 						<div>
-							<h2 className=" dark:text-colorPrimary text-blue-400 ">Email</h2>
-							<h3 className=" text-gray-400">{user?.email}</h3>
-						</div>
-					</div>
-					<div className=" flex gap-3 items-center">
-						<MdOutlineLanguage className=" dark:text-colorPrimary text-blue-400  font-medium text-lg" />
-						<div>
-							<h2 className=" dark:text-colorPrimary text-blue-400 ">Languages</h2>
+							<h2 className=" dark:text-colorPrimary text-blue-400 ">
+								Languages
+							</h2>
 							<h3 className=" text-gray-400">{user?.language}</h3>
 						</div>
 					</div>
 					<div className=" flex gap-3 items-center">
-						<MdOutlineVerifiedUser className=" dark:text-colorPrimary text-blue-400  font-medium text-lg" />
+						<MdOutlineVerifiedUser className=" dark:text-colorPrimary text-blue-400  " />
 						<div>
-							<h2 className=" dark:text-colorPrimary text-blue-400 ">Nick name</h2>
+							<h2 className=" dark:text-colorPrimary text-blue-400 ">
+								Nick name
+							</h2>
 							<h3 className=" text-gray-400 ">{user?.nickName}</h3>
 						</div>
 					</div>
 					<div className=" flex gap-3 items-center">
-						<MdOutlineDateRange className=" dark:text-colorPrimary text-blue-400  font-medium text-lg" />
+						<MdOutlineDateRange className=" dark:text-colorPrimary text-blue-400  " />
 						<div>
-							<h2 className=" dark:text-colorPrimary text-blue-400 ">Join Date</h2>
+							<h2 className=" dark:text-colorPrimary text-blue-400 ">
+								Join Date
+							</h2>
 							<h3 className=" text-gray-400 ">
 								{formatDate(user?.createdAt)}
 							</h3>
 						</div>
 					</div>
 					<div className=" flex gap-3 items-center">
-						<MdOutlineSchool className=" dark:text-colorPrimary text-blue-400  font-medium text-lg" />
+						<MdOutlineSchool className=" dark:text-colorPrimary text-blue-400  " />
 						<div>
-							<h2 className=" dark:text-colorPrimary text-blue-400 ">Education</h2>
+							<h2 className=" dark:text-colorPrimary text-blue-400 ">
+								Education
+							</h2>
 							<h3 className=" text-gray-400 ">{user?.education}</h3>
 						</div>
 					</div>

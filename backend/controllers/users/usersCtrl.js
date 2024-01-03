@@ -251,6 +251,8 @@ const updateUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
 			"education",
 			"isBlocked",
 			"isAdmin",
+			"createdAt",
+			"nickName",
 			"bio",
 			"coverPhoto",
 			"isAccountVerified",

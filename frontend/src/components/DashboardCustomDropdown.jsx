@@ -64,7 +64,7 @@ const DashboardCustomDropdown = ({
 			<div
 				ref={divRef}
 				className={`${left ? left : "-left-12"} ${
-					dropdownWidth ? dropdownWidth : " w-[80vw]"
+					dropdownWidth ? dropdownWidth : " w-[40vw]"
 				} ${
 					// isOpen ? " translate-y-1 duration-300 ease-in-out" : " -translate-y-2 duration-300 ease-in-out opacity-0 "
 					isOpen ? "" : "hidden"

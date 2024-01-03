@@ -67,9 +67,10 @@ export const fetchCreatorPosts = createAsyncThunk(
 	async (params, { getState, rejectWithValue }) => {
 		const postNumberPerPage = 10;
 		const { dashboardSearchTerm } = getState().userSlice;
+		const { creatorAllPostPageNumber } = getState().generalPostSlice;
 		try {
 			const resp = await customFetch.put(
-				`/posts/user-post?page=${params.page}&postNumberPerPage=${postNumberPerPage}&filter=${params.filter}&searchTerm=${dashboardSearchTerm}`,
+				`/posts/user-post?page=${creatorAllPostPageNumber}&postNumberPerPage=${postNumberPerPage}&filter=${params.filter}&searchTerm=${dashboardSearchTerm}`,
 				params
 			);
 
@@ -114,6 +115,7 @@ const initialState = {
 	creatoPostTotalNumber: null,
 	hasMore: true,
 	MyPostSelectedFilter: "A-Z",
+	creatorAllPostPageNumber: 1,
 };
 
 const generalPostSlice = createSlice({
@@ -126,6 +128,9 @@ const generalPostSlice = createSlice({
 		},
 		setMyPostSelectedFilter: (state, { payload }) => {
 			state.MyPostSelectedFilter = payload;
+		},
+		increaseCreatorPostPageNumber: (state) => {
+			state.creatorAllPostPageNumber += 1;
 		},
 	},
 
@@ -203,5 +208,8 @@ const generalPostSlice = createSlice({
 });
 
 export default generalPostSlice.reducer;
-export const { clearCreatorAllPost, setMyPostSelectedFilter } =
-	generalPostSlice.actions;
+export const {
+	clearCreatorAllPost,
+	setMyPostSelectedFilter,
+	increaseCreatorPostPageNumber,
+} = generalPostSlice.actions;

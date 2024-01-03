@@ -24,6 +24,7 @@ const Theme = () => {
 	const filters = ["light", "dark", "system"];
 	const handleSelected = (theme) => {
 		setTheme(theme);
+		setIsDropdownOpen(!isDropdownOpen);
 		if (theme !== "system") {
 			localStorage.theme = theme;
 			document.documentElement.classList.toggle("dark", theme === "dark");
@@ -65,7 +66,7 @@ const Theme = () => {
 			// Cleanup: Remove event listener when component unmounts
 			document.removeEventListener("click", handleClick);
 		};
-	}, [dropdownRef,iconRef]);
+	}, [dropdownRef, iconRef]);
 
 	return (
 		<div className=" relative z-50 w-20  ">

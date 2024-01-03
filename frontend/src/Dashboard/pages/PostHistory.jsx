@@ -5,7 +5,12 @@ import {
 	clearPostHistory,
 	fetchUserPostHistory,
 } from "../../redux/post/morePostSlice";
-import { ClearSearch, LazyLoadImg, Spinner } from "../../components";
+import {
+	ClearSearch,
+	LazyLoadImg,
+	Spinner,
+	Tooltip,
+} from "../../components";
 
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/dataFormatter";
@@ -65,7 +70,7 @@ const Saved = () => {
 		dispatch(setSearchTermInStore(""));
 	};
 	return (
-		<div className=" font-inter  dark:bg-dark rounded-lg p-4">
+		<div className=" font-inter  dark:bg-dark rounded-lg p-4 text-base">
 			{/* clear search */}
 			<ClearSearch
 				searchQuery={dashboardSearchTerm}
@@ -74,7 +79,7 @@ const Saved = () => {
 			{Object.keys(organizedPosts).map((dateKey, firstIndex) => (
 				<div key={dateKey} className=" border-b dark:border-b-gray-800 ">
 					<h2 className=" text-colorPrimary my-3 ">{dateKey}</h2>
-					<div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+					<div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3rem] my-2 ">
 						{organizedPosts[dateKey].map((item, index) => {
 							let isLastPost;
 							const post = item?.post;
@@ -92,29 +97,35 @@ const Saved = () => {
 								<div
 									key={index}
 									ref={isLastPost ? lastPostRef : null}
-									className="dark:bg-lightdark rounded-md"
+									className="dark:bg-lightdark rounded-md p-2"
 								>
 									<Link
 										to={`/single-post/${post?._id}`}
-										className="flex gap-4 justify-between"
+										className="flex md:flex-col max-[320px]:flex-col  gap-4 justify-between"
 									>
 										<div className="hover:cursor-pointer flex-1">
 											<LazyLoadImg
 												backgroundClassName={
-													"  rounded-lg  w-full h-20  relative"
+													"  rounded-lg  w-full h-10  relative"
 												}
 												imgClassName={
 													"absolute inset-0 w-full h-full rounded-lg  object-cover "
 												}
 												originalImgUrl={item?.post?.image}
 												blurImageStr={item?.post?.blurImageUrl}
-												optimizationStr={"q_auto,f_auto,w_200"}
-												paddingBottom={"80%"}
+												optimizationStr={"q_auto,f_auto,w_400"}
+												paddingBottom={"60%"}
 											/>
 										</div>
-										<h3 className="font-medium  flex-1 self-start py-2">
-											{post?.title}
-										</h3>
+										<div className="font-medium  flex-1 self-center">
+											<Tooltip relative={true} info={post?.title}>
+												<h3>
+													{item?.post?.title.length > 70
+														? `${post?.title?.slice(0, 70)}...`
+														: item?.post?.title}
+												</h3>
+											</Tooltip>
+										</div>
 									</Link>
 								</div>
 							);

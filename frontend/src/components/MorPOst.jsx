@@ -37,9 +37,13 @@ const MorePost = ({ post, status }) => {
 					</Link>
 
 					<div className=" px-2 pb-2">
-						<div className=" dark:text-slate-300">
-							<Tooltip info={post?.title}>
-								<h3>{post.title}</h3>
+						<div className=" dark:text-slate-300 mt-1 mb-2">
+							<Tooltip relative={true} info={post?.title}>
+								<h3>
+									{post.title.length > 70
+										? `${post.title.slice(0, 70)}...`
+										: post.title}
+								</h3>
 							</Tooltip>
 						</div>
 

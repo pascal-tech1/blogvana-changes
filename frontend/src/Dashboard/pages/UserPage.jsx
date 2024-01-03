@@ -77,7 +77,7 @@ const UserPage = () => {
 		return (
 			<div>
 				<PostSearch />
-				<div className=" md:grid lg:grid-cols-3 mt-2  font-inter  gap-10   ">
+				<div className=" md:grid lg:grid-cols-3 mt-2  font-inter  gap-[5rem]  ">
 					<div className=" flex flex-col gap-4 col-start-1 col-span-2   md:pt-4 h-max ">
 						<div className="w-full">
 							<div className=" w-full  relative">
@@ -134,7 +134,7 @@ const UserPage = () => {
 							<h1 className="font-semibold  max-w-max py-4  dark:text-slate-200 ">
 								{`Posts By ${postCreatorProfile?.firstName} ${postCreatorProfile?.lastName}`}
 							</h1>
-							<div className="  font-inter grid grid-cols-1   gap-12 lg:grid-cols-2 w-[100%]">
+							<div className="  font-inter grid grid-cols-1   gap-[5rem] lg:grid-cols-2 w-[100%]">
 								<MorePost
 									titleLength={30}
 									post={creatorAllPost}

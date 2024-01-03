@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { updateUser } from "../../redux/user/userSlice";
 
-import { MdEdit, MdWork } from "react-icons/md";
+import { MdEdit, MdOutlineEmail, MdWork } from "react-icons/md";
 import { BiMap } from "react-icons/bi";
 
 const UserProfile = () => {
@@ -33,13 +33,34 @@ const UserProfile = () => {
 		},
 
 		onSubmit: (values) => {
-			const user = {
+			const { firstName, lastName, profession, location } = user;
+			console.log(
+				firstName,
+				values.firstName,
+				lastName,
+				values.lastName,
+				profession,
+				values.profession,
+				location,
+				values.location
+			);
+
+			if (
+				firstName === values.firstName &&
+				lastName === values.lastName &&
+				profession === values.profession &&
+				location === values.location
+			) {
+				return;
+			}
+
+			const userData = {
 				firstName: values.firstName,
 				lastName: values.lastName,
 				location: values.location || "None",
 				profession: values.profession || "none",
 			};
-			!isUserProfileClicked && dispatch(updateUser(user));
+			!isUserProfileClicked && dispatch(updateUser(userData));
 		},
 		validationSchema: formSchema,
 	});
@@ -107,12 +128,13 @@ const UserProfile = () => {
 				<div className="transition-all self-start ">
 					<h1 className=" font-bold  md:text-lg">{`${user?.firstName} ${user?.lastName}`}</h1>
 					<div className=" font-bold text-gray-500 text-sm flex gap-2 items-center">
-						{" "}
 						<MdWork className=" text-blue-400" /> {user?.profession}
 					</div>
 					<div className="font-bold text-gray-500 text-sm flex gap-2 items-center">
-						{" "}
 						<BiMap className=" text-blue-400" /> {user?.location}
+					</div>
+					<div className="font-bold text-gray-500 text-sm flex gap-2 items-center">
+						<MdOutlineEmail className=" text-blue-400" /> {user?.email}
 					</div>
 				</div>
 			)}

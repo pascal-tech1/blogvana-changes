@@ -5,7 +5,7 @@ import {
 	clearSavedPost,
 	fetchSavedPosts,
 } from "../../redux/post/morePostSlice";
-import { ClearSearch, LazyLoadImg, Spinner } from "../../components";
+import { ClearSearch, LazyLoadImg, Spinner, Tooltip } from "../../components";
 
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/dataFormatter";
@@ -89,29 +89,35 @@ const Saved = () => {
 								<div
 									key={index}
 									ref={isLastPost ? lastPostRef : null}
-									className="dark:bg-lightdark rounded-md"
+									className="dark:bg-lightdark rounded-md p-2"
 								>
 									<Link
 										to={`/single-post/${post?._id}`}
-										className="flex gap-4 justify-between"
+										className="flex md:flex-col  max-[320px]:flex-col text-sm  gap-4 justify-between"
 									>
 										<div className="hover:cursor-pointer flex-1">
 											<LazyLoadImg
 												backgroundClassName={
-													"  rounded-lg  w-full h-20  relative"
+													"  rounded-lg  w-full h-10  relative"
 												}
 												imgClassName={
 													"absolute inset-0 w-full h-full rounded-lg  object-cover "
 												}
 												originalImgUrl={item?.post?.image}
 												blurImageStr={item?.post?.blurImageUrl}
-												optimizationStr={"q_auto,f_auto,w_200"}
-												paddingBottom={"80%"}
+												optimizationStr={"q_auto,f_auto,w_400"}
+												paddingBottom={"60%"}
 											/>
 										</div>
-										<h3 className="font-medium flex-1 self-start py-2">
-											{post?.title}
-										</h3>
+										<div className="font-medium  flex-1 self-center">
+											<Tooltip relative={true} info={post?.title}>
+												<h3>
+													{item?.post?.title.length > 70
+														? `${post?.title?.slice(0, 70)}...`
+														: item?.post?.title}
+												</h3>
+											</Tooltip>
+										</div>
 									</Link>
 								</div>
 							);

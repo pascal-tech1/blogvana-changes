@@ -40,10 +40,12 @@ const AllUsers = () => {
 		adminAllUsersStatus,
 		adminAllUsersTotalNumber,
 		adminFetchUsersHasMore,
+		adminAllUsersPageNumber,
 	} = useSelector((store) => store.adminSlice);
-	const { dashboardSearchTerm, user } = useSelector(
+	const { user, dashboardSearchTerm } = useSelector(
 		(store) => store.userSlice
 	);
+	const id = user?._id;
 
 	const dispatch = useDispatch();
 	const observer = useRef();
@@ -56,11 +58,6 @@ const AllUsers = () => {
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && adminFetchUsersHasMore) {
 						dispatch(increaseAdminAllUsersPageNumber());
-						dispatch(
-							fetchAllUsers({
-								filter: AdminAllUserSelectedFilter,
-							})
-						);
 					}
 				});
 				if (node) observer.current.observe(node);
@@ -70,15 +67,23 @@ const AllUsers = () => {
 	);
 
 	useEffect(() => {
-		if (adminAllUsersStatus === "loading") return;
-
-		dispatch(clearAdminAllUser());
+		if (
+			adminAllUsersStatus === "loading" ||
+			!id ||
+			adminAllUsersTotalNumber === allUsers.length
+		)
+			return;
 		dispatch(
 			fetchAllUsers({
 				filter: AdminAllUserSelectedFilter,
 			})
 		);
-	}, [AdminAllUserSelectedFilter, dashboardSearchTerm]);
+	}, [
+		AdminAllUserSelectedFilter,
+		adminAllUsersPageNumber,
+		id,
+		dashboardSearchTerm,
+	]);
 
 	const handleCheckedItemcsChange = (_id, tableItems) => {
 		if (_id === "All") {
@@ -171,7 +176,7 @@ const AllUsers = () => {
 						allFilters={allFilter}
 						setSelectedFilter={setAllUsersSelectedFilter}
 						selectedFilter={AdminAllUserSelectedFilter}
-						dropdownWidth={"w-[30vw]"}
+						dropdownWidth={"w-[40vw] md:w-[23vw]"}
 					/>
 				</div>
 				<h3 className="flex gap-2 items-center ">
@@ -184,18 +189,16 @@ const AllUsers = () => {
 					<thead className="tableHeading -top-10 bg-gray-800  text-white z-50 ">
 						<tr>
 							<th className=" bg-gray-800">
-								<Tooltip info={"select All"}>
-									<input
-										type="checkbox"
-										name="check"
-										id="All"
-										checked={checkedItems.length === allUsers.length}
-										onChange={() =>
-											handleCheckedItemcsChange("All", allUsers)
-										}
-										className="checkboxStyle"
-									/>
-								</Tooltip>
+								<input
+									type="checkbox"
+									name="check"
+									id="All"
+									checked={checkedItems.length === allUsers.length}
+									onChange={() =>
+										handleCheckedItemcsChange("All", allUsers)
+									}
+									className="checkboxStyle"
+								/>
 							</th>
 							<th>User Id</th>
 							<th>Verified</th>
@@ -219,7 +222,7 @@ const AllUsers = () => {
 										? lastPostRef
 										: null
 								}
-								className="transition duration-300 ease-in-out hover:bg-neutral-200  dark:hover:bg-neutral-800"
+								className="transition duration-300 ease-in-out hover:bg-neutral-200   dark:hover:bg-lightdark"
 							>
 								<td className="bg-gray-50 tableData  dark:bg-lightdark">
 									<input

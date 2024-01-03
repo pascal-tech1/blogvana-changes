@@ -108,12 +108,12 @@ const CreatePost = () => {
 		},
 
 		onSubmit: (values) => {
-			// if (values.content.length <= 100) {
-			// 	toast.error(
-			// 		"content is required and cannot be less than 100 characters"
-			// 	);
-			// 	return;
-			// }
+			if (values.content.length <= 500) {
+				toast.error(
+					"content is required and cannot be less than 500 characters"
+				);
+				return;
+			}
 			const tempElement = document.createElement("div");
 			tempElement.innerHTML = values.content;
 
@@ -124,6 +124,8 @@ const CreatePost = () => {
 
 			values.category = selectedFilter;
 			values.readingTime = readingTime;
+			values.title =
+				values.title.charAt(0).toUpperCase() + values.title.slice(1);
 
 			isEditing
 				? dispatch(updatePost(values))
@@ -152,7 +154,7 @@ const CreatePost = () => {
 		<div
 			className={`${
 				quillIsFocus && ""
-			}font-inter font-medium  gap-7 pb-6   dark:bg-dark p-4 rounded-md  `}
+			}font-inter font-medium  gap-7 pb-6  dark:bg-dark p-4 rounded-md  `}
 		>
 			<form onSubmit={formik.handleSubmit} className=" ">
 				<div

@@ -1,41 +1,7 @@
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-} */
-
-/* centers */
-
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-  background-color: #242424;
- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Scrollbar Styling */
-
-/*
-
-
-
-*/
 /* ///////////////////////////////////////////////////////////////////////////////////////////// */
 /* highlight js styles for highlighting */
 
@@ -180,24 +146,24 @@
 	color: white !important;
 	border: none;
 }
+@media (hover: hover) {
+	.ql-syntax::-webkit-scrollbar {
+		width: 7px;
+		height: 7px;
+		cursor: grab;
+	}
 
-.ql-syntax::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-	cursor: grab;
+	.ql-syntax::-webkit-scrollbar-thumb {
+		background-color: #c8c8c8;
+		border-radius: 7px;
+		height: 7px;
+	}
+
+	.ql-syntax::-webkit-scrollbar-track {
+		background-color: transparent;
+		border-radius: 6px;
+	}
 }
-
-.ql-syntax::-webkit-scrollbar-thumb {
-	background-color: #c8c8c8;
-	border-radius: 6px;
-	height: 1rem;
-}
-
-.ql-syntax::-webkit-scrollbar-track {
-	background-color: transparent;
-	border-radius: 6px;
-}
-
 /* ///////////////////////////////////////////////////////////////////////////////////////////////// */
 /* Dashboard table sytles */
 table {
@@ -210,10 +176,28 @@ td {
 	box-sizing: border-box;
 	white-space: nowrap;
 	text-align: start;
+	padding: 10px 10px;
+	overflow: hidden;
 	z-index: -1;
+	font-size: medium;
 	/* font-size: 0.875rem 
-	  line-height: 1.25rem  */
+    line-height: 1.25rem  */
+
+	max-width: 20vw; /* Default value for large screens */
+
+	@media (max-width: 900px) {
+		max-width: 25vw; /* Adjust for screens between 900px and 600px */
+	}
+
+	@media (max-width: 600px) {
+		max-width: 35vw; /* Adjust for screens below 600px */
+	}
 }
+
+tr {
+	position: relative;
+}
+
 td:last-child,
 th:last-child {
 	position: sticky;
@@ -292,25 +276,25 @@ th {
 /* custom scroll bar  */
 @media (hover: hover) {
 	.custom-scrollbar::-webkit-scrollbar {
-	  scroll-behavior: smooth;
-	  width: 10px;
-	  height: 10px;
-	  cursor: grab;
+		scroll-behavior: smooth;
+		width: 7px;
+		height: 7px;
+		cursor: grab;
 	}
-  
+
 	.custom-scrollbar::-webkit-scrollbar-thumb {
-	  background-color: #565658;
-	  border-radius: 10px;
-	  height: 1rem;
-	  cursor: grab;
+		background-color: #565658;
+		border-radius: 7px;
+		height: 7px;
+		cursor: grab;
 	}
-  
+
 	.custom-scrollbar::-webkit-scrollbar-track {
-	  background-color: transparent;
-	  border-radius: 10px;
+		background-color: transparent;
+		border-radius: 10px;
 	}
-  }
-  
+}
+
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 /* custom tailwind styles */
@@ -351,15 +335,22 @@ th {
 	@apply border border-gray-200 dark:border-neutral-800;
 }
 .ql-syntax {
-	@apply !max-h-fit !bg-white max-[350px]:text-xs text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
+	@apply !max-h-fit py-4 px-2 !bg-[#F9F9F9] max-[350px]:text-xs text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
 }
 .code-div {
-	@apply relative  px-2 pt-6 pb-2  rounded-lg p-4;
+	@apply relative  px-2 py-4 pt-6 pb-2  rounded-lg p-4;
 }
 .copy-button {
 	@apply dark:bg-gray-900 drop-shadow-sm text-sm;
 }
+.nav-heading-sm {
+	@apply min-[389px]:hidden max-[389px]:grid   max-[389px]:place-content-center    max-[389px]:shadow-lg  max-[389px]:h-fit  max-[389px]:gap-4 max-[389px]:p-3  max-[389px]:bg-white;
+}
 
+.nav-heading-big {
+	@apply min-[389px]:flex w-full font-inter  min-[389px]:items-center min-[389px]:justify-between border-b py-2 md:py-[0.2rem]  dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200;
+}
+/* 
 button {
 	outline: none;
 }

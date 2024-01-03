@@ -32,6 +32,7 @@ const AllUsersPosts = () => {
 		MyPostSelectedFilter,
 		adminAllPostStatus,
 		adminAllPostTotalNumber,
+		adminAllPostPageNumber,
 	} = useSelector((store) => store.adminSlice);
 	const { user, dashboardSearchTerm } = useSelector(
 		(store) => store.userSlice
@@ -49,12 +50,6 @@ const AllUsersPosts = () => {
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && hasMore) {
 						dispatch(increaseAdminAllPostPageNumber());
-						dispatch(
-							fetchAllUsersPost({
-								userId: id,
-								filter: MyPostSelectedFilter,
-							})
-						);
 					}
 				});
 				if (node) observer.current.observe(node);
@@ -64,16 +59,25 @@ const AllUsersPosts = () => {
 	);
 
 	useEffect(() => {
-		if (adminAllPostStatus === "loading") return;
+		if (
+			adminAllPostStatus === "loading" ||
+			!id ||
+			adminAllPostTotalNumber === allPost.length
+		)
+			return;
 
-		dispatch(clearAdminAllPost());
 		dispatch(
 			fetchAllUsersPost({
 				userId: id,
 				filter: MyPostSelectedFilter,
 			})
 		);
-	}, [MyPostSelectedFilter, dashboardSearchTerm]);
+	}, [
+		MyPostSelectedFilter,
+		id,
+		adminAllPostPageNumber,
+		dashboardSearchTerm,
+	]);
 
 	const handleCheckedItemcsChange = (_id, tableItems) => {
 		if (_id === "All") {
@@ -162,7 +166,7 @@ const AllUsersPosts = () => {
 						allFilters={allFilter}
 						setSelectedFilter={setMyPostSelectedFilter}
 						selectedFilter={MyPostSelectedFilter}
-						dropdownWidth={"w-[50vw]"}
+						dropdownWidth={"w-[40vw] md:w-[23vw]"}
 					/>
 				</div>
 				<h3 className="flex gap-2 items-center ">
@@ -175,18 +179,16 @@ const AllUsersPosts = () => {
 					<thead className="tableHeading -top-10 bg-gray-800  text-white">
 						<tr className="">
 							<th className="bg-gray-800">
-								<Tooltip info={"select All"}>
-									<input
-										type="checkbox"
-										name="check"
-										id="All"
-										checked={checkedItems.length === allPost.length}
-										onChange={() =>
-											handleCheckedItemcsChange("All", allPost)
-										}
-										className="checkboxStyle"
-									/>
-								</Tooltip>
+								<input
+									type="checkbox"
+									name="check"
+									id="All"
+									checked={checkedItems.length === allPost.length}
+									onChange={() =>
+										handleCheckedItemcsChange("All", allPost)
+									}
+									className="checkboxStyle"
+								/>
 							</th>
 							<th>Post Id</th>
 							<th>created At</th>
@@ -207,7 +209,7 @@ const AllUsersPosts = () => {
 										? lastPostRef
 										: null
 								}
-								className=" transition duration-300 ease-in-out hover:bg-neutral-200  dark:hover:bg-neutral-800"
+								className=" transition duration-300 ease-in-out hover:bg-neutral-200  dark:hover:bg-lightdark"
 							>
 								<td className=" bg-gray-50 tableData dark:bg-lightdark">
 									<input
@@ -270,19 +272,17 @@ const AllUsersPosts = () => {
 						)}
 						{allPost.length === 0 && adminAllPostStatus === "success" && (
 							<td className="text-yellow-400  stickyBottom   tableData ">
-								No User Found
+								No Post Found
 							</td>
 						)}
-						{!hasMore &&
-							adminAllPostStatus === "success" &&
-							allPost.length > 0 && (
-								<tr className="   tableData">
-									<td></td>
-									<td className="text-yellow-400  stickyBottom   tableData ">
-										No more User
-									</td>
-								</tr>
-							)}
+						{adminAllPostStatus === "success" && allPost.length > 0 && (
+							<tr className="   tableData">
+								<td></td>
+								<td className="text-yellow-400  stickyBottom   tableData ">
+									No more Post
+								</td>
+							</tr>
+						)}
 					</tbody>
 				</table>
 			</div>

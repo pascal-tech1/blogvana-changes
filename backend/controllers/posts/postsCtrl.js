@@ -1,18 +1,17 @@
 const expressAsyncHandler = require("express-async-handler");
 const Post = require("../../model/post/Post");
-const seedrandom = require("seedrandom");
 const validateMongoDbUserId = require("../../utils/validateMongoDbUserId");
-const fs = require("fs");
 const handleCloudinaryUpload = require("../../config/cloundinary/cloudinaryUploadConfig");
 const User = require("../../model/user/User");
 const checkProfanity = require("../../utils/profanWords");
 const decodeToken = require("../../utils/DecodeLoginUser");
 const mongoose = require("mongoose");
-const path = require("path");
 const { filterCriteria } = require("../../utils/filterSortCriteria");
 const PostViewedHistory = require("../../model/postHistory/PostViewedHistory");
 const { isValidObjectId } = require("mongoose");
 const DOMPurify = require("isomorphic-dompurify");
+const cheerio = require("cheerio");
+const badWords = require("bad-words");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //   Create Post conttoller
@@ -25,27 +24,30 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 
 		const user = await User.findById(id);
 
+		const $ = cheerio.load(req?.body?.content); // Load your HTML
+		const allTextContent = $.root().text();
+
 		const enteredDetails =
-			req?.body?.title +
-			"" +
-			req?.body?.description +
-			"" +
-			req?.body?.content;
-		if (checkProfanity(enteredDetails)) {
+			req?.body?.title + "" + req?.body?.description + "" + allTextContent;
+
+		const profaneWords = enteredDetails
+			.split(" ")
+			.filter((word) => checkProfanity(word));
+		if (profaneWords.length > 0) {
 			user.isProfaneCount += 1;
 			await user.save();
+
 			if (user.isProfaneCount >= 3) {
 				user.isBlocked = true;
 				await user.save();
-				res.status(401).json({
-					status: "failed",
-					isBlocked: true,
-					message: "post contains profane words and account blocked",
-				});
-				return;
+				throw new Error(
+					"Post contains profane words and account is blocked"
+				);
 			} else {
 				throw new Error(
-					"post not created, because it contains profane wordss, account will be block after the third time"
+					`Post not created because it contains profane words (${profaneWords.join(
+						", "
+					)}). Account will be blocked after the third time.`
 				);
 			}
 		}
@@ -232,28 +234,27 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 
 		if (user?._id.toString() !== post?.user?._id.toString())
 			throw new Error("only User who created post can Edit it");
+		const $ = cheerio.load(req?.body?.content); // Load your HTML
+		const allTextContent = $.root().text();
 		const enteredDetails =
-			req?.body?.title +
-			"" +
-			req?.body?.description +
-			"" +
-			req?.body?.content;
+			req?.body?.title + "" + req?.body?.description + "" + allTextContent;
 
-		if (checkProfanity(enteredDetails)) {
+		const profaneWords = enteredDetails
+			.split(" ")
+			.filter((word) => checkProfanity(word));
+		if (profaneWords.length > 0) {
 			user.isProfaneCount += 1;
 			await user.save();
+
 			if (user.isProfaneCount >= 3) {
 				user.isBlocked = true;
 				await user.save();
-				res.status(401).json({
-					status: "failed",
-					isBlocked: true,
-					message: "post contains profane words and account blocked",
-				});
-				return;
+				throw new Error(
+					"Post contains profane words and account is blocked"
+				);
 			} else {
 				throw new Error(
-					"post not created, because it contains profane wordss, account will be block after the third time"
+					`Post not created because it contains profane words (${profaneWords}). Account will be blocked after the third time.`
 				);
 			}
 		}

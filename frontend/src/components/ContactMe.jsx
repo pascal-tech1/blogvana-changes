@@ -96,10 +96,10 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 						<span class=" border-b w-20 mt-[0.2rem] self-center border-b-blue-400"></span>
 					</h1>
 					<p className=" dark:text-gray-300 text-sm">
-						I'm Adoh Azubike Pascal, the creator of this blog. I'm a
+						Hi, i'm Adoh Azubike Pascal, the creator of this blog. I'm a
 						tech enthusiast actively seeking impactful collaborations and
 						exciting opportunities. I'm open to connecting with fellow
-						innovators, entrepreneurs, and hiring managers. Let's push
+						innovators, entrepreneurs, and hiring managers. send a message and Let's push
 						boundaries together!
 					</p>
 					<label className="form-label " htmlFor="name">
