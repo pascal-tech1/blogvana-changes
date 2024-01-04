@@ -12,6 +12,7 @@ const { isValidObjectId } = require("mongoose");
 const DOMPurify = require("isomorphic-dompurify");
 const cheerio = require("cheerio");
 const badWords = require("bad-words");
+const main = require("../../utils/getEmbeddins");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //   Create Post conttoller
@@ -25,10 +26,10 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 		const user = await User.findById(id);
 
 		const $ = cheerio.load(req?.body?.content); // Load your HTML
-		const allTextContent = $.root().text();
+		const postContent = $.root().text();
 
 		const enteredDetails =
-			req?.body?.title + "" + req?.body?.description + "" + allTextContent;
+			req?.body?.title + "" + req?.body?.description + "" + postContent;
 
 		const profaneWords = enteredDetails
 			.split(" ")
@@ -51,17 +52,22 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 				);
 			}
 		}
-		const cleanHtml = DOMPurify.sanitize(req.body?.content);
 
 		uploadedImage = await handleCloudinaryUpload(
 			req.image,
 			`mern-blog-app/${user?.email}/postImage`
 		);
+		const cleanHtml = DOMPurify.sanitize(req.body?.content);
 
+		const embedding = await main(
+			`${req.body?.category},
+			${postContent},`
+		);
 		const post = await Post.create({
 			...req.body,
 			user: id,
 			content: cleanHtml,
+			embedding,
 			image: uploadedImage?.url,
 			blurImageUrl: req.blurImageUrl,
 		});
@@ -235,9 +241,9 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 		if (user?._id.toString() !== post?.user?._id.toString())
 			throw new Error("only User who created post can Edit it");
 		const $ = cheerio.load(req?.body?.content); // Load your HTML
-		const allTextContent = $.root().text();
+		const postContent = $.root().text();
 		const enteredDetails =
-			req?.body?.title + "" + req?.body?.description + "" + allTextContent;
+			req?.body?.title + "" + req?.body?.description + "" + postContent;
 
 		const profaneWords = enteredDetails
 			.split(" ")
@@ -265,15 +271,23 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 				`mern-blog-app/${user?.email}/postImage`
 			);
 		}
+		const cleanHtml = DOMPurify.sanitize(req.body?.content);
+
 		let imageUrl;
 		req?.file ? (imageUrl = uploadedImage?.url) : (imageUrl = post.image);
-		// remove the file
+
+		const embedding = await main(
+			`${req.body?.category},
+			${postContent},`
+		);
 
 		post = await Post.findByIdAndUpdate(
 			postId,
 			{
 				...req.body,
+				embedding,
 				image: imageUrl,
+				content: cleanHtml,
 				blurImageUrl: req.blurImageUrl,
 			},
 			{
@@ -450,6 +464,29 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 		};
 
 	try {
+		// const searchQueryEmbedding = await main(searchQuery);
+		// const newPost = await Post.aggregate([
+		// 	{
+		// 		$vectorSearch: {
+		// 			index: "vector_index",
+		// 			path: "embedding",
+		// 			queryVector: searchQueryEmbedding,
+		// 			numCandidates: 140,
+		// 			limit: 10,
+		// 		},
+		// 	},
+		// 	{
+		// 		$project: {
+		// 			_id: 0,
+		// 			title: 1,
+
+		// 			score: {
+		// 				$meta: "vectorSearchScore",
+		// 			},
+		// 		},
+		// 	},
+		// ]);
+		// console.log(newPost);
 		const posts = await Post.find(filter)
 			.skip(skip)
 			.limit(postNumberPerPage)

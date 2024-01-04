@@ -27,6 +27,7 @@ import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { MdOutlineFollowTheSigns } from "react-icons/md";
 import { formatNumber } from "../../utils/formatNumbersIn1000";
 import { LoadingSpinner, Tooltip, UserToFollow } from "../../components";
+import { formatDate } from "../../utils/dataFormatter";
 
 const Stats = () => {
 	useEffect(() => {
@@ -164,11 +165,19 @@ const Stats = () => {
 												alt=""
 												className=" rounded-full  w-6 h-6 "
 											/>
-											<Tooltip info={"this user is deleted"}>
-												<h3 className=" text-red-400 gap-2 capitalize">
-													deleted user
-												</h3>
-											</Tooltip>
+											<div>
+												<Tooltip
+													relative={true}
+													info={
+														"this user is deleted contact admin for more info"
+													}
+												>
+													<h3 className=" text-red-400 gap-2 font-light capitalize">
+														deleted user
+													</h3>
+												</Tooltip>
+												<h3>{formatDate(users.updatedAt)}</h3>
+											</div>
 										</div>
 									);
 								} else

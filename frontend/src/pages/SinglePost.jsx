@@ -24,11 +24,10 @@ import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
 import MessageUser from "../Dashboard/components/MessageUser";
 import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
-import { useScreenWidth } from "../customHooks";
+
 
 const SinglePost = () => {
-	const width = useScreenWidth();
-	const imageWidth = width > 768 ? 800 : width;
+
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
 	const dispatch = useDispatch();
@@ -181,7 +180,7 @@ const SinglePost = () => {
 									}
 									originalImgUrl={post?.image}
 									blurImageStr={post?.blurImageUrl}
-									optimizationStr={`q_auto,f_auto,w_${imageWidth}`}
+									optimizationStr={`q_auto,f_auto,w_800`}
 								/>
 							</div>
 

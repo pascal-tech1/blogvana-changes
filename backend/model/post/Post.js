@@ -59,6 +59,9 @@ const postSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Post image is required"],
 		},
+		embedding: {
+			type: [Number],
+		},
 	},
 	{
 		toJSON: {

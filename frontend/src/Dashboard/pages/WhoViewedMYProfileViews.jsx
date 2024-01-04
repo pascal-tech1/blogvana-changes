@@ -12,6 +12,7 @@ import {
 	fetchWhoViewedUserProfile,
 	setIsSearchBArNeeded,
 } from "../../redux/user/userSlice";
+import { formatDate } from "../../utils/dataFormatter";
 
 const WhoViewedMyProfile = () => {
 	const dispatch = useDispatch();
@@ -68,11 +69,19 @@ const WhoViewedMyProfile = () => {
 											alt=""
 											className=" rounded-full  w-6 h-6 "
 										/>
-										<Tooltip info={"this user is deleted"}>
-											<h3 className=" text-red-400 gap-2 font-light capitalize">
-												deleted user
-											</h3>
-										</Tooltip>
+										<div>
+											<Tooltip
+												relative={true}
+												info={
+													"this user is deleted contact admin for more info"
+												}
+											>
+												<h3 className=" text-red-400 gap-2 font-light capitalize">
+													deleted user
+												</h3>
+											</Tooltip>
+											<h3>{formatDate(users.updatedAt)}</h3>
+										</div>
 									</div>
 								);
 							} else
