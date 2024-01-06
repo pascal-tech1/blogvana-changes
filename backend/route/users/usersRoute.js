@@ -27,6 +27,7 @@ const {
 	blockOrUnblockUserCtrl,
 	ChangeEmailCtrl,
 	toggleAdminUserCtrl,
+	updateUserEmbeddingCtrl,
 } = require("../../controllers/users/usersCtrl");
 const {
 	profilePhotoUpload,
@@ -40,6 +41,11 @@ userRoutes.get("/admin-all-users", authMiddleWare, fetchAllUserCtrl);
 userRoutes.get("/viewedBy", authMiddleWare, fetchWhoViewedUserProfileCtrl);
 userRoutes.get("/following", fetchUserFollowingListCtrl);
 userRoutes.get("/followers", fetchUserFollowersListCtrl);
+userRoutes.get(
+	"/update-embedding",
+	authMiddleWare,
+	updateUserEmbeddingCtrl
+);
 userRoutes.post(
 	"/blockOrUnblock-user",
 	authMiddleWare,

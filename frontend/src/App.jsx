@@ -90,6 +90,7 @@ const App = () => {
 	if (loginUserTokenStatus === "loading") {
 		return (
 			<div className=" grid place-content-center place-items-center h-screen dark:bg-dark">
+				<img src="blogvana.png" alt="" className=" w-20 h-20" />
 				<LoadingSpinner />
 			</div>
 		);

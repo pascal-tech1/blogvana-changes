@@ -11,8 +11,14 @@ const PostViewedHistory = require("../../model/postHistory/PostViewedHistory");
 const { isValidObjectId } = require("mongoose");
 const DOMPurify = require("isomorphic-dompurify");
 const cheerio = require("cheerio");
-const badWords = require("bad-words");
+
 const main = require("../../utils/getEmbeddins");
+const _ = require("lodash");
+const Category = require("../../model/category/Category");
+
+const {
+	generateNonLoginUserEmbd,
+} = require("../../utils/generateNonLoginUserEmbd");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //   Create Post conttoller
@@ -57,6 +63,12 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 			req.image,
 			`mern-blog-app/${user?.email}/postImage`
 		);
+		const category = req.body?.category;
+
+		const postCategory = await Category.find({
+			title: category,
+		});
+		const categoryId = postCategory[0]._id;
 		const cleanHtml = DOMPurify.sanitize(req.body?.content);
 
 		const embedding = await main(
@@ -67,6 +79,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 			...req.body,
 			user: id,
 			content: cleanHtml,
+			category: categoryId,
 			embedding,
 			image: uploadedImage?.url,
 			blurImageUrl: req.blurImageUrl,
@@ -191,7 +204,12 @@ const fetchSinglePostsCtrl = expressAsyncHandler(async (req, res) => {
 	const { id } = req.params;
 	validateMongoDbUserId(id);
 	try {
-		const post = await Post.findById(id).populate("user");
+		const post = await Post.findById(id)
+			.populate("user")
+			.populate({
+				path: "category",
+				select: ["title"],
+			});
 		// updating number of views of post
 		post.numViews++;
 		await post.save();
@@ -218,8 +236,10 @@ const fetchSinglePostsCtrl = expressAsyncHandler(async (req, res) => {
 			res.json({ post, userViewedPost });
 			return;
 		}
+
 		res.json({ post });
 	} catch (error) {
+		console.log(error);
 		res.json({ message: "fetching post failed try again" });
 	}
 });
@@ -271,6 +291,12 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 				`mern-blog-app/${user?.email}/postImage`
 			);
 		}
+		const category = req.body?.category;
+
+		const postCategory = await Category.find({
+			title: category,
+		});
+		const categoryId = postCategory[0]._id;
 		const cleanHtml = DOMPurify.sanitize(req.body?.content);
 
 		let imageUrl;
@@ -288,6 +314,7 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 				embedding,
 				image: imageUrl,
 				content: cleanHtml,
+				category: categoryId,
 				blurImageUrl: req.blurImageUrl,
 			},
 			{
@@ -441,94 +468,133 @@ const searchPostCtrl = expressAsyncHandler(async (req, res) => {
 
 const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 	let page = parseInt(req?.query?.page) || 1; // Current page,ipco
+	const id = req?.query?.id;
+
 	const postNumberPerPage = parseInt(req?.query?.postNumberPerPage) || 10; // Number of items per page
 	const category = req.query?.category;
 	const searchQuery = req.query?.searchQuery;
+	const userId = req.query?.userId;
+	let randomPostId;
+	randomPostId = req.query?.randomPostId;
+
 	const where = req.query?.where;
 
-	const sort = where === "morePost" && { category: -1 };
-
 	let skip = (page - 1) * postNumberPerPage;
-	let filter;
-	if (category === "all" && searchQuery.length === 0) filter = {};
-	if (category === "all" && searchQuery.length !== 0)
-		filter = {
-			$and: [{ $text: { $search: searchQuery } }],
-		};
-	if (category !== "all" && searchQuery.length === 0)
-		filter = { category: category };
-	if (category !== "all" && searchQuery.length !== 0)
-		filter = {
-			category: category,
-			$and: [{ $text: { $search: searchQuery } }],
-		};
 
 	try {
-		// const searchQueryEmbedding = await main(searchQuery);
-		// const newPost = await Post.aggregate([
-		// 	{
-		// 		$vectorSearch: {
-		// 			index: "vector_index",
-		// 			path: "embedding",
-		// 			queryVector: searchQueryEmbedding,
-		// 			numCandidates: 140,
-		// 			limit: 10,
-		// 		},
-		// 	},
-		// 	{
-		// 		$project: {
-		// 			_id: 0,
-		// 			title: 1,
+		let searchQueryEmbedding;
+		let matchCriteria;
 
-		// 			score: {
-		// 				$meta: "vectorSearchScore",
-		// 			},
-		// 		},
-		// 	},
-		// ]);
-		// console.log(newPost);
-		const posts = await Post.find(filter)
-			.skip(skip)
-			.limit(postNumberPerPage)
-			.sort(sort)
-			.populate({
-				path: "user",
-				select: [
-					"_id",
-					"firstName",
-					"lastName",
-					"profilePhoto",
-					"blurProfilePhoto",
-				],
-			})
-			.select("-content");
+		if (searchQuery) {
+			matchCriteria = {
+				score: { $gte: 0.9 },
+			};
 
-		// const newPostPromises = posts.map(async (post) => {
-		// 	const imageUrl = post.image;
-		// 	const imageUrlBlur = await uptimizeCloudinaryImage(imageUrl, 200);
-		// 	const userProfilePhotoWithBlur = await uptimizeCloudinaryImage(
-		// 		imageUrl,
-		// 		50
-		// 	);
+			searchQueryEmbedding = await main(searchQuery);
+		}
+		if (!searchQuery && where === "morePost") {
+			const { embedding } = await Post.findById(
+				new mongoose.Types.ObjectId(id)
+			);
+			searchQueryEmbedding = embedding;
+			matchCriteria = { _id: { $ne: new mongoose.Types.ObjectId(id) } };
+		}
 
-		// 	// Update the image property correctly
+		if (!searchQuery && userId !== "undefined" && where !== "morePost") {
+			const { embedding } = await User.findById(userId).select([
+				"embedding",
+			]);
 
-		// 	return {
-		// 		...post._doc,
+			if (embedding.length === 0) {
+				randomPostIdAndEmbedding = await generateNonLoginUserEmbd(
+					page,
+					randomPostId
+				);
+				searchQueryEmbedding = randomPostIdAndEmbedding.embedding;
+				randomPostId = randomPostIdAndEmbedding.randomPostId;
+			} else {
+				searchQueryEmbedding = embedding;
+			}
 
-		// 		image: imageUrlBlur,
-		// 		user: {
-		// 			...post._doc.user._doc,
-		// 			profilePhoto: userProfilePhotoWithBlur,
-		// 		},
-		// 	};
-		// });
-		// Wait for all promises to be resolved
-		// const newPost = await Promise.all(newPostPromises);
+			matchCriteria = {};
+		}
+		if (!searchQuery && userId === "undefined" && where !== "morePost") {
+			randomPostIdAndEmbedding = await generateNonLoginUserEmbd(
+				page,
+				randomPostId
+			);
+			searchQueryEmbedding = randomPostIdAndEmbedding.embedding;
+			randomPostId = randomPostIdAndEmbedding.randomPostId;
+			matchCriteria = {};
+		}
 
-		res.status(200).json(posts);
+		const posts = await Post.aggregate([
+			{
+				$vectorSearch: {
+					index: "vector_index",
+					path: "embedding",
+					queryVector: searchQueryEmbedding,
+					numCandidates: 100,
+					limit: 10,
+				},
+			},
+
+			{
+				$lookup: {
+					from: "users", // Assuming your User model is named "User"
+					localField: "user",
+					foreignField: "_id",
+					as: "user",
+				},
+			},
+			{
+				$unwind: "$user",
+			},
+			{
+				$lookup: {
+					from: "categories", // Assuming your Category model is named "Category"
+					localField: "category",
+					foreignField: "_id",
+					as: "category",
+				},
+			},
+			{
+				$unwind: "$category",
+			},
+			{
+				$project: {
+					_id: 1,
+					title: 1,
+					category: 1,
+					description: 1,
+					numViews: 1,
+					readingTime: 1,
+					likes: 1,
+					disLikes: 1,
+					blurImageUrl: 1,
+					image: 1,
+					updatedAt: 1,
+					createdAt: 1,
+					score: {
+						$meta: "vectorSearchScore",
+					},
+					"user._id": 1,
+					"user.firstName": 1,
+					"user.lastName": 1,
+					"user.profilePhoto": 1,
+					"user.blurProfilePhoto": 1,
+					category: "$category",
+				},
+			},
+			{ $match: matchCriteria },
+			{ $skip: skip },
+			{ $limit: postNumberPerPage },
+		]);
+
+		res.status(200).json({ posts, randomPostId });
 		return;
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 });

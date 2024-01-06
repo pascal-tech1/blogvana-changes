@@ -5,7 +5,12 @@ import {
 	clearSavedPost,
 	fetchSavedPosts,
 } from "../../redux/post/morePostSlice";
-import { ClearSearch, LazyLoadImg, Spinner, Tooltip } from "../../components";
+import {
+	ClearSearch,
+	LazyLoadImg,
+	Spinner,
+	Tooltip,
+} from "../../components";
 
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/dataFormatter";
@@ -65,6 +70,14 @@ const Saved = () => {
 				searchQuery={dashboardSearchTerm}
 				handleClearSearch={handleClearSearch}
 			/>
+			<div className="flex gap-4 flex-wrap items-center pb-4 ">
+				<button
+					// onClick={openModal}
+					className="  py-[0.15] rounded-lg hover:text-red-700 text-red-400 outline-none"
+				>
+					delete
+				</button>
+			</div>
 			{Object.keys(organizedPosts).map((dateKey, firstIndex) => (
 				<div
 					key={dateKey}

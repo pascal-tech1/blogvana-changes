@@ -7,6 +7,7 @@ const multerStorage = multer.memoryStorage();
 
 // file checking
 const multerFliter = (req, file, cb) => {
+	console.log('im her image resize')
 	try {
 		if (file.mimetype.startsWith("image")) {
 			cb(null, true);
@@ -59,6 +60,7 @@ const ProfilePhotResize = async (req, res, next) => {
 	}
 };
 const postImageResize = async (req, res, next) => {
+	console.log('im here image resize')
 	try {
 		const { file, url } = req;
 		if (file) {

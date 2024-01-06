@@ -5,17 +5,27 @@ import customFetch from "../../utils/axios";
 export const fetchPostByCategory = createAsyncThunk(
 	"fetch/PostByCategory",
 	async (params, { getState, rejectWithValue, dispatch }) => {
-		
-		let { page, postNumberPerPage, activeCategory, searchQuery } =
-			getState().allPostSlice;
+		let {
+			page,
+			postNumberPerPage,
+			activeCategory,
+			searchQuery,
+			notLoginUserRandomPostFetchingId,
+		} = getState().allPostSlice;
+		const userId = getState().userSlice?.user?._id;
 
 		const newPage = params?.page || page;
 		const newPostNumberPerPaage =
 			params?.postNumberPerPage || postNumberPerPage;
+		console.log(newPage);
+		console.log(notLoginUserRandomPostFetchingId);
 
 		try {
 			const resp = await customFetch(
-				`/posts/?page=${newPage}&postNumberPerPage=${newPostNumberPerPaage}&category=${activeCategory}&searchQuery=${searchQuery}&where=${params?.where}`
+				`/posts/?page=${newPage}&postNumberPerPage=${newPostNumberPerPaage}
+				&category=${activeCategory}&searchQuery=${searchQuery}
+				&where=${params?.where}&id=${params?.id}
+				&userId=${userId}&randomPostId=${notLoginUserRandomPostFetchingId}`
 			);
 
 			return { data: resp.data, fromWhere: params?.where };
@@ -29,16 +39,17 @@ export const fetchPostByCategory = createAsyncThunk(
 );
 
 const initialState = {
-	isLoading: false,
+	allPostStatus: "idle",
 	allPost: [],
 	page: 1,
-	postNumberPerPage: 10,
+	postNumberPerPage: 2,
 	searchQuery: "",
 	hasMore: true,
 	activeCategory: "all",
 	morePost: [],
 	morePostStatus: "idle",
 	morePostHasMore: true,
+	notLoginUserRandomPostFetchingId: null,
 };
 
 const allPostSlice = createSlice({
@@ -63,7 +74,6 @@ const allPostSlice = createSlice({
 			state.page = state.page + 1;
 		},
 		setFetchFirstCategory: (state, { payload }) => {
-			
 			state.activeCategory = payload;
 			state.allPost = [];
 			state.page = 1;
@@ -106,32 +116,36 @@ const allPostSlice = createSlice({
 
 	extraReducers: {
 		[fetchPostByCategory.pending]: (state, action) => {
-			state.isLoading = true;
+			state.allPostStatus = "loading";
 		},
 		[fetchPostByCategory.fulfilled]: (state, { payload }) => {
 			if (payload?.fromWhere === "morePost") {
-				if (payload.data.length < 10) {
+				if (payload.data.posts.length < state.postNumberPerPage) {
 					state.morePostHasMore = false;
-					state.morePost = [...state.morePost, ...payload.data];
+					state.morePost = [...state.morePost, ...payload.data.posts];
 				} else {
-					state.morePost = [...state.morePost, ...payload.data];
+					state.morePost = [...state.morePost, ...payload.data.posts];
 				}
-				state.morePostStatus = false;
+				state.morePostStatus = "success";
 			} else {
-				if (payload.data.length < 10) {
+				if (payload.data.posts.length < state.postNumberPerPage) {
 					state.hasMore = false;
-					state.allPost = [...state.allPost, ...payload.data];
+					state.allPost = [...state.allPost, ...payload.data.posts];
 				} else {
-					state.allPost = [...state.allPost, ...payload.data];
+					state.allPost = [...state.allPost, ...payload.data.posts];
+
+					state.notLoginUserRandomPostFetchingId =
+						payload.data.randomPostId;
 				}
 			}
-			state.isLoading = false;
+			state.allPostStatus = "success";
 		},
 		[fetchPostByCategory.rejected]: (state, { payload }) => {
-			state.isLoading = false;
 			if (payload?.fromWhere === "morePost") {
+				state.morePostStatus = "failed";
 				toast.error("fetching more Post faild try again later");
 			} else {
+				state.allPostStatus = "failed";
 				toast.error("fetching post failed try again later");
 			}
 		},

@@ -79,7 +79,7 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 	}, [SendingPascalMsgtatus]);
 
 	return (
-		<div className=" text-center py-4 flex flex-col gap-1 font-inter ">
+		<div className=" text-center  flex flex-col gap-1 font-inter mb-3 ">
 			<Modal
 				isOpen={isModalOpen}
 				onClose={closeModal}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Category,
 	ContactMe,
@@ -26,6 +26,9 @@ const Home = () => {
 	let allCategoryArray = allCategory.map((category) => category.title);
 	allCategoryArray = ["all", ...allCategoryArray];
 
+	const [numberOfDisplayCategory, setNumberOfDisplayCategory] =
+		useState(10);
+
 	useEffect(() => {
 		dispatch(fetchRandomUser(4));
 	}, []);
@@ -34,6 +37,9 @@ const Home = () => {
 		dispatch(setFetchFirstCategory(filter));
 		dispatch(fetchPostByCategory());
 		navigate("/");
+	};
+	const handleAddMoreCategoryToDisplay = () => {
+		setNumberOfDisplayCategory((prev) => prev + 10);
 	};
 	return (
 		<div className={`font-inter text-lg lg:text-base `}>
@@ -48,7 +54,7 @@ const Home = () => {
 				</main>
 				{/* left section */}
 
-				<div className="hidden md:flex flex-col font-inter justify-between col-start-4 col-span-full  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark px-2 !h-[87vh] ">
+				<div className="hidden md:flex flex-col font-inter justify-between col-start-4 col-span-full px-8  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark  !h-[87vh] ">
 					<div>
 						<div className="flex gap-2  bg-gray-100 justify-between py-2  text-lg md:text-sm px-2 rounded-lg dark:bg-lightdark dark:text-slate-300  ">
 							<div className="flex flex-col justify-center items-center text-center gap-2">
@@ -63,7 +69,7 @@ const Home = () => {
 							<img
 								src="/blogvana.png"
 								alt="blogvana logo"
-								className=" w-20 border border-blue-400 self-center mr-4"
+								className=" w-16 border border-blue-400 self-center mr-4"
 							/>
 						</div>
 						{/* followers section */}
@@ -86,9 +92,18 @@ const Home = () => {
 								More interesting topics
 							</h2>
 							<Category
-								allCategory={allCategoryArray}
+								allCategory={allCategoryArray.slice(
+									0,
+									numberOfDisplayCategory
+								)}
 								handleSelected={handleSelected}
 							/>
+							<button
+								onClick={handleAddMoreCategoryToDisplay}
+								className=" bg-blue-500 rounded-md px-1 hover:bg-blue-600 shadow-md hover:shadow-none self-center text-white my-4"
+							>
+								load more
+							</button>
 						</section>
 					</div>
 					<section className=" text-sm self-center justify-self-end dark:text-slate-200 mt-4">

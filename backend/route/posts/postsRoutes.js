@@ -25,6 +25,7 @@ const adminMiddleWare = require("../../middlewares/authentication/authAdminCheck
 
 const postsRoutes = express.Router();
 postsRoutes.get("/", fetchPostByCategoryCtrl);
+
 postsRoutes.get(
 	"/admin-all-post",
 	authMiddleWare,

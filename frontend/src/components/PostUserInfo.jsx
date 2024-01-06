@@ -36,7 +36,7 @@ const PostUserInfo = ({ post }) => {
 						</div>
 
 						<div>
-							<p className=" text-xs">{formatDate(post?.createdAt)}</p>
+							<p className=" text-xs">{formatDate(post?.updatedAt)}</p>
 							<p className=" text-xs">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</p>
 						</div>
 					</Link>

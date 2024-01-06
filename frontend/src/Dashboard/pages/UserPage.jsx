@@ -214,7 +214,7 @@ const UserPage = () => {
 						<h1 className="max-w-max font-semibold py-4 dark:text-slate-200 ">
 							{`Posts By ${postCreatorProfile?.firstName} ${postCreatorProfile?.lastName}`}
 						</h1>
-						<div className="  font-inter grid grid-cols-1 md:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
+						<div className="  font-inter grid max-[650px]:grid-cols-1 max-[768px]:grid-cols-2 grid-cols-1 md:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
 							<MorePost
 								titleLength={30}
 								post={creatorAllPost}

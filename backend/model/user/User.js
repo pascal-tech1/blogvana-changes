@@ -121,7 +121,9 @@ const userSchema = new mongoose.Schema(
 			type: Number,
 			default: 0,
 		},
-
+		embedding: {
+			type: [Number],
+		},
 		passwordChangeAt: Date,
 		passwordRessetToken: String,
 		passwordResetExpires: Date,

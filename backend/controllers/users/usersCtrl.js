@@ -19,6 +19,7 @@ const SavedPosts = require("../../model/savedPosts/SavedPosts");
 const sendPasswoedChangeEmail = require("./sendPasswoedChangeEmail");
 const sendEmailVerified = require("./sendEmailVerified");
 const sendEmailForgotPassword = require("./sendEmailForgotPassword");
+const { generateloginUserEmbd } = require("../../utils/generateUserEmbd");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //         Register user
@@ -1165,7 +1166,19 @@ const toggleAdminUserCtrl = expressAsyncHandler(async (req, res) => {
 		res.status(400).json({ message: "failed to perform admin action" });
 	}
 });
-
+const updateUserEmbeddingCtrl = expressAsyncHandler(async (req, res) => {
+	console.log("updating user...............");
+	const user = req.user;
+	userEmbeddings = await generateloginUserEmbd(user._id);
+	console.log(userEmbeddings);
+	const loginUser = await User.findById(user._id);
+	loginUser.embedding = userEmbeddings;
+	await loginUser.save();
+	res.status(200).json({
+		status: "success",
+		message: "user embedding saved successfully",
+	});
+});
 module.exports = {
 	userRegisterCtrl,
 	userLoginCtrl,
@@ -1192,4 +1205,5 @@ module.exports = {
 	blockOrUnblockUserCtrl,
 	ChangeEmailCtrl,
 	toggleAdminUserCtrl,
+	updateUserEmbeddingCtrl,
 };

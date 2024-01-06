@@ -15,6 +15,7 @@ import {
 import { formatNumber } from "../utils/formatNumbersIn1000";
 
 const LikesSaveViews = ({ post }) => {
+	
 	const dispatch = useDispatch();
 	const handleLikes = (id) => {
 		dispatch(likeOrDislikePost({ choice: "like", postId: id }));
@@ -23,7 +24,7 @@ const LikesSaveViews = ({ post }) => {
 		dispatch(likeOrDislikePost({ choice: "disLike", postId: id }));
 	};
 	return (
-		<div className=" md:text-sm flex gap-2 font-inter items-center text-sm dark:text-slate-300 flex-wrap justify-start  ">
+		<div className=" md:text-sm flex gap-4 font-inter items-center text-sm dark:text-slate-300 flex-wrap justify-start  ">
 			<span className="flex gap-1 items-center">
 				<button
 					onClick={() => handleLikes(post?._id)}
@@ -63,13 +64,13 @@ const LikesSaveViews = ({ post }) => {
 			<Link
 				to={"/"}
 				onClick={(e) => {
-					dispatch(setFetchFirstCategory(post?.category));
+					dispatch(setFetchFirstCategory(post?.category?.title));
 					dispatch(fetchPostByCategory());
 				}}
 				className="whitespace-nowrap gap-2 mt-1 text-sm delay-75 cursor-pointer flex bg-gray-200 hover:bg-gray-300 rounded-md dark:text-slate-300 dark:bg-lightdark hover:dark:bg-gray-700 py-[0.1rem] px-4"
 			>
-				{post?.category?.charAt(0).toUpperCase() +
-					post?.category?.slice(1).toLowerCase()}
+				{post?.category?.title?.charAt(0).toUpperCase() +
+					post?.category?.title?.slice(1).toLowerCase()}
 			</Link>
 		</div>
 	);

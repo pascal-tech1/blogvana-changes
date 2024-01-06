@@ -9,7 +9,7 @@ const PostInfo = ({ post }) => {
 	const user = useSelector((store) => store?.userSlice?.user);
 
 	return (
-		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
+		<div className="flex flex-col mb-2 justify-self-center py-3 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
 			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				{/* user who created the post  */}
 				<div>
@@ -27,7 +27,7 @@ const PostInfo = ({ post }) => {
 						</Link>
 						<div className=" hidden min-[870px]:flex ">
 							<p className="text-sm">
-								{post?.description.slice(0, 120)}
+								{post?.description?.slice(0, 120)}
 
 								<Link
 									to={`/single-post/${post?._id}`}
@@ -38,7 +38,7 @@ const PostInfo = ({ post }) => {
 								</Link>
 							</p>
 						</div>
-						<div className="text-md md:text-sm ">
+						<div className="text-md md:text-sm mt-1 ">
 							<LikesSaveViews post={post} />
 						</div>
 					</div>

@@ -91,17 +91,18 @@ const CreatePost = () => {
 	useEffect(() => {
 		if (!_id) return;
 		dispatch(fetchAllCategorys());
-		isEditing && setSelectedFilter(postToBeEdited?.category);
+		isEditing && setSelectedFilter(postToBeEdited?.category.title);
 	}, [_id]);
 
 	const allCategorytitle = allCategory.map((category) => category.title);
-
+	
 	const formik = useFormik({
 		initialValues: {
 			title: (isEditing && postToBeEdited?.title) || title,
 			description:
 				(isEditing && postToBeEdited?.description) || description,
-			category: (isEditing && postToBeEdited?.category) || category,
+			category:
+				(isEditing && postToBeEdited?.category.title) || category.title,
 			image: null,
 			content: (isEditing && postToBeEdited?.content) || content,
 			readingTime: null,

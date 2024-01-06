@@ -79,7 +79,9 @@ const NavBar = () => {
 				<BiMenu
 					className={`${isDropdownOpen && "hidden"} relative text-4xl`}
 				/>
-				<MdClose className={`${!isDropdownOpen && "hidden"} relative text-4xl`}/>
+				<MdClose
+					className={`${!isDropdownOpen && "hidden"} relative text-4xl`}
+				/>
 			</button>
 			<div
 				ref={dropdownDivRef}
@@ -198,7 +200,7 @@ const NavBar = () => {
 								to="/register"
 								id="logOut"
 								aria-label="Register"
-								className=" flex gap-2 hover:bg-green-700 bg-green-600 font-medium shadow-md hover:shadow-none text-white hover:text-white   items-center  py-[0.2rem] px-2 rounded-lg  transition-all duration-200"
+								className=" flex gap-2 hover:bg-green-700 bg-[#00593F] font-medium shadow-md hover:shadow-none text-white hover:text-white   items-center  py-[0.2rem] px-2 rounded-lg  transition-all duration-200"
 							>
 								<LuLogOut className="text-2xl md:text-xl md:flex " />
 								<h1 className=" hidden md:flex">Register</h1>

@@ -31,7 +31,7 @@ export const useSearchWithDebounce = () => {
 		clearTimeout(timer);
 
 		// Set a new timer for the debounce effect
-		timer = setTimeout(debouncedSearch, 700);
+		timer = setTimeout(debouncedSearch, 1000);
 
 		// Cleanup function to clear the timer if component unmounts or searchTerm changes
 		return () => clearTimeout(timer);

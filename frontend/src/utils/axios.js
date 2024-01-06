@@ -7,7 +7,7 @@ const customFetch = axios.create({
 export default customFetch;
 
 // const customFetch = axios.create({
-// 	baseURL: " http://localhost:5100/api",
+// 	baseURL: " http://localhost:5000/api",
 // });
 
 // export default customFetch;

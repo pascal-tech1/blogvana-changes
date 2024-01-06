@@ -401,6 +401,26 @@ export const changeEmail = createAsyncThunk(
 		}
 	}
 );
+export const updateUserEmbedding = createAsyncThunk(
+	"update/UserEmbeddings",
+	async (_, { getState, rejectWithValue }) => {
+		console.log("im here managing user");
+		try {
+			const resp = await customFetch(`/users/update-embedding`, {
+				headers: {
+					Authorization: `Bearer ${getState().userSlice.token} `,
+				},
+			});
+			toast.success(resp.data.message);
+		} catch (error) {
+			console.log(error);
+			if (!error?.response) {
+				throw new Error(error);
+			}
+			return rejectWithValue(error?.response?.data);
+		}
+	}
+);
 
 const initialState = {
 	user: null,

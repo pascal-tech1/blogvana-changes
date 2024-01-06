@@ -51,7 +51,7 @@ const DashboardCustomDropdown = ({
 
 	return (
 		<div className="relative z-[50] flex flex-col font-inter ">
-			<button
+			<div
 				ref={iconRef}
 				type="button"
 				onClick={toggleDropdown}
@@ -59,7 +59,7 @@ const DashboardCustomDropdown = ({
 			>
 				{selectedFilter}
 				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-			</button>
+			</div>
 
 			<div
 				ref={divRef}
@@ -71,7 +71,7 @@ const DashboardCustomDropdown = ({
 				} absolute flex top-10 self-center md:text-sm gap-1 flex-wrap max-h-[50vh] z-50 overflow-y-auto custom-scrollbar justify-evenly  px-2  items-center  rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-lightdark shadow-lg`}
 			>
 				{allFilters.map((filter, index) => (
-					<button
+					<div
 						key={index}
 						className={`${
 							selectedFilter === filter && " border-b border-b-blue-600"
@@ -83,7 +83,7 @@ const DashboardCustomDropdown = ({
 					>
 						{filter?.charAt(0).toUpperCase() +
 							filter?.slice(1).toLowerCase()}
-					</button>
+					</div>
 				))}
 			</div>
 		</div>

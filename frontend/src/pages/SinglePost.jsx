@@ -24,19 +24,16 @@ import { setIsTAbleOfContentClick } from "../redux/category/categorySlice";
 import MessageUser from "../Dashboard/components/MessageUser";
 import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
-
+import { updateUserEmbedding } from "../redux/user/userSlice";
 
 const SinglePost = () => {
-
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
 	const dispatch = useDispatch();
 	const [scrollTarget, setScrollTarget] = useState(null);
-	// state imports
 	const { post, status } = useSelector((store) => store.singlePostSlice);
 	const [htmlContent, setHtmlContent] = useState("");
 	const [toc, setToc] = useState();
-
 	const { morePost, morePostStatus, morePostHasMore, isLoading } =
 		useSelector((store) => store.allPostSlice);
 	const { userPost, userPostStatus } = useSelector(
@@ -45,11 +42,14 @@ const SinglePost = () => {
 	const { isTableOfContentClciked } = useSelector(
 		(store) => store.categorySlice
 	);
+	const { user } = useSelector((store) => store.userSlice);
+
 	useEffect(() => {
 		const contentWithIds = addIdsToHeadings(post?.content);
 		setHtmlContent(contentWithIds);
 		setToc(createLinksForHeadings(contentWithIds));
 	}, [post]);
+
 	// Call the function to add copy buttons after the component renders
 	useEffect(() => {
 		const copyButton = document.querySelector(".copy-button");
@@ -74,6 +74,7 @@ const SinglePost = () => {
 	}, [status]);
 
 	useEffect(() => {
+		if (!id) return;
 		id !== post?._id && dispatch(fetchSinglePost(id));
 	}, [id]);
 	useEffect(() => {
@@ -91,10 +92,17 @@ const SinglePost = () => {
 			fetchPostByCategory({
 				page: 1,
 				postNumberPerPage: 10,
+				id,
 				where: "morePost",
 			})
 		);
 	}, [status]);
+	useEffect(() => {
+		if (morePostStatus !== "success" || !user) return;
+		console.log(id);
+		console.log("im her mores post status success");
+		dispatch(updateUserEmbedding());
+	}, [morePostStatus]);
 
 	useEffect(() => {
 		dispatch(clearSearchAndCategory());
@@ -103,6 +111,7 @@ const SinglePost = () => {
 				fetchPostByCategory({
 					page: pageNumber,
 					postNumberPerPage: 10,
+					id,
 					where: "morePost",
 				})
 			);
@@ -160,12 +169,12 @@ const SinglePost = () => {
 								</h1>
 							</div>
 							{/* about the user who created the post and post likes and views */}
-							<div className="flex flex-wrap flex-col">
+							<div className="flex flex-wrap flex-col gap-1">
 								<PostUserInfo post={post} />
 								<LikesSaveViews post={post} />
 							</div>
 							<div>
-								<p className="text-sm text-gray-500 ">
+								<p className="text-sm text-gray-500 my-2 ">
 									{post?.description}
 								</p>
 							</div>
@@ -243,7 +252,7 @@ const SinglePost = () => {
 								{`${post?.user?.firstName} ${post?.user?.lastName}`}
 							</h1>
 						</div>
-						<div className="  font-inter grid grid-cols-1   gap-12 lg:grid-cols-2 w-[100%]">
+						<div className="  font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost
 									post={userPost}
@@ -268,7 +277,7 @@ const SinglePost = () => {
 									/>
 								</span>
 							</h1>
-							<div className="  font-inter grid grid-cols-1   gap-12 lg:grid-cols-2 w-[100%]">
+							<div className="  font-inter grid max-[650px]:grid-cols-1 max-[768px]:grid-cols-2   gap-12 lg:grid-cols-2 w-[100%]">
 								{morePost && (
 									<MorePost post={morePost} status={isLoading} />
 								)}

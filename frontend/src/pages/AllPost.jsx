@@ -7,26 +7,28 @@ import {
 	fetchPostByCategory,
 	setEmptySearch,
 } from "../redux/post/allPostSlice";
+import { getUserFromLocalStorage } from "../utils/localStorage";
 
 const AllPost = () => {
 	const dispatch = useDispatch();
-	const { allPost, isLoading, searchQuery, hasMore } = useSelector(
+	const { allPost, allPostStatus, searchQuery, hasMore } = useSelector(
 		(store) => store.allPostSlice
 	);
+	const token = getUserFromLocalStorage();
+
+	const { user } = useSelector((store) => store.userSlice);
 
 	useEffect(() => {
-		if (isLoading) return;
+		if (token && !user) return;
 		if (allPost.length === 0) {
-			console.log('im fetching')
 			searchQuery.length === 0 && dispatch(fetchPostByCategory());
 		}
-	}, []);
+	}, [token, user]);
 
 	const observer = useRef();
 	const lastPostRef = useCallback(
 		(node) => {
-			if (isLoading) return;
-
+			if (allPostStatus === "failed") return;
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
@@ -36,11 +38,16 @@ const AllPost = () => {
 			});
 			if (node) observer.current.observe(node);
 		},
-		[hasMore, isLoading]
+		[hasMore, allPostStatus]
 	);
 	const handleClearSearch = () => {
 		dispatch(setEmptySearch());
 		dispatch(fetchPostByCategory());
+	};
+
+	const handleFetchingPostFailed = (e) => {
+		e.preventDefault();
+		searchQuery.length === 0 && dispatch(fetchPostByCategory());
 	};
 	return (
 		<>
@@ -65,10 +72,37 @@ const AllPost = () => {
 
 			{/* loading Spinner */}
 			<div className=" grid place-content-center">
-				{isLoading && <Spinner />}
+				{allPostStatus === "loading" && <Spinner />}
+			</div>
+			<div className=" grid place-content-center">
+				{allPostStatus === "failed" && (
+					<div className=" ">
+						<h3 className=" text-red-500 -ml-10">fetching post failed</h3>
+						<button
+							onClick={handleFetchingPostFailed}
+							className=" bg-blue-400 text-white px-1 rounded-md"
+						>
+							refresh
+						</button>
+					</div>
+				)}
 			</div>
 			<div>
-				{!hasMore && <h3 className=" text-yellow-300">No more Post</h3>}
+				{allPost.length === 0 &&
+					searchQuery &&
+					allPostStatus !== "loading" && (
+						<div className=" text-yellow-300">No Post found</div>
+					)}
+			</div>
+			<div>
+				{!hasMore && searchQuery && allPostStatus !== "loading" && (
+					<h3 className=" text-yellow-300">No more Post</h3>
+				)}
+			</div>
+			<div>
+				{!hasMore && !searchQuery && allPostStatus !== "loading" && (
+					<h3 className=" text-yellow-300">No more Post</h3>
+				)}
 			</div>
 		</>
 	);

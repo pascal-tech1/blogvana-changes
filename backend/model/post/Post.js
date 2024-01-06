@@ -9,9 +9,9 @@ const postSchema = new mongoose.Schema(
 		},
 		//Created by only category
 		category: {
-			type: String,
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Category",
 			// required: [true, "Post category is required"],
-			default: "All",
 		},
 		description: {
 			type: String,
