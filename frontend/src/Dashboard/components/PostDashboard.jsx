@@ -19,7 +19,7 @@ const PostDashboard = ({ posts, status, title, page }) => {
 					</Link>
 				)}
 			</div>
-			<div className="  overflow-x-scroll custom-scrollbar flex gap-4 ">
+			<div className="  overflow-x-scroll overflow-y-hidden custom-scrollbar flex gap-4 ">
 				{posts.length === 0 && <h3>{`you have no ${title}`}</h3>}
 				{posts?.map((item, index) => (
 					<Link

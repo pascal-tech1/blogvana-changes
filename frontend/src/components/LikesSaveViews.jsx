@@ -7,7 +7,7 @@ import { likeOrDislikePost } from "../redux/post/generalPostSlice";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { savePost } from "../redux/user/userSlice";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
 	fetchPostByCategory,
 	setFetchFirstCategory,
@@ -15,7 +15,8 @@ import {
 import { formatNumber } from "../utils/formatNumbersIn1000";
 
 const LikesSaveViews = ({ post }) => {
-	
+	const location = useLocation();
+	console.log(location);
 	const dispatch = useDispatch();
 	const handleLikes = (id) => {
 		dispatch(likeOrDislikePost({ choice: "like", postId: id }));
@@ -64,13 +65,13 @@ const LikesSaveViews = ({ post }) => {
 			<Link
 				to={"/"}
 				onClick={(e) => {
-					dispatch(setFetchFirstCategory(post?.category?.title));
-					dispatch(fetchPostByCategory());
+					dispatch(setFetchFirstCategory(post?.categoryText));
+					location.pathname = "/" && dispatch(fetchPostByCategory());
 				}}
 				className="whitespace-nowrap gap-2 mt-1 text-sm delay-75 cursor-pointer flex bg-gray-200 hover:bg-gray-300 rounded-md dark:text-slate-300 dark:bg-lightdark hover:dark:bg-gray-700 py-[0.1rem] px-4"
 			>
-				{post?.category?.title?.charAt(0).toUpperCase() +
-					post?.category?.title?.slice(1).toLowerCase()}
+				{post?.categoryText?.charAt(0).toUpperCase() +
+					post?.categoryText?.slice(1).toLowerCase()}
 			</Link>
 		</div>
 	);

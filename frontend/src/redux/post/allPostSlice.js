@@ -42,7 +42,7 @@ const initialState = {
 	allPostStatus: "idle",
 	allPost: [],
 	page: 1,
-	postNumberPerPage: 2,
+	postNumberPerPage: 10,
 	searchQuery: "",
 	hasMore: true,
 	activeCategory: "all",

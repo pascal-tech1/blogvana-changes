@@ -11,7 +11,6 @@ import {
 	setFetchFirstCategory,
 } from "../redux/post/allPostSlice";
 
-
 import { TfiMenuAlt } from "react-icons/tfi";
 
 import { Category, DashboardCustomDropdown, Tooltip } from ".";
@@ -41,8 +40,9 @@ const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	}, []);
 
 	const handleSelected = (filter) => {
+		console.log("im here fetch more Post postSearch");
 		dispatch(setFetchFirstCategory(filter));
-		dispatch(fetchPostByCategory());
+		// dispatch(fetchPostByCategory());
 		navigate("/");
 	};
 
@@ -83,7 +83,7 @@ const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 
 				<form className="relative z-50   w-[50vw]">
 					<input
-						className={` text-xs  px-1 font-sm rounded-lg bg-gray-100 border dark:border-gray-800 focus:border-b-gray-300 dark:bg-lightdark py-2  text-center focus:outline-none w-full  dark:focus:border-b-gray-600`}
+						className={` text-xs  px-1 font-sm rounded-lg bg-gray-100 border dark:border-gray-600 focus:border-b-gray-300 dark:bg-lightdark py-2  text-center focus:outline-none w-full  dark:focus:border-b-blue-400`}
 						type="text"
 						id="searchInputPostMobile"
 						placeholder="Search"

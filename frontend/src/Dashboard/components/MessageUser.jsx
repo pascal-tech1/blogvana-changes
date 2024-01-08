@@ -12,7 +12,7 @@ import { Modal } from "../../components";
 import { sendMsg } from "../../redux/message/messageSlice";
 import { logOutUser } from "../../redux/user/userSlice";
 
-const MessageUser = ({ receiverId }) => {
+const MessageUser = ({ receiverId, mssageiconSize }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -101,7 +101,9 @@ const MessageUser = ({ receiverId }) => {
 				onClick={openModal}
 				className=" cursor-pointer p-2 rounded-full hover:bg-gray-500 hover:rounded-full flex items-center justify-center dark:text-white text-gray-600 transition-all delay-75 "
 			>
-				<LuSendHorizonal className=" text-lg  " />
+				<LuSendHorizonal
+					className={`${mssageiconSize ? mssageiconSize : "text-lg"} `}
+				/>
 			</div>
 		</div>
 	);

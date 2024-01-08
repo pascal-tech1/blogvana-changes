@@ -19,14 +19,11 @@ import {
 	MdOutlineCreate,
 } from "react-icons/md";
 import { GiShadowFollower } from "react-icons/gi";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { BsEye } from "react-icons/bs";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
-import {
-	AdminSideBarItems,
-	sideBarItems,
-} from "../../utils/dashboardSidebarItemJson";
 
 const Entry = React.memo(({ entry, depth, path }) => {
 	const location = useLocation();
@@ -63,7 +60,7 @@ const Entry = React.memo(({ entry, depth, path }) => {
 			</NavLink>
 			<div className=" px-4">
 				<div className={`border-l-[0.7px] dark:border-l-gray-800`}>
-					<div className="ml-[0.17rem]">
+					<div className="ml-[0.175rem]">
 						{isExpanded &&
 							entry?.children?.map((childEntry) => (
 								<Entry
@@ -84,9 +81,93 @@ const Entry = React.memo(({ entry, depth, path }) => {
 
 const DashboardSideBar = () => {
 	const { user } = useSelector((store) => store.userSlice);
-	useEffect(() => {
-		user?.isAdmin && sideBarItems.children.push(AdminSideBarItems);
-	}, [user]);
+	const sideBarItems = {
+		children: [
+			{
+				title: "Stats",
+				icon: LuLayoutDashboard,
+			},
+			{
+				title: "Profile",
+				icon: FaUser,
+
+				children: [
+					{
+						title: "details",
+						icon: BiInfoCircle,
+					},
+					{
+						title: "message",
+						icon: BiMessage,
+					},
+					{
+						title: "views",
+						icon: BsEye,
+					},
+				],
+			},
+			{
+				title: "Post",
+				icon: BiBookContent,
+
+				children: [
+					{
+						title: "my posts",
+						icon: CiSettings,
+					},
+					{
+						title: "create",
+						icon: MdOutlineCreate,
+					},
+					{
+						title: "history",
+						icon: BiHistory,
+					},
+					{
+						title: "saved",
+						icon: CiSaveDown1,
+					},
+				],
+			},
+			{
+				title: "Follows",
+				icon: GiShadowFollower,
+				children: [
+					{
+						title: "followers",
+						icon: FaUsers,
+					},
+					{
+						title: "following",
+						icon: RiUserFollowFill,
+					},
+				],
+			},
+		],
+	};
+
+	const AdminObject = {
+		title: "Admin",
+		icon: MdAdminPanelSettings,
+
+		children: [
+			{
+				title: "all users",
+				icon: FaUsersGear,
+			},
+
+			{
+				title: "category",
+				icon: MdCategory,
+			},
+			{
+				title: "all posts",
+				icon: RiBookReadLine,
+			},
+		],
+	};
+
+	user?.isAdmin && sideBarItems.children.push(AdminObject);
 
 	return (
 		<div className="px-8 mt-4 overflow-y-auto overflow-x-hidden h-[83vh] md:h-[90vh]  custom-scrollbar">

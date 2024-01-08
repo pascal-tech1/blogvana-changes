@@ -16,8 +16,10 @@ const getUserSavedAndViewedHistory = async (userId) => {
 				.slice(0, 5)
 				.map((postView) => postView?.post.toString())
 		: [];
-	console.log(recentPostViewIds, recentSavedPostIds, "name");
-	return { recentPostViewIds, recentSavedPostIds };
+
+	const userInteractions = [...recentPostViewIds, ...recentSavedPostIds];
+	const uniqueUserInteractions = [...new Set(userInteractions)];
+	return uniqueUserInteractions;
 };
 
 module.exports = { getUserSavedAndViewedHistory };

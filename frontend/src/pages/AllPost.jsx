@@ -33,6 +33,7 @@ const AllPost = () => {
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
 					dispatch(IncreasePageNumber());
+					console.log("im her fetch post allpost");
 					dispatch(fetchPostByCategory());
 				}
 			});
@@ -95,9 +96,12 @@ const AllPost = () => {
 					)}
 			</div>
 			<div>
-				{!hasMore && searchQuery && allPostStatus !== "loading" && (
-					<h3 className=" text-yellow-300">No more Post</h3>
-				)}
+				{!hasMore &&
+					searchQuery &&
+					allPostStatus !== "loading" &&
+					allPost.length > 0 && (
+						<h3 className=" text-yellow-300">No more Post</h3>
+					)}
 			</div>
 			<div>
 				{!hasMore && !searchQuery && allPostStatus !== "loading" && (

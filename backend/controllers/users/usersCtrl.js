@@ -1170,7 +1170,7 @@ const updateUserEmbeddingCtrl = expressAsyncHandler(async (req, res) => {
 	console.log("updating user...............");
 	const user = req.user;
 	userEmbeddings = await generateloginUserEmbd(user._id);
-	console.log(userEmbeddings);
+
 	const loginUser = await User.findById(user._id);
 	loginUser.embedding = userEmbeddings;
 	await loginUser.save();

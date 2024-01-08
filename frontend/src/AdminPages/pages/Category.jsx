@@ -40,8 +40,8 @@ const AdminAllCategory = () => {
 	const formSchema = Yup.object().shape({
 		activeEditingCategory: Yup.string()
 			.required("Category is Required.")
-			.min(3, "Category is too short - should be 3 chars minimum."),
-	});
+			.min(2, "Category is too short - should be 2 chars minimum."),
+	})
 
 	const formik = useFormik({
 		initialValues: {

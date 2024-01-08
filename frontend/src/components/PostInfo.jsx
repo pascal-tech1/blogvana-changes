@@ -9,7 +9,7 @@ const PostInfo = ({ post }) => {
 	const user = useSelector((store) => store?.userSlice?.user);
 
 	return (
-		<div className="flex flex-col mb-2 justify-self-center py-3 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
+		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
 			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				{/* user who created the post  */}
 				<div>
@@ -58,7 +58,7 @@ const PostInfo = ({ post }) => {
 						}
 						originalImgUrl={post?.image}
 						blurImageStr={post.blurImageUrl}
-						optimizationStr={"q_auto,f_auto,w_200"}
+						optimizationStr={"q_auto,f_auto,w_400"}
 						paddingBottom={"100%"}
 					/>
 				</Link>

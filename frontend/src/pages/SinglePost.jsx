@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSinglePost, setStatus } from "../redux/post/singlePostSlice";
+import {
+	fetchSinglePost,
+	setSinglePostStatus,
+	setStatus,
+} from "../redux/post/singlePostSlice";
 import { useParams } from "react-router-dom";
 
 import { LazyLoadImg, LikesSaveViews, PostSearch } from "../components";
@@ -42,7 +46,6 @@ const SinglePost = () => {
 	const { isTableOfContentClciked } = useSelector(
 		(store) => store.categorySlice
 	);
-	const { user } = useSelector((store) => store.userSlice);
 
 	useEffect(() => {
 		const contentWithIds = addIdsToHeadings(post?.content);
@@ -75,34 +78,9 @@ const SinglePost = () => {
 
 	useEffect(() => {
 		if (!id) return;
+		console.log("i havae started fetching single post");
 		id !== post?._id && dispatch(fetchSinglePost(id));
 	}, [id]);
-	useEffect(() => {
-		if (status !== "success") return;
-		dispatch(clearUserPost());
-		dispatch(clearMorePost());
-		setPageNumber(1);
-		dispatch(
-			fetchUserPost({ postId: post?._id, userId: post?.user?._id })
-		);
-		// clearing the search because there wont be enough selected category to display for the user since we have limited data
-		dispatch(clearSearchAndCategory());
-		// this fetch more post
-		dispatch(
-			fetchPostByCategory({
-				page: 1,
-				postNumberPerPage: 10,
-				id,
-				where: "morePost",
-			})
-		);
-	}, [status]);
-	useEffect(() => {
-		if (morePostStatus !== "success" || !user) return;
-		console.log(id);
-		console.log("im her mores post status success");
-		dispatch(updateUserEmbedding());
-	}, [morePostStatus]);
 
 	useEffect(() => {
 		dispatch(clearSearchAndCategory());
@@ -116,6 +94,36 @@ const SinglePost = () => {
 				})
 			);
 	}, [pageNumber]);
+	useEffect(() => {
+		const delayedAction = () => {
+			if (!post._id) return;
+			dispatch(clearUserPost());
+			dispatch(clearMorePost());
+			dispatch(clearSearchAndCategory());
+			setPageNumber(1);
+			dispatch(
+				fetchUserPost({ postId: post?._id, userId: post?.user?._id })
+			);
+			dispatch(
+				fetchPostByCategory({
+					page: 1,
+					postNumberPerPage: 10,
+					id,
+					where: "morePost",
+				})
+			);
+			dispatch(updateUserEmbedding());
+		};
+
+		const timeoutId = setTimeout(delayedAction, 1000);
+
+		// Cleanup the timeout to prevent memory leaks
+		return () => clearTimeout(timeoutId);
+	}, [post?._id]);
+
+	const userPostWithCurrentPostRemove = userPost?.filter(
+		(UserSinglepost) => UserSinglepost?._id != post?._id
+	);
 
 	if (status === "loading")
 		return (
@@ -127,7 +135,10 @@ const SinglePost = () => {
 		return (
 			<div className=" grid place-content-center mt-8">
 				<h1 className="text-red-600 ">failed to fetch Post try again</h1>
-				<button className=" bg-blue-400 px-1 rounded-md hover:bg-blue-500">
+				<button
+					onClick={() => dispatch(fetchSinglePost(id))}
+					className=" bg-blue-400 px-1 rounded-md hover:bg-blue-500"
+				>
 					Retry
 				</button>
 			</div>
@@ -155,6 +166,7 @@ const SinglePost = () => {
 							className=" toc flex overflow-y-auto flex-col  "
 						/>
 					</div>
+
 					<div
 						onScroll={handleScroll}
 						className=" col-start-5 lg:col-start-4 col-span-full font-inter  overflow-x-hidden overflow-y-auto custom-scrollbar max-w-[50rem]  gap-[0.5rem]  px-2  md:px-10 "
@@ -191,6 +203,7 @@ const SinglePost = () => {
 									blurImageStr={post?.blurImageUrl}
 									optimizationStr={`q_auto,f_auto,w_800`}
 								/>
+								{/* <img src={post?.image} alt="" className=" w-full h-auto" /> */}
 							</div>
 
 							<div
@@ -215,7 +228,7 @@ const SinglePost = () => {
 
 								<div className=" flex justify-between  items-center">
 									<p className=" font-md mt-3 text-2xl dark:text-slate-200">
-										Written by{" "}
+										Written by
 										<span>
 											{post?.user?.firstName} {post?.user?.lastName}
 										</span>
@@ -228,7 +241,10 @@ const SinglePost = () => {
 										/>
 
 										{/* message component */}
-										<MessageUser receiverId={post?.user?._id} />
+										<MessageUser
+											receiverId={post?.user?._id}
+											mssageiconSize={"text-2xl"}
+										/>
 									</div>
 								</div>
 								<div className="flex gap-3">
@@ -252,11 +268,12 @@ const SinglePost = () => {
 								{`${post?.user?.firstName} ${post?.user?.lastName}`}
 							</h1>
 						</div>
+						{console.log(userPost)}
 						<div className="  font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost
 									post={userPost}
-									status={userPostStatus}
+									status={userPostWithCurrentPostRemove}
 									titleLength={43}
 								/>
 							)}

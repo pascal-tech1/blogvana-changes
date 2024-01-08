@@ -404,6 +404,7 @@ export const changeEmail = createAsyncThunk(
 export const updateUserEmbedding = createAsyncThunk(
 	"update/UserEmbeddings",
 	async (_, { getState, rejectWithValue }) => {
+		console.log("updating user embedding running")
 		console.log("im here managing user");
 		try {
 			const resp = await customFetch(`/users/update-embedding`, {

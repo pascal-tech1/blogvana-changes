@@ -5,12 +5,9 @@ const {
 } = require("./getUserSavedAndViewedHistory");
 
 const generateloginUserEmbd = async (userId) => {
-	console.log("imher no wondrr............");
-	const { recentPostViewIds, recentSavedPostIds } =
-		await getUserSavedAndViewedHistory(userId);
-	console.log("name", recentPostViewIds, recentSavedPostIds);
-	const userInteractions = [...recentPostViewIds, ...recentSavedPostIds];
-	const uniqueUserInteractions = [...new Set(userInteractions)];
+	const uniqueUserInteractions = await getUserSavedAndViewedHistory(
+		userId
+	);
 
 	const userPostsEmbeddings = await Promise.all(
 		uniqueUserInteractions.map(async (postId) => {

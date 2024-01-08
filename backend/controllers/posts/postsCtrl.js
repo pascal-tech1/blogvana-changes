@@ -19,6 +19,9 @@ const Category = require("../../model/category/Category");
 const {
 	generateNonLoginUserEmbd,
 } = require("../../utils/generateNonLoginUserEmbd");
+const {
+	getUserSavedAndViewedHistory,
+} = require("../../utils/getUserSavedAndViewedHistory");
 
 // '''''''''''''''''''''''''''''''''''''''''
 //   Create Post conttoller
@@ -81,6 +84,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 			content: cleanHtml,
 			category: categoryId,
 			embedding,
+			categoryText: category,
 			image: uploadedImage?.url,
 			blurImageUrl: req.blurImageUrl,
 		});
@@ -113,6 +117,7 @@ const fetchAllUserPostCtrl = expressAsyncHandler(async (req, res) => {
 		const Posts = await Post.find(searchQuery);
 		const posts = await Post.find(searchQuery)
 			.populate({ path: "user", select: ["firstName", "lastName"] })
+			.populate({ path: "category", select: ["title"] })
 			.sort(sortingObject)
 			.skip((page - 1) * postNumberPerPage)
 			.limit(postNumberPerPage)
@@ -315,6 +320,7 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 				image: imageUrl,
 				content: cleanHtml,
 				category: categoryId,
+				categoryText: category,
 				blurImageUrl: req.blurImageUrl,
 			},
 			{
@@ -467,11 +473,12 @@ const searchPostCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
+	console.log("post by category");
 	let page = parseInt(req?.query?.page) || 1; // Current page,ipco
 	const id = req?.query?.id;
 
 	const postNumberPerPage = parseInt(req?.query?.postNumberPerPage) || 10; // Number of items per page
-	const category = req.query?.category;
+	let category = req.query?.category;
 	const searchQuery = req.query?.searchQuery;
 	const userId = req.query?.userId;
 	let randomPostId;
@@ -512,11 +519,18 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 				);
 				searchQueryEmbedding = randomPostIdAndEmbedding.embedding;
 				randomPostId = randomPostIdAndEmbedding.randomPostId;
+				matchCriteria = {};
 			} else {
 				searchQueryEmbedding = embedding;
+				const uniqueUserInteractions = await getUserSavedAndViewedHistory(
+					userId
+				);
+				// const UserHistoryPostIds = uniqueUserInteractions.map(
+				// 	(idString) => new mongoose.Types.ObjectId(idString)
+				// );
+				// matchCriteria = { _id: { $nin: UserHistoryPostIds } };
+				matchCriteria = {};
 			}
-
-			matchCriteria = {};
 		}
 		if (!searchQuery && userId === "undefined" && where !== "morePost") {
 			randomPostIdAndEmbedding = await generateNonLoginUserEmbd(
@@ -527,14 +541,21 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 			randomPostId = randomPostIdAndEmbedding.randomPostId;
 			matchCriteria = {};
 		}
-
+		let preFilter;
+		if (category === "all") {
+			preFilter = { categoryText: { $ne: category } };
+		} else {
+			preFilter = { categoryText: { $eq: category } };
+		}
+		console.log(matchCriteria);
 		const posts = await Post.aggregate([
 			{
 				$vectorSearch: {
 					index: "vector_index",
 					path: "embedding",
+					filter: preFilter,
 					queryVector: searchQueryEmbedding,
-					numCandidates: 100,
+					numCandidates: 150,
 					limit: 10,
 				},
 			},
@@ -575,6 +596,7 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 					image: 1,
 					updatedAt: 1,
 					createdAt: 1,
+					categoryText: 1,
 					score: {
 						$meta: "vectorSearchScore",
 					},

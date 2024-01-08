@@ -45,7 +45,7 @@ const LazyLoadImg = ({
 				alt={`${optimizedImageUrl}`}
 				onLoad={() => setIsLoaded(true)}
 				style={{ visibility: isLoaded ? "visible" : "hidden" }}
-				loading="lazy"
+				// loading="lazy"
 			/>
 		</div>
 	);

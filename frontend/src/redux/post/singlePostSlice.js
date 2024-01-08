@@ -171,7 +171,6 @@ const singlePostSlice = createSlice({
 			state.status = "loading";
 		},
 		[fetchSinglePost.fulfilled]: (state, action) => {
-			console.log(action);
 			state.status = "success";
 			state.post = action.payload;
 			state.serverErr = undefined;

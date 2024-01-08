@@ -220,7 +220,7 @@ const Stats = () => {
 					page={"/post-History"}
 				/>
 			</div>
-			<div className=" col-start-1 col-span-full mb-6 flex gap-8 flex-col  bg-white dark:bg-dark py-2  rounded-md drop-shadow-sm px-4 ">
+			<div className=" col-start-1 col-span-full mb-6 flex gap-8 flex-col overflow-y-hidden  bg-white dark:bg-dark py-2  rounded-md drop-shadow-sm px-4 ">
 				<PostDashboard
 					posts={userSavedPost.slice(0, 10)}
 					status={userSavedPostStatus}

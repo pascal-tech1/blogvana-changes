@@ -13,6 +13,9 @@ const postSchema = new mongoose.Schema(
 			ref: "Category",
 			// required: [true, "Post category is required"],
 		},
+		categoryText: {
+			type: String,
+		},
 		description: {
 			type: String,
 			required: [true, "Description is Required"],
