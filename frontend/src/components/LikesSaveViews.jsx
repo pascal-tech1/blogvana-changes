@@ -1,13 +1,13 @@
 import React from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { likeOrDislikePost } from "../redux/post/generalPostSlice";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { savePost } from "../redux/user/userSlice";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
 	fetchPostByCategory,
 	setFetchFirstCategory,
@@ -16,12 +16,23 @@ import { formatNumber } from "../utils/formatNumbersIn1000";
 
 const LikesSaveViews = ({ post }) => {
 	const location = useLocation();
-	console.log(location);
+	const user = useSelector((store) => store?.userSlice?.user);
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const handleLikes = (id) => {
+		if (!user) {
+			navigate("/login");
+			return;
+		}
+
 		dispatch(likeOrDislikePost({ choice: "like", postId: id }));
 	};
 	const handleDislikes = (id) => {
+		if (!user) {
+			navigate("/login");
+			return;
+		}
+
 		dispatch(likeOrDislikePost({ choice: "disLike", postId: id }));
 	};
 	return (
@@ -48,7 +59,14 @@ const LikesSaveViews = ({ post }) => {
 			</span>
 
 			<button
-				onClick={() => dispatch(savePost(post?._id))}
+				onClick={() => {
+					if (!user) {
+						navigate("/login");
+						return;
+					}
+
+					dispatch(savePost(post?._id));
+				}}
 				aria-label="save post button"
 				className=" text-base hover:bg-gray-400 p-1 rounded-full hover:text-white"
 			>
