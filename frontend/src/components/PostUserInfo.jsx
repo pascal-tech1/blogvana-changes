@@ -8,7 +8,6 @@ import { LazyLoadImg } from ".";
 import FollowingBtn from "./FollowingBtn";
 import EditPostBtn from "./EditPostBtn";
 
-
 const PostUserInfo = ({ post }) => {
 	const loginUser = useSelector((store) => store.userSlice.user);
 	const user = post?.user;
@@ -36,8 +35,8 @@ const PostUserInfo = ({ post }) => {
 						</div>
 
 						<div>
-							<p className=" text-xs">{formatDate(post?.updatedAt)}</p>
 							<p className=" text-xs">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</p>
+							<p className=" text-xs">{formatDate(post?.updatedAt)}</p>
 						</div>
 					</Link>
 					{/* if its not the user that created the post render the follow button else render the edit button */}

@@ -22,6 +22,7 @@ import SuspenseLoadingSpinner from "./SuspenseLoadingSpinner";
 import ContactMe from "./ContactMe";
 
 import DashboardCustomDropdown from "./DashboardCustomDropdown";
+import TrendingPost from "./TrendingPost";
 
 export {
 	NavBar,
@@ -44,4 +45,5 @@ export {
 	ContactMe,
 	DashboardCustomDropdown,
 	SuspenseLoadingSpinner,
+	TrendingPost
 };

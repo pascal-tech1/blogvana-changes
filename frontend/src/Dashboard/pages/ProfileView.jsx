@@ -65,7 +65,7 @@ const ProfileView = () => {
 							<CoverPhoto user={user} />
 						</div>
 						<ProfilePhoto user={user} />
-						<div className="  mt-[4.5rem]  ">
+						<div className="  mt-[6rem]  ">
 							<UserProfile />
 						</div>
 					</div>

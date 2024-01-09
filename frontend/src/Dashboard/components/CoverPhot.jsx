@@ -3,9 +3,8 @@ import { BiCamera } from "react-icons/bi";
 import { uploadProfilePhoto } from "../../redux/user/userSlice";
 
 import { useSelector } from "react-redux";
-import { LazyLoadImg, Spinner } from "../../components";
-import CropImage from "../pages/CropImage"
-
+import { LazyLoadImg, Modal, Spinner } from "../../components";
+import CropImage from "../pages/CropImage";
 
 const CoverPhoto = ({ user }) => {
 	const [image, setImage] = useState(null);
@@ -13,6 +12,7 @@ const CoverPhoto = ({ user }) => {
 	const { profilePictureUploadStatus, whatUploading } = useSelector(
 		(store) => store.userSlice
 	);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleFileChange = (e) => {
 		e.preventDefault();
@@ -31,8 +31,24 @@ const CoverPhoto = ({ user }) => {
 		};
 		reader.readAsDataURL(files[0]);
 	};
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
+
 	return (
 		<div className=" w-full relative font-inter">
+			<Modal isOpen={isModalOpen} onClose={closeModal} isButtonNeeded={false}>
+				<LazyLoadImg
+					backgroundClassName={"   w-[85vw] md:w-[47vw]  relative rounded-md"}
+					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
+					originalImgUrl={user?.coverPhoto}
+					blurImageStr={user?.blurCoverPhoto}
+					optimizationStr={"q_auto,f_auto,w_1000"}
+				/>
+			</Modal>
 			{image && (
 				<CropImage
 					image={image}
@@ -43,15 +59,17 @@ const CoverPhoto = ({ user }) => {
 					whatUploading={"coverPhoto"}
 				/>
 			)}
-
-			<LazyLoadImg
-				backgroundClassName={"   w-full h-full  relative rounded-md"}
-				imgClassName={"absolute inset-0 w-full h-full rounded-md "}
-				originalImgUrl={user?.coverPhoto}
-				blurImageStr={user?.blurCoverPhoto}
-				optimizationStr={"q_auto,f_auto,w_1000"}
-				paddingBottom={"18%"}
-			/>
+			<div onClick={() => openModal()} className=" cursor-pointer">
+				<LazyLoadImg
+					backgroundClassName={
+						"   w-full h-[7rem] lg:h-[8rem]  relative rounded-md"
+					}
+					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
+					originalImgUrl={user?.coverPhoto}
+					blurImageStr={user?.blurCoverPhoto}
+					optimizationStr={"q_auto,f_auto,w_1000"}
+				/>
+			</div>
 
 			{profilePictureUploadStatus === "loading" &&
 			whatUploading === "coverPhoto" ? (

@@ -30,7 +30,7 @@ import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
 import { updateUserEmbedding } from "../redux/user/userSlice";
 
-const SinglePost = () => {
+const SinglePost = ({singlePost}) => {
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
 	const dispatch = useDispatch();
@@ -97,6 +97,7 @@ const SinglePost = () => {
 	useEffect(() => {
 		const delayedAction = () => {
 			if (!post._id) return;
+			console.log('i have run')
 			dispatch(clearUserPost());
 			dispatch(clearMorePost());
 			dispatch(clearSearchAndCategory());
@@ -115,7 +116,7 @@ const SinglePost = () => {
 			dispatch(updateUserEmbedding());
 		};
 
-		const timeoutId = setTimeout(delayedAction, 1000);
+		const timeoutId = setTimeout(delayedAction, 2000);
 
 		// Cleanup the timeout to prevent memory leaks
 		return () => clearTimeout(timeoutId);
@@ -211,7 +212,7 @@ const SinglePost = () => {
 								dangerouslySetInnerHTML={{ __html: htmlContent }}
 							/>
 						</div>
-						{/*  the post content in the dom */}
+					
 
 						<div className=" border-y dark:border-y-lightdark py-4 my-4 ">
 							<div className="flex justify-between flex-col my-4">
@@ -268,7 +269,7 @@ const SinglePost = () => {
 								{`${post?.user?.firstName} ${post?.user?.lastName}`}
 							</h1>
 						</div>
-						{console.log(userPost)}
+					
 						<div className="  font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost

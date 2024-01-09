@@ -105,7 +105,7 @@ const NavBar = () => {
 
 				<form className="relative md:w-1/3 justify-center z-50  items-center">
 					<input
-						className={` hidden md:flex text-xs  font-sm dark:bg-dark px-1 md:py-2 border border-gray-100 dark:border-gray-800 focus:border-b-gray-300 dark:border-b-gray-600   rounded-full bg-gray-100 text-center focus:outline-none  w-full bg-transparent `}
+						className={` hidden md:flex text-xs  font-sm bg-gray-50 dark:bg-dark px-1 md:py-2 border border-b-gray-300 dark:border-gray-800 focus:border-b-gray-400 dark:border-b-gray-600   rounded-full  text-center focus:outline-none  w-full  `}
 						type="text"
 						id="searchPost"
 						placeholder="Search"
@@ -125,7 +125,7 @@ const NavBar = () => {
 							<button
 								ref={iconRef}
 								onClick={() => setShowLogOut(!showLogOut)}
-								className="flex items-center"
+								className="flex items-center" 
 							>
 								<div className=" flex items-center">
 									{/* lazyloading */}

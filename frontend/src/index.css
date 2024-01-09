@@ -243,7 +243,7 @@ th {
 	position: -webkit-sticky;
 	top: 0;
 	z-index: 10;
-	background-color: white;
+
 	padding: 10px 0;
 }
 
@@ -350,7 +350,9 @@ th {
 .nav-heading-big {
 	@apply min-[389px]:flex w-full font-inter  min-[389px]:items-center min-[389px]:justify-between border-b py-2 md:py-[0.2rem]  dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200;
 }
-/* 
+
+
+
 button {
 	outline: none;
 }

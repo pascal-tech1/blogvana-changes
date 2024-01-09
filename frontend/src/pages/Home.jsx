@@ -3,6 +3,8 @@ import {
 	Category,
 	ContactMe,
 	PostSearch,
+	PostUserInfo,
+	TrendingPost,
 	UserToFollow,
 } from "../components";
 import AllPost from "./AllPost";
@@ -15,12 +17,15 @@ import {
 } from "../redux/post/allPostSlice";
 
 import { useNavigate } from "react-router-dom";
-import { MdExpandMore } from "react-icons/md";
+import { MdCategory, MdExpandMore } from "react-icons/md";
+import { IoIosTrendingUp } from "react-icons/io";
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const { allPost, allPostStatus, searchQuery, hasMore } = useSelector(
+		(store) => store.allPostSlice
+	);
 	const { allCategory } = useSelector((store) => store.categorySlice);
 	const { randomUsers } = useSelector((store) => store.userSlice);
 
@@ -35,7 +40,6 @@ const Home = () => {
 	}, []);
 
 	const handleSelected = (filter) => {
-
 		dispatch(setFetchFirstCategory(filter));
 		dispatch(fetchPostByCategory());
 		navigate("/");
@@ -49,7 +53,6 @@ const Home = () => {
 				{/* right section */}
 				<main className=" col-span-3  ">
 					<div className="">
-						
 						<PostSearch />
 
 						<AllPost />
@@ -57,43 +60,33 @@ const Home = () => {
 				</main>
 				{/* left section */}
 
-				<div className="hidden md:flex flex-col font-inter justify-between col-start-4 col-span-full px-8  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark  !h-[88vh] ">
-					<div className=" flex flex-col gap-6">
-						<div className="flex gap-2  bg-gray-100 justify-between py-2  text-lg md:text-sm px-2 rounded-lg dark:bg-lightdark dark:text-slate-300  ">
-							<div className="flex flex-col justify-center items-center text-center gap-2">
-								<h3 className=" font-medium hidden lg:flex ">
-									Get unlimited access to everything on BlogVana
-								</h3>
-
-								<p className=" bg-blue-300 text-gray-900 font-medium py-1 px-2 rounded-lg ">
-									Premium comming soon
-								</p>
+				<div className="hidden py-4 md:flex flex-col font-inter justify-between col-start-4 col-span-full px-6  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark  !h-[88vh] ">
+					<div className=" flex flex-col gap-6 ">
+						<section>
+							<div className=" dark:text-slate-200 mb-2 md:text-sm min-[800px]:text-base flex gap-3 items-center">
+								<h1 className="border font-semibold rounded-full p-[2px] ">
+									<IoIosTrendingUp />
+								</h1>
+								<h1 className=" font-semibold">Trending on BlogVana </h1>
 							</div>
-							<img
-								src="/blogvana.png"
-								alt="blogvana logo"
-								className=" w-16 border border-blue-400 self-center mr-4"
-							/>
-						</div>
-						{/* followers section */}
-						<section className="">
-							<h2 className="  text-center font-medium my-3 place-self-center dark:text-slate-200">
-								People you might be interested in
-							</h2>
-							{/* renders random users */}
-							<div className="text-sm">
-								{randomUsers?.map((user, index) => {
-									return (
-										<UserToFollow key={index} user={user} index={index} />
-									);
-								})}
-							</div>
-							{/* more interesting topic */}
+							{allPost?.slice(0, 3).map((post, index) => {
+								return (
+									<div key={index} className=" pr-[2px] my-6 ">
+										{/* The post info's including the user info */}
+										<TrendingPost post={post} index={index} />
+									</div>
+								);
+								//
+							})}
 						</section>
+
 						<section className="flex justify-center flex-col">
-							<h2 className=" dark:text-slate-300 font-medium mb-4 text-center">
-								More interesting topics
-							</h2>
+							<div className=" dark:text-slate-200 md:text-sm min-[800px]:text-base flex gap-3 items-center mb-4">
+								<h1 className="border font-semibold rounded-full p-[2px]">
+									<MdCategory className="" />
+								</h1>
+								<h1 className="font-semibold ">More interesting topics</h1>
+							</div>
 							<Category
 								allCategory={allCategoryArray.slice(
 									0,
@@ -101,10 +94,7 @@ const Home = () => {
 								)}
 								handleSelected={handleSelected}
 							/>
-							{console.log(
-								numberOfDisplayCategory,
-								allCategoryArray.length
-							)}
+
 							{numberOfDisplayCategory <= allCategoryArray.length && (
 								<button
 									onClick={handleAddMoreCategoryToDisplay}
@@ -115,7 +105,7 @@ const Home = () => {
 							)}
 						</section>
 					</div>
-					<section className=" text-sm self-center justify-self-end dark:text-slate-200 mt-4 ">
+					<section className=" text-sm self-center justify-self-end dark:text-slate-200 mt-10 ">
 						<ContactMe copyrightNeeded={true} nameNeeded={true} />
 					</section>
 				</div>

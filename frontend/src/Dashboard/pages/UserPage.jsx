@@ -1,7 +1,7 @@
 //////////////////////// import /////////////////////////////////////
 
 import React, { useState, useEffect } from "react";
-import { LazyLoadImg, PostSearch, Spinner } from "../../components";
+import { LazyLoadImg, Modal, PostSearch, Spinner } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -31,6 +31,9 @@ const UserPage = () => {
 	const dispatch = useDispatch();
 	const { userId } = useParams();
 	const [page, setPage] = useState(1);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [imageToShow, setImageToShow] = useState(null);
+	const [blurImageToShow, setBlurImageToShow] = useState(null);
 
 	useEffect(() => {
 		dispatch(clearCreatorAllPost());
@@ -45,6 +48,13 @@ const UserPage = () => {
 			dispatch(fetchCreatorPosts({ userId: userId, page }));
 		}
 	}, [page, userId]);
+
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
 
 	if (postCreatorProfileStatus === "loading") {
 		return (
@@ -78,6 +88,19 @@ const UserPage = () => {
 			<div>
 				<PostSearch />
 				<div className=" md:grid lg:grid-cols-3 mt-2  font-inter  gap-[5rem]  ">
+					<Modal
+						isOpen={isModalOpen}
+						onClose={closeModal}
+						isButtonNeeded={false}
+					>
+						<LazyLoadImg
+							backgroundClassName={"  w-[85vw] md:w-[47vw]   relative rounded-md"}
+							imgClassName={"absolute inset-0 w-full h-full rounded-md "}
+							originalImgUrl={imageToShow}
+							blurImageStr={blurImageToShow}
+							optimizationStr={"q_auto,f_auto,w_1000"}
+						/>
+					</Modal>
 					<div className=" flex flex-col gap-4 col-start-1 col-span-2   md:pt-4 h-max ">
 						<div className="w-full">
 							<div className=" w-full  relative">
@@ -89,7 +112,17 @@ const UserPage = () => {
 									/>
 								)}
 								{postCreatorProfile?.blurCoverPhoto && (
-									<div className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md">
+									<div
+										onClick={() => {
+											setBlurImageToShow(
+												postCreatorProfile.blurCoverPhoto
+											);
+											setImageToShow(postCreatorProfile?.coverPhoto);
+
+											openModal();
+										}}
+										className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md"
+									>
 										<LazyLoadImg
 											backgroundClassName={
 												"   w-full h-full  relative rounded-md"
@@ -105,7 +138,15 @@ const UserPage = () => {
 									</div>
 								)}
 								{/* lazy loading image? */}
-								<div className=" absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600">
+								<div
+									onClick={() => {
+										setBlurImageToShow(postCreatorProfile.blurProfilePhoto);
+										setImageToShow(postCreatorProfile?.profilePhoto);
+
+										openModal();
+									}}
+									className=" absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600"
+								>
 									<LazyLoadImg
 										backgroundClassName={
 											" rounded-full  w-full h-full  relative"
@@ -124,9 +165,9 @@ const UserPage = () => {
 
 						{/* large screen more posts */}
 
-						<div className=" md:mt-8 ">
+						<div className=" mt-3 md:mt-8 ">
 							<h1 className="font-semibold  max-w-max dark:text-slate-200 ">
-								Professional Summary
+								Bio
 							</h1>
 							<p className=" pr-4 py-2">{postCreatorProfile?.bio}</p>
 						</div>

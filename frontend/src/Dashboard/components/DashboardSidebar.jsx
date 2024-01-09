@@ -39,12 +39,12 @@ const Entry = React.memo(({ entry, depth, path }) => {
 	const Icon = entry?.icon;
 
 	return (
-		<div className=" w-[7rem] my-1">
+		<div className=" w-[7rem] my-1 ">
 			<NavLink
 				to={to}
 				className={`${
 					page === currentPath && "text-blue-500"
-				} flex gap-1 items-center hover:bg-gray-300 rounded-lg  hover:dark:bg-gray-700 px-2 py-1  `}
+				} flex gap-1 items-center hover:bg-gray-300 rounded-lg  hover:dark:bg-gray-700 px-2 py-2  `}
 				onClick={(e) => {
 					entry?.children && setIsExpanded((prev) => !prev);
 				}}

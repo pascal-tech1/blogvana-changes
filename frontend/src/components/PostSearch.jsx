@@ -49,7 +49,7 @@ const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	const { searchTerm, handleInputChange } = useSearchWithDebounce();
 
 	return (
-		<div className="  dark:bg-lightdark   gap-4 categorySticky ">
+		<div className=" bg-white dark:bg-lightdark border-b dark:border-b-gray-800  gap-4 categorySticky ">
 			<div className=" hidden md:flex gap-4 justify-center">
 				<Category
 					allCategory={displayedCategoryArray}

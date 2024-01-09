@@ -8,8 +8,8 @@ function Modal({
 	children,
 	Actiontext,
 	enterNeeded,
+	isButtonNeeded,
 }) {
-
 	useEffect(() => {
 		const handleKeyPress = (e) => {
 			if (isOpen && e.key === "Escape") {
@@ -54,25 +54,28 @@ function Modal({
 					>
 						<div className="p-4 overflow-y-auto">{children}</div>
 						<div className=" flex flex-col items-center gap-2">
-							<div className="flex gap-4 items-center">
-								<div className="">
-									<button
-										type="submit"
-										className="bg-blue-500 hover:bg-blue-700 rounded-md py-1 text-white px-2"
-										onClick={continueAction}
-									>
-										{Actiontext ? Actiontext : "continue"}
-									</button>
+							{isButtonNeeded === undefined && (
+								<div className="flex gap-4 items-center">
+									<div className="">
+										<button
+											type="submit"
+											className="bg-blue-500 hover:bg-blue-700 rounded-md py-1 text-white px-2"
+											onClick={continueAction}
+										>
+											{Actiontext ? Actiontext : "continue"}
+										</button>
+									</div>
+									<div className="">
+										<button
+											className="text-red-500 hover:text-red-700"
+											onClick={closeModal}
+										>
+											Close
+										</button>
+									</div>
 								</div>
-								<div className="">
-									<button
-										className="text-red-500 hover:text-red-700"
-										onClick={closeModal}
-									>
-										Close
-									</button>
-								</div>
-							</div>
+							)}
+
 							<div className=" text-xs">
 								<h4>
 									pres ESC key on your keyboard or click on the overlay to

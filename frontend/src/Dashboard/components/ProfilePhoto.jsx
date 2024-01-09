@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import { uploadProfilePhoto } from "../../redux/user/userSlice";
-import { LazyLoadImg, Spinner } from "../../components";
+import { LazyLoadImg, Modal, Spinner } from "../../components";
 import { useSelector } from "react-redux";
-import  CropImage  from "../pages/CropImage";
+import CropImage from "../pages/CropImage";
 const ProfilePhoto = ({ user }) => {
 	const [image, setImage] = useState(null);
 	const [fileName, setFileName] = useState("blogVanaImage");
 	const { profilePictureUploadStatus, whatUploading } = useSelector(
 		(store) => store.userSlice
 	);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
 	const handleFileChange = (e) => {
 		e.preventDefault();
 		let files;
@@ -30,9 +32,28 @@ const ProfilePhoto = ({ user }) => {
 		};
 		reader.readAsDataURL(files[0]);
 	};
-
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
 	return (
 		<div className=" w-full relative">
+			<Modal
+				isOpen={isModalOpen}
+				onClose={closeModal}
+				isButtonNeeded={false}
+			>
+				
+				<LazyLoadImg
+					backgroundClassName={"   w-[85vw] md:w-[47vw]  relative rounded-md"}
+					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
+					originalImgUrl={user?.profilePhoto}
+					blurImageStr={user?.blurProfilePhoto}
+					optimizationStr={"q_auto,f_auto,w_1000"}
+				/>
+			</Modal>
 			{image && (
 				<CropImage
 					image={image}
@@ -44,16 +65,17 @@ const ProfilePhoto = ({ user }) => {
 				/>
 			)}
 
-			<div className=" font-inter absolute -mt-[10%] h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600">
+			<div onClick={() => openModal()} className=" cursor-pointer font-inter absolute -mt-[10%] rounded-full border border-blue-600">
 				<LazyLoadImg
-					backgroundClassName={"  rounded-full  w-full h-full  relative"}
+					backgroundClassName={
+						"  rounded-full w-[7rem] lg:w-[8rem]  h-[7rem] lg:h-[8rem]  relative"
+					}
 					imgClassName={
 						"absolute inset-0 w-full h-full  object-cover rounded-full "
 					}
 					originalImgUrl={user?.profilePhoto}
 					blurImageStr={user?.blurProfilePhoto}
 					optimizationStr={"q_auto,f_auto,w_200"}
-					paddingBottom={"100%"}
 				/>
 			</div>
 

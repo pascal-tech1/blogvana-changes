@@ -21,7 +21,7 @@ const PostInfo = ({ post }) => {
 							to={`/single-post/${post?._id}`}
 							aria-label={`${post?.title}-link`}
 						>
-							<h3 className=" text-sm font-bold lg:text-lg mb-2 dark:text-slate-100 ">
+							<h3 className=" font-bold lg:text-lg mb-2 dark:text-slate-100 ">
 								{post?.title}
 							</h3>
 						</Link>

@@ -88,6 +88,7 @@ const MessageUser = ({ receiverId, mssageiconSize }) => {
 						onBlur={formik.handleBlur("message")}
 						aria-label="Please enter your message"
 						type="text"
+						placeholder="Enter your message"
 						className="form-input h-[10rem]"
 					/>
 					<div className=" relative mb-2 self-start  ">
