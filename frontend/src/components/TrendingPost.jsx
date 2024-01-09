@@ -21,10 +21,10 @@ const TrendingPost = ({ post, index }) => {
 					<h1>0</h1>
 					<h1>{index + 1}</h1>
 				</div>
-				<div className=" mt-1">
+				<div className="  mt-1">
 					<Link
 						to={loginUser?._id ? `/profile/${user._id}` : `/login`}
-						className="flex gap-2 mb-2 self-center items-center"
+						className="flex gap-2 mb-2 justify-start items-center"
 					>
 						{/* lazyloading image */}
 						<div className=" flex items-center ">
