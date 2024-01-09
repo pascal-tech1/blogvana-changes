@@ -61,7 +61,7 @@ const Home = () => {
 				{/* left section */}
 
 				<div className="hidden py-4 md:flex flex-col font-inter justify-between col-start-4 col-span-full px-6  stickyRight custom-scrollbar border-l dark:bg-dark  dark:border-l-lightdark  !h-[88vh] ">
-					<div className=" flex flex-col gap-6 ">
+					<div className=" flex flex-col gap-4 ">
 						<section>
 							<div className=" dark:text-slate-200 mb-2 md:text-sm min-[800px]:text-base flex gap-3 items-center">
 								<h1 className="border font-semibold rounded-full p-[2px] ">

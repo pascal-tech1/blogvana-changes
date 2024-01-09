@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSearchWithDebounce } from "../customHooks/SearchWithDebounce";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
 	fetchAllCategorys,
 	setIsTAbleOfContentClick,
@@ -18,6 +18,7 @@ import { Category, DashboardCustomDropdown, Tooltip } from ".";
 const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const { allCategory, isTableOfContentClciked } = useSelector(
 		(store) => store.categorySlice
@@ -42,7 +43,9 @@ const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	const handleSelected = (filter) => {
 		console.log("im here fetch more Post postSearch");
 		dispatch(setFetchFirstCategory(filter));
-		// dispatch(fetchPostByCategory());
+
+		location.pathname === "/" && dispatch(fetchPostByCategory());
+
 		navigate("/");
 	};
 

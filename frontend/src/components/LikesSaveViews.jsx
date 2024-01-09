@@ -84,7 +84,7 @@ const LikesSaveViews = ({ post }) => {
 				to={"/"}
 				onClick={(e) => {
 					dispatch(setFetchFirstCategory(post?.categoryText));
-					location.pathname = "/" && dispatch(fetchPostByCategory());
+					location.pathname === "/" && dispatch(fetchPostByCategory());
 				}}
 				className="whitespace-nowrap gap-2 text-sm delay-75 cursor-pointer flex bg-gray-200 hover:bg-gray-300 rounded-md dark:text-slate-300 dark:bg-gray-700 hover:dark:bg-gray-800 py-[0.1rem] px-4"
 			>
