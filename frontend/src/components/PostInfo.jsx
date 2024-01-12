@@ -9,11 +9,15 @@ const PostInfo = ({ post }) => {
 	const user = useSelector((store) => store?.userSlice?.user);
 
 	return (
-		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
+		<div className="flex flex-col mb-2 justify-self-center py-4 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
+			<div className=" min-[554px]:hidden md:flex  lg:hidden">
+				<PostUserInfo post={post} />
+			</div>
 			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				{/* user who created the post  */}
+
 				<div>
-					<div className=" mb-2">
+					<div className="hidden min-[554px]:flex md:hidden  lg:flex">
 						<PostUserInfo post={post} />
 					</div>
 					<div className=" self-start">
@@ -38,7 +42,7 @@ const PostInfo = ({ post }) => {
 								</Link>
 							</p>
 						</div>
-						<div className="min-[350px]:hidden min-[450px]:flex text-md md:text-sm ">
+						<div className=" text-md md:text-sm ">
 							<LikesSaveViews post={post} />
 						</div>
 					</div>
@@ -51,7 +55,7 @@ const PostInfo = ({ post }) => {
 					{/* lazyloadingImg */}
 					<LazyLoadImg
 						backgroundClassName={
-							"w-[80vw] min-[350px]:w-[100px] lg:w-[160px] rounded-md relative border dark:border-slate-900"
+							"w-[60vw] min-[350px]:w-[100px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
 						}
 						imgClassName={
 							"absolute inset-0 w-full h-full object-cover rounded-md"
@@ -62,9 +66,6 @@ const PostInfo = ({ post }) => {
 						paddingBottom={"100%"}
 					/>
 				</Link>
-			</div>
-			<div className="min-[350px]:flex min-[450px]:hidden text-md md:text-sm ">
-				<LikesSaveViews post={post} />
 			</div>
 		</div>
 	);

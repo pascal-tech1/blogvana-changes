@@ -16,6 +16,8 @@ const messageRoutes = require("./route/message/messageRoutes");
 const fs = require("fs");
 const ffmpeg = require("fluent-ffmpeg");
 // const { query } = require("./utils/getEmbeddins");
+const { HfInference } = require("@huggingface/inference");
+const hf = new HfInference("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");
 
 const app = express();
 
@@ -24,21 +26,6 @@ connectDB();
 // defaut middleware
 app.use(express.json());
 app.use(cors());
-
-async function query(data) {
-	const response = await fetch(
-		"https://api-inference.huggingface.co/models/facebook/mms-tts-eng",
-		{
-			headers: {
-				Authorization: "Bearer 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",
-			},
-			method: "POST",
-			body: JSON.stringify(data),
-		}
-	);
-	const result = await response.blob();
-	return result;
-}
 
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postsRoutes);

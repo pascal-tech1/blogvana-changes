@@ -12,10 +12,10 @@ const { isValidObjectId } = require("mongoose");
 const DOMPurify = require("isomorphic-dompurify");
 const cheerio = require("cheerio");
 
-const { main } = require("../../utils/getEmbeddins");
+const { main, query } = require("../../utils/getEmbeddins");
 const _ = require("lodash");
 const Category = require("../../model/category/Category");
-
+const fs = require("fs");
 const {
 	generateNonLoginUserEmbd,
 } = require("../../utils/generateNonLoginUserEmbd");
@@ -275,6 +275,7 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 			throw new Error("only User who created post can Edit it");
 		const $ = cheerio.load(req?.body?.content); // Load your HTML
 		const postContent = $.root().text();
+
 		const enteredDetails =
 			req?.body?.title + "" + req?.body?.description + "" + postContent;
 

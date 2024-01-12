@@ -109,7 +109,7 @@ const CreatePost = () => {
 		},
 
 		onSubmit: (values) => {
-			if (values.content.length <= 500) {
+			if (values.content.length <= 20) {
 				toast.error(
 					"content is required and cannot be less than 500 characters"
 				);
