@@ -12,7 +12,7 @@ const { isValidObjectId } = require("mongoose");
 const DOMPurify = require("isomorphic-dompurify");
 const cheerio = require("cheerio");
 
-const main = require("../../utils/getEmbeddins");
+const { main } = require("../../utils/getEmbeddins");
 const _ = require("lodash");
 const Category = require("../../model/category/Category");
 
@@ -91,6 +91,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 
 		res.json(post);
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ message: error.message });
 	}
 });
@@ -101,17 +102,20 @@ const fetchAllUserPostCtrl = expressAsyncHandler(async (req, res) => {
 	const postNumberPerPage = parseInt(req.query.postNumberPerPage) || 10; // Number of items per page
 	const regexPattern = new RegExp(`.*${searchTerm}.*`, "i");
 	const sortingObject = filterCriteria(filter);
+
 	let searchQuery;
 
 	if (searchTerm) {
 		if (isValidObjectId(searchTerm)) {
+			console.log(searchTerm, "is valid object id");
 			searchQuery = { _id: new mongoose.Types.ObjectId(searchTerm) };
 		} else {
-			searchQuery = { category: { $regex: regexPattern } };
+			searchQuery = { categoryText: { $regex: regexPattern } };
 		}
 	} else {
 		searchQuery = {};
 	}
+	console.log(searchQuery);
 
 	try {
 		const Posts = await Post.find(searchQuery);
@@ -140,6 +144,7 @@ const fetchAllUserPostCtrl = expressAsyncHandler(async (req, res) => {
 			totalNumber: totalPosts,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ message: error.message });
 	}
 });
@@ -160,7 +165,7 @@ const fetchUserPostCtrl = expressAsyncHandler(async (req, res) => {
 		searchQuery = {
 			$or: [
 				{ title: { $regex: regexPattern } },
-				{ category: { $regex: regexPattern } },
+				{ categoryText: { $regex: regexPattern } },
 			],
 		};
 	} else {
@@ -178,13 +183,18 @@ const fetchUserPostCtrl = expressAsyncHandler(async (req, res) => {
 		const user = await User.findById(userId)
 			.populate({
 				path: "Posts",
+				populate: {
+					path: "category",
+				},
 				select: "-content",
+
 				match: searchQuery,
 				options: { sort: sortingObject },
 				skip: (page - 1) * postNumberPerPage,
 				limit: postNumberPerPage,
 			})
 			.select("Posts");
+		console.log(user.Posts, page);
 		const userPosts = user.Posts;
 
 		const totalPosts = Posts.length;
@@ -254,8 +264,6 @@ const fetchSinglePostsCtrl = expressAsyncHandler(async (req, res) => {
 // '''''''''''''''''''''''''''''''''''''''''''''
 const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 	try {
-		// const $ = cheerio.load(req.body.content);
-
 		const postId = req?.params?.id;
 		const loginUserId = req?.user?._id;
 		validateMongoDbUserId(loginUserId);
@@ -547,7 +555,7 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 		} else {
 			preFilter = { categoryText: { $eq: category } };
 		}
-		console.log(matchCriteria);
+
 		const posts = await Post.aggregate([
 			{
 				$vectorSearch: {
@@ -555,8 +563,8 @@ const fetchPostByCategoryCtrl = expressAsyncHandler(async (req, res) => {
 					path: "embedding",
 					filter: preFilter,
 					queryVector: searchQueryEmbedding,
-					numCandidates: 150,
-					limit: 10,
+					numCandidates: 10000,
+					limit: 10000,
 				},
 			},
 

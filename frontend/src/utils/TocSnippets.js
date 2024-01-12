@@ -103,7 +103,7 @@ export const handleScroll = () => {
 
 		// Check if the heading is currently visible on the screen
 		if (
-			boundingBox.top + scrollPosition >= navbarHeight + 40 &&
+			boundingBox.top + scrollPosition >= navbarHeight + 30 &&
 			boundingBox.bottom <= window.innerHeight - searchComponentHeight
 		) {
 			// Check if nearestHeading is null or if the current heading is closer to the top

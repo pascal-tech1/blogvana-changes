@@ -10,10 +10,10 @@ import {
 import { ClearSearch } from "../../components";
 import FollowUsersList from "../components/FollowUsersList";
 
-
 const Following = ({ id }) => {
 	useEffect(() => {
 		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
 	}, []);
 	const {
 		user,

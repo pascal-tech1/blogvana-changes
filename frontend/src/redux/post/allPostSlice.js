@@ -11,19 +11,20 @@ export const fetchPostByCategory = createAsyncThunk(
 			activeCategory,
 			searchQuery,
 			notLoginUserRandomPostFetchingId,
+			morePostCategory,
 		} = getState().allPostSlice;
 		const userId = getState().userSlice?.user?._id;
 
 		const newPage = params?.page || page;
 		const newPostNumberPerPaage =
 			params?.postNumberPerPage || postNumberPerPage;
-		console.log(newPage);
-		console.log(notLoginUserRandomPostFetchingId);
-
+		const category =
+			params?.where === "morePost" ? morePostCategory : activeCategory;
+		console.log(category);
 		try {
 			const resp = await customFetch(
 				`/posts/?page=${newPage}&postNumberPerPage=${newPostNumberPerPaage}
-				&category=${activeCategory}&searchQuery=${searchQuery}
+				&category=${category}&searchQuery=${searchQuery}
 				&where=${params?.where}&id=${params?.id}
 				&userId=${userId}&randomPostId=${notLoginUserRandomPostFetchingId}`
 			);
@@ -46,6 +47,7 @@ const initialState = {
 	searchQuery: "",
 	hasMore: true,
 	activeCategory: "all",
+	morePostCategory: "all",
 	morePost: [],
 	morePostStatus: "idle",
 	morePostHasMore: true,
@@ -110,7 +112,6 @@ const allPostSlice = createSlice({
 		},
 		clearSearchAndCategory: (state, { payload }) => {
 			state.searchQuery = "";
-			state.activeCategory = "all";
 		},
 	},
 

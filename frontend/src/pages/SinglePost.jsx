@@ -30,7 +30,7 @@ import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
 import { updateUserEmbedding } from "../redux/user/userSlice";
 
-const SinglePost = ({singlePost}) => {
+const SinglePost = ({ singlePost }) => {
 	const { id } = useParams();
 	const [pageNumber, setPageNumber] = useState(1);
 	const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const SinglePost = ({singlePost}) => {
 	const { post, status } = useSelector((store) => store.singlePostSlice);
 	const [htmlContent, setHtmlContent] = useState("");
 	const [toc, setToc] = useState();
-	const { morePost, morePostStatus, morePostHasMore, isLoading } =
+	const { morePost, morePostStatus, morePostHasMore, allPostStatus } =
 		useSelector((store) => store.allPostSlice);
 	const { userPost, userPostStatus } = useSelector(
 		(store) => store.morePostSlice
@@ -78,7 +78,7 @@ const SinglePost = ({singlePost}) => {
 
 	useEffect(() => {
 		if (!id) return;
-		console.log("i havae started fetching single post");
+
 		id !== post?._id && dispatch(fetchSinglePost(id));
 	}, [id]);
 
@@ -97,7 +97,7 @@ const SinglePost = ({singlePost}) => {
 	useEffect(() => {
 		const delayedAction = () => {
 			if (!post._id) return;
-			console.log('i have run')
+
 			dispatch(clearUserPost());
 			dispatch(clearMorePost());
 			dispatch(clearSearchAndCategory());
@@ -212,7 +212,6 @@ const SinglePost = ({singlePost}) => {
 								dangerouslySetInnerHTML={{ __html: htmlContent }}
 							/>
 						</div>
-					
 
 						<div className=" border-y dark:border-y-lightdark py-4 my-4 ">
 							<div className="flex justify-between flex-col my-4">
@@ -269,12 +268,12 @@ const SinglePost = ({singlePost}) => {
 								{`${post?.user?.firstName} ${post?.user?.lastName}`}
 							</h1>
 						</div>
-					
+
 						<div className="  font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost
 									post={userPost}
-									status={userPostWithCurrentPostRemove}
+									status={userPostStatus}
 									titleLength={43}
 								/>
 							)}
@@ -297,7 +296,10 @@ const SinglePost = ({singlePost}) => {
 							</h1>
 							<div className="  font-inter grid max-[650px]:grid-cols-1 max-[768px]:grid-cols-2   gap-12 lg:grid-cols-2 w-[100%]">
 								{morePost && (
-									<MorePost post={morePost} status={isLoading} />
+									<MorePost
+										post={morePost}
+										status={allPostStatus === "loading"}
+									/>
 								)}
 							</div>
 
@@ -309,7 +311,11 @@ const SinglePost = ({singlePost}) => {
 										}}
 										className=" bg-blue-400  text-white px-2 my-4  rounded-md hover:bg-blue-600 transition-all delay-75"
 									>
-										{isLoading ? <Spinner /> : "load more"}
+										{allPostStatus === "loading" ? (
+											<Spinner />
+										) : (
+											"load more"
+										)}
 									</button>
 								) : (
 									<p className=" text-yellow-400">NO more Post</p>

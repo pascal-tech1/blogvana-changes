@@ -14,7 +14,10 @@ import {
 
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/dataFormatter";
-import { setSearchTermInStore } from "../../redux/user/userSlice";
+import {
+	setIsSearchBArNeeded,
+	setSearchTermInStore,
+} from "../../redux/user/userSlice";
 
 const Saved = () => {
 	const dispatch = useDispatch();
@@ -28,6 +31,14 @@ const Saved = () => {
 		dispatch(clearSavedPost());
 		dispatch(fetchSavedPosts(1));
 	}, [dashboardSearchTerm]);
+
+	
+	useEffect(() => {
+		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
+	}, []);
+
+
 
 	useEffect(() => {
 		page > 1 && dispatch(fetchSavedPosts(page));
@@ -70,14 +81,7 @@ const Saved = () => {
 				searchQuery={dashboardSearchTerm}
 				handleClearSearch={handleClearSearch}
 			/>
-			<div className="flex gap-4 flex-wrap items-center pb-4 ">
-				<button
-					// onClick={openModal}
-					className="  py-[0.15] rounded-lg hover:text-red-700 text-red-400 outline-none"
-				>
-					delete
-				</button>
-			</div>
+
 			{Object.keys(organizedPosts).map((dateKey, firstIndex) => (
 				<div
 					key={dateKey}

@@ -10,7 +10,7 @@ const PostInfo = ({ post }) => {
 
 	return (
 		<div className="flex flex-col mb-2 justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
-			<div className="flex flex-col  min-[436px]:flex-row  justify-between gap-4 mt-3">
+			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				{/* user who created the post  */}
 				<div>
 					<div className=" mb-2">
@@ -38,7 +38,7 @@ const PostInfo = ({ post }) => {
 								</Link>
 							</p>
 						</div>
-						<div className="text-md md:text-sm mt-1 ">
+						<div className="min-[350px]:hidden min-[450px]:flex text-md md:text-sm ">
 							<LikesSaveViews post={post} />
 						</div>
 					</div>
@@ -51,7 +51,7 @@ const PostInfo = ({ post }) => {
 					{/* lazyloadingImg */}
 					<LazyLoadImg
 						backgroundClassName={
-							"w-[80vw] min-[436px]:w-[120px] lg:w-[160px] rounded-md relative border dark:border-slate-900"
+							"w-[80vw] min-[350px]:w-[100px] lg:w-[160px] rounded-md relative border dark:border-slate-900"
 						}
 						imgClassName={
 							"absolute inset-0 w-full h-full object-cover rounded-md"
@@ -62,6 +62,9 @@ const PostInfo = ({ post }) => {
 						paddingBottom={"100%"}
 					/>
 				</Link>
+			</div>
+			<div className="min-[350px]:flex min-[450px]:hidden text-md md:text-sm ">
+				<LikesSaveViews post={post} />
 			</div>
 		</div>
 	);

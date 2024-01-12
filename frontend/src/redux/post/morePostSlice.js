@@ -18,26 +18,6 @@ export const fetchUserPost = createAsyncThunk(
 	}
 );
 
-export const fetchMorePost = createAsyncThunk(
-	"fetchMore/Post",
-	async (postNumberPerPage, { rejectWithValue }) => {
-		const page = 1;
-		const activeCategory = "all";
-
-		try {
-			const resp = await customFetch(
-				`/posts/randomPost?page=${page}&postNumberPerPage=${postNumberPerPage}&category=${activeCategory}`
-			);
-			return resp.data;
-		} catch (error) {
-			if (!error?.response) {
-				throw new Error(error);
-			}
-			return rejectWithValue(error?.response?.data);
-		}
-	}
-);
-
 export const fetchSavedPosts = createAsyncThunk(
 	"fetch/SavedPosts",
 	async (page, { getState, rejectWithValue }) => {
@@ -189,16 +169,7 @@ const morePostSlice = createSlice({
 		[fetchUserPost.rejected]: (state, action) => {
 			state.userPostStatus = "error";
 		},
-		[fetchMorePost.pending]: (state, action) => {
-			state.morePostStatus = "loading";
-		},
-		[fetchMorePost.fulfilled]: (state, action) => {
-			state.morePost = action.payload;
-			state.morePostStatus = "success";
-		},
-		[fetchMorePost.rejected]: (state, action) => {
-			state.morePostStatus = "failed";
-		},
+
 		[fetchUserPostHistory.pending]: (state, action) => {
 			state.userPostHistoryStatus = "loading";
 		},

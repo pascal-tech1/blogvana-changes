@@ -22,6 +22,7 @@ import {
 const Saved = () => {
 	useEffect(() => {
 		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
 	}, []);
 	const dispatch = useDispatch();
 	const { userPostHistory, historyHasMore, userPostHistoryStatus } =

@@ -58,6 +58,11 @@ const AllUsers = () => {
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && adminFetchUsersHasMore) {
 						dispatch(increaseAdminAllUsersPageNumber());
+						dispatch(
+							fetchAllUsers({
+								filter: AdminAllUserSelectedFilter,
+							})
+						);
 					}
 				});
 				if (node) observer.current.observe(node);
@@ -67,23 +72,15 @@ const AllUsers = () => {
 	);
 
 	useEffect(() => {
-		if (
-			adminAllUsersStatus === "loading" ||
-			!id ||
-			adminAllUsersTotalNumber === allUsers.length
-		)
-			return;
+		if (adminAllUsersStatus === "loading") return;
+
+		dispatch(clearAdminAllUser());
 		dispatch(
 			fetchAllUsers({
 				filter: AdminAllUserSelectedFilter,
 			})
 		);
-	}, [
-		AdminAllUserSelectedFilter,
-		adminAllUsersPageNumber,
-		id,
-		dashboardSearchTerm,
-	]);
+	}, [AdminAllUserSelectedFilter, dashboardSearchTerm]);
 
 	const handleCheckedItemcsChange = (_id, tableItems) => {
 		if (_id === "All") {
@@ -105,7 +102,7 @@ const AllUsers = () => {
 	};
 
 	const allFilter = [
-		"check",
+		,
 		"Newest User",
 		"Oldest User",
 		"highest Followers",
@@ -115,7 +112,7 @@ const AllUsers = () => {
 		"highest Following",
 		"lowest Following",
 	];
-
+	console.log(allUsers);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const openModal = () => {
 		setCheckedItemId((prev) => prev.filter((item) => item !== "User Id"));

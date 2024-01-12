@@ -43,6 +43,10 @@ const MyPosts = () => {
 	const dispatch = useDispatch();
 	const observer = useRef();
 	const [checkedItems, setCheckedItemId] = useState([]);
+	useEffect(() => {
+		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
+	}, []);
 
 	const lastPostRef = useCallback(
 		(node) => {
@@ -51,6 +55,12 @@ const MyPosts = () => {
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && hasMore) {
 						dispatch(increaseCreatorPostPageNumber());
+						dispatch(
+							fetchCreatorPosts({
+								userId: id,
+								filter: MyPostSelectedFilter,
+							})
+						);
 					}
 				});
 				if (node) observer.current.observe(node);
@@ -60,25 +70,16 @@ const MyPosts = () => {
 	);
 
 	useEffect(() => {
-		if (
-			creatorPostStatus === "loading" ||
-			!id ||
-			creatoPostTotalNumber === creatorAllPost.length
-		)
-			return;
+		if (creatorPostStatus === "loading") return;
 
+		dispatch(clearCreatorAllPost());
 		dispatch(
 			fetchCreatorPosts({
 				userId: id,
 				filter: MyPostSelectedFilter,
 			})
 		);
-	}, [
-		MyPostSelectedFilter,
-		creatorAllPostPageNumber,
-		id,
-		dashboardSearchTerm,
-	]);
+	}, [MyPostSelectedFilter, dashboardSearchTerm]);
 
 	const handleCheckedItemcsChange = (_id, tableItems) => {
 		if (_id === "All") {
@@ -227,8 +228,8 @@ const MyPosts = () => {
 									/>
 								</td>
 
-								<td className="tableData z-50  ">
-									<Link className="" to={`/single-post/${post._id}`}>
+								<td className="tableData z-50   ">
+									<Link className=" " to={`/single-post/${post._id}`}>
 										<Tooltip info={post.title}>{post?.title}</Tooltip>
 									</Link>
 								</td>
@@ -240,8 +241,11 @@ const MyPosts = () => {
 								<td className="tableData ">
 									<Tooltip info={post.numViews}>{post.numViews}</Tooltip>
 								</td>
+								{console.log(post)}
 								<td className="tableData ">
-									<Tooltip info={post.category}>{post.category}</Tooltip>
+									<Tooltip info={post.category.title}>
+										{post.category.title}
+									</Tooltip>
 								</td>
 								<td className="tableData ">
 									<Tooltip info={post.likes.length}>

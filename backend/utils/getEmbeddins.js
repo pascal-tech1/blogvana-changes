@@ -12,4 +12,20 @@ async function main(input) {
 	return output;
 }
 
-module.exports = main;
+async function query(data) {
+	const response = await fetch(
+		"https://api-inference.huggingface.co/models/facebook/mms-tts-eng",
+		{
+			headers: {
+				Authorization: "Bearer {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}",
+			},
+			method: "POST",
+			body: JSON.stringify(data),
+		}
+	);
+	const result = await response.blob();
+	console.log(result);
+	return result;
+}
+
+module.exports = { main, query };

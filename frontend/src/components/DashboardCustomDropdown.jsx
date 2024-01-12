@@ -50,12 +50,12 @@ const DashboardCustomDropdown = ({
 	handleSelected = handleSelected ? handleSelected : handleSelectedFilter;
 
 	return (
-		<div className="relative z-[50] flex flex-col font-inter ">
+		<div className="relative z-[50] flex flex-col font-inter text-sm ">
 			<div
 				ref={iconRef}
 				type="button"
 				onClick={toggleDropdown}
-				className="bg-white gap-1  dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
+				className="bg-white gap-1 cursor-pointer dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
 			>
 				{selectedFilter}
 				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
@@ -75,7 +75,7 @@ const DashboardCustomDropdown = ({
 						key={index}
 						className={`${
 							selectedFilter === filter && " border-b border-b-blue-600"
-						} bg-gray-100 dark:bg-lightdark hover:bg-gray-200 dark:hover:bg-gray-800 transition-all delay-75 rounded-md md:text-sm px-2 py-[0.12rem] my-1 `}
+						} bg-gray-100 cursor-pointer dark:bg-lightdark hover:bg-gray-200 dark:hover:bg-gray-800 transition-all delay-75 rounded-md md:text-sm px-2 py-[0.12rem] my-1 `}
 						onClick={() => {
 							handleSelected(filter);
 							setIsOpen(false);

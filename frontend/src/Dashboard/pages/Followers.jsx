@@ -13,6 +13,7 @@ import FollowUsersList from "../components/FollowUsersList";
 const Following = () => {
 	useEffect(() => {
 		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
 	}, []);
 	const {
 		user,

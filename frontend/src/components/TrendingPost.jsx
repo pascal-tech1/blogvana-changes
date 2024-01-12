@@ -40,7 +40,10 @@ const TrendingPost = ({ post, index }) => {
 						</div>
 						<p className=" text-sm ">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</p>
 					</Link>
-					<Link to={`/single-post/${post?._id}`} className=" font-bold dark:text-gray-300">
+					<Link
+						to={`/single-post/${post?._id}`}
+						className=" font-bold text-sm lg:text-base dark:text-gray-300"
+					>
 						{post?.title}
 					</Link>
 					<div className=" flex gap-1 items-center text-[0.8rem] text-gray-500">

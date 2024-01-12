@@ -14,13 +14,12 @@ import {
 import { TfiMenuAlt } from "react-icons/tfi";
 
 import { Category, DashboardCustomDropdown, Tooltip } from ".";
-import { scrapeMediumPosts } from "../utils/scrapeWebsite";
 
 const PostSearch = ({ categoryNumber, isTableOfContent }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
-	scrapeMediumPosts();
+
 	const { allCategory, isTableOfContentClciked } = useSelector(
 		(store) => store.categorySlice
 	);

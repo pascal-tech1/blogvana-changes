@@ -125,6 +125,7 @@ const generalPostSlice = createSlice({
 		clearCreatorAllPost: (state) => {
 			state.hasMore = true;
 			state.creatorAllPost = [];
+			state.creatorAllPostPageNumber = 1;
 		},
 		setMyPostSelectedFilter: (state, { payload }) => {
 			state.MyPostSelectedFilter = payload;

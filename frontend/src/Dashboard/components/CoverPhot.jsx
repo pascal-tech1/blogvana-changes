@@ -40,9 +40,15 @@ const CoverPhoto = ({ user }) => {
 
 	return (
 		<div className=" w-full relative font-inter">
-			<Modal isOpen={isModalOpen} onClose={closeModal} isButtonNeeded={false}>
+			<Modal
+				isOpen={isModalOpen}
+				onClose={closeModal}
+				isButtonNeeded={false}
+			>
 				<LazyLoadImg
-					backgroundClassName={"   w-[85vw] md:w-[47vw]  relative rounded-md"}
+					backgroundClassName={
+						"   w-[85vw] md:w-[47vw]  relative rounded-md"
+					}
 					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
 					originalImgUrl={user?.coverPhoto}
 					blurImageStr={user?.blurCoverPhoto}
@@ -61,13 +67,12 @@ const CoverPhoto = ({ user }) => {
 			)}
 			<div onClick={() => openModal()} className=" cursor-pointer">
 				<LazyLoadImg
-					backgroundClassName={
-						"   w-full h-[7rem] lg:h-[8rem]  relative rounded-md"
-					}
+					backgroundClassName={"   w-full h-full  relative rounded-md"}
 					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
 					originalImgUrl={user?.coverPhoto}
 					blurImageStr={user?.blurCoverPhoto}
 					optimizationStr={"q_auto,f_auto,w_1000"}
+					paddingBottom={"20vh"}
 				/>
 			</div>
 

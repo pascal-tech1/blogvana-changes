@@ -10,6 +10,7 @@ const Tooltip = ({ children, info, relative }) => {
 	const hideTooltip = () => {
 		setIsVisible(false);
 	};
+	
 
 	return (
 		<div

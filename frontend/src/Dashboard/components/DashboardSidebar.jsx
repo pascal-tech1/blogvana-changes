@@ -19,17 +19,19 @@ import {
 	MdOutlineCreate,
 } from "react-icons/md";
 import { GiShadowFollower } from "react-icons/gi";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsEye } from "react-icons/bs";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
 
 const Entry = React.memo(({ entry, depth, path }) => {
+	const navRef = useRef(null);
 	const location = useLocation();
 	const page = location.pathname.substring(
 		location.pathname.lastIndexOf("/") + 1
 	);
+	const pathName = location.pathname;
 	const [isExpanded, setIsExpanded] = useState(false);
 	// Construct the path for the current entry
 	const currentPath = path
@@ -38,9 +40,28 @@ const Entry = React.memo(({ entry, depth, path }) => {
 	const to = entry?.children ? null : currentPath;
 	const Icon = entry?.icon;
 
+	// retrieve the active link
+	const parts = pathName.split("/");
+	const lastPart = parts[parts.length - 1];
+
+	const activeLink = lastPart.split("-")[0];
+
+	useEffect(() => {
+		if (navRef.current) {
+			console.log(
+				activeLink.toLowerCase(),
+				navRef.current.text.toLowerCase()
+			);
+			if (navRef.current.text.toLowerCase() === activeLink.toLowerCase()) {
+				navRef.current.click();
+			}
+		}
+	}, []);
+
 	return (
 		<div className=" w-[7rem] my-1 ">
 			<NavLink
+				ref={navRef}
 				to={to}
 				className={`${
 					page === currentPath && "text-blue-500"

@@ -5,9 +5,9 @@ import { setUserState, updateUser } from "../user/userSlice";
 
 export const fetchAllUsersPost = createAsyncThunk(
 	"fetch/AllUsersPost",
-	async (params, { getState, rejectWithValue }) => {
-		const postNumberPerPage = 12;
-		const { adminAllPostPageNumber } = getState().adminSlice;
+	async (params, { getState, dispatch, rejectWithValue }) => {
+		const { adminAllPostPageNumber, postNumberPerPage } =
+			getState().adminSlice;
 		const { dashboardSearchTerm } = getState().userSlice;
 
 		try {
@@ -152,6 +152,7 @@ export const toggleUserAdmin = createAsyncThunk(
 );
 
 const initialState = {
+	postNumberPerPage: 10,
 	hasMore: true,
 	allPost: [],
 	MyPostSelectedFilter: "Category",
@@ -181,6 +182,8 @@ const adminSlice = createSlice({
 			state.allPost = [];
 		},
 		setMyPostSelectedFilter: (state, { payload }) => {
+			state.allPost = [];
+			state.adminAllPostPageNumber = 1;
 			state.MyPostSelectedFilter = payload;
 		},
 		increaseAdminAllPostPageNumber: (state) => {
@@ -209,7 +212,8 @@ const adminSlice = createSlice({
 			state.allPost = [...state.allPost, ...payload.posts];
 			state.adminAllPostTotalPages = payload.totalPages;
 
-			if (payload.posts.length < 10) state.hasMore = false;
+			if (payload.posts.length < state.postNumberPerPage)
+				state.hasMore = false;
 			else state.hasMore = true;
 		},
 		[fetchAllUsersPost.rejected]: (state, action) => {

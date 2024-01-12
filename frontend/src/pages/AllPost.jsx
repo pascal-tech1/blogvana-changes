@@ -32,6 +32,7 @@ const AllPost = () => {
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
+					console.log('im fetching posts')
 					dispatch(IncreasePageNumber());
 					console.log("im her fetch post allpost");
 					dispatch(fetchPostByCategory());

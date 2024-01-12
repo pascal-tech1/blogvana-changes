@@ -22,7 +22,10 @@ import {
 } from "../../components";
 
 import { BiUser } from "react-icons/bi";
-import { setSearchTermInStore } from "../../redux/user/userSlice";
+import {
+	setIsSearchBArNeeded,
+	setSearchTermInStore,
+} from "../../redux/user/userSlice";
 import MessageUser from "../../Dashboard/components/MessageUser";
 
 const AllUsersPosts = () => {
@@ -43,6 +46,11 @@ const AllUsersPosts = () => {
 	const observer = useRef();
 	const [checkedItems, setCheckedItemId] = useState([]);
 
+	useEffect(() => {
+		dispatch(setIsSearchBArNeeded(true));
+		dispatch(setSearchTermInStore(""));
+	}, []);
+
 	const lastPostRef = useCallback(
 		(node) => {
 			if (adminAllPostStatus !== "loading") {
@@ -50,6 +58,12 @@ const AllUsersPosts = () => {
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && hasMore) {
 						dispatch(increaseAdminAllPostPageNumber());
+						dispatch(
+							fetchAllUsersPost({
+								userId: id,
+								filter: MyPostSelectedFilter,
+							})
+						);
 					}
 				});
 				if (node) observer.current.observe(node);
@@ -59,25 +73,16 @@ const AllUsersPosts = () => {
 	);
 
 	useEffect(() => {
-		if (
-			adminAllPostStatus === "loading" ||
-			!id ||
-			adminAllPostTotalNumber === allPost.length
-		)
-			return;
+		if (adminAllPostStatus === "loading") return;
 
+		dispatch(clearAdminAllPost());
 		dispatch(
 			fetchAllUsersPost({
 				userId: id,
 				filter: MyPostSelectedFilter,
 			})
 		);
-	}, [
-		MyPostSelectedFilter,
-		id,
-		adminAllPostPageNumber,
-		dashboardSearchTerm,
-	]);
+	}, [MyPostSelectedFilter, dashboardSearchTerm]);
 
 	const handleCheckedItemcsChange = (_id, tableItems) => {
 		if (_id === "All") {
@@ -131,6 +136,7 @@ const AllUsersPosts = () => {
 		dispatch(setSearchTermInStore(""));
 	};
 
+	console.log(allPost);
 	return (
 		<div className=" font-inter shadow-md  overflow-hidden h-[85vh] dark:bg-dark rounded-lg p-2  ">
 			{/* clear search */}
@@ -228,15 +234,17 @@ const AllUsersPosts = () => {
 									</Link>
 								</td>
 								<td className="tableData ">
-									<Tooltip info={formatDate(post.createdAt)}>
+									<Tooltip info={formatDate(post?.createdAt)}>
 										{formatDate(post.createdAt)}
 									</Tooltip>
 								</td>
 								<td className="tableData ">
-									<Tooltip info={post.numViews}>{post.numViews}</Tooltip>
+									<Tooltip info={post?.numViews}>{post?.numViews}</Tooltip>
 								</td>
 								<td className="tableData ">
-									<Tooltip info={post.category}>{post.category}</Tooltip>
+									<Tooltip info={post?.category?.title || "General"}>
+										{post?.category?.title || "null"}
+									</Tooltip>
 								</td>
 								<td className="tableData ">
 									<Tooltip info={post.likes.length}>
