@@ -12,17 +12,17 @@ const PostInfo = ({ post }) => {
 
 	return (
 		<div className="flex flex-col mb-2 justify-self-center py-4 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
-			<div className=" min-[554px]:hidden md:flex  lg:hidden">
+			<div className=" min-[400px]:hidden md:flex  lg:hidden">
 				<PostUserInfo post={post} />
 			</div>
 			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-3">
 				{/* user who created the post  */}
 
 				<div>
-					<div className="hidden min-[554px]:flex md:hidden  lg:flex">
+					<div className="hidden min-[400px]:flex md:hidden  lg:flex">
 						<PostUserInfo post={post} />
 					</div>
-					<div className=" self-start">
+					<div className=" self-start ">
 						<Link
 							to={`/single-post/${post?._id}`}
 							aria-label={`${post?.title}-link`}
