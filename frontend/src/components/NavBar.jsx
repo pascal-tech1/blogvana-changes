@@ -71,18 +71,25 @@ const NavBar = () => {
 	}, [dropdownDivRef, dropdownIconRef]);
 	return (
 		<div className="relative z-50 grid dark:bg-lightdark ">
-			<button
-				ref={dropdownIconRef}
-				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-				className=" ml-4 min-[390px]:hidden"
-			>
-				<BiMenu
-					className={`${isDropdownOpen && "hidden"} relative text-4xl`}
-				/>
-				<MdClose
-					className={`${!isDropdownOpen && "hidden"} relative text-4xl`}
-				/>
-			</button>
+			<div className="min-[390px]:hidden flex items-center justify-between mx-4">
+				<Link to="/" className="" aria-label="blogvana-home-page ">
+					<h1 className=" md:hidden text-blue-500  text-2xl font-bold">
+						Blogvana
+					</h1>
+				</Link>
+				<button
+					ref={dropdownIconRef}
+					onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+					className=" "
+				>
+					<BiMenu
+						className={`${isDropdownOpen && "hidden"} relative text-4xl`}
+					/>
+					<MdClose
+						className={`${!isDropdownOpen && "hidden"} relative text-4xl`}
+					/>
+				</button>
+			</div>
 			<div
 				ref={dropdownDivRef}
 				className={`${
@@ -98,14 +105,14 @@ const NavBar = () => {
 						/>
 					</div>
 
-					<h1 className=" md:hidden text-blue-500  text-2xl font-bold">
+					<h1 className="max-[389px]:hidden md:hidden text-blue-500  text-2xl font-bold">
 						Blogvana
 					</h1>
 				</Link>
 
 				<form className="relative md:w-1/3 justify-center z-50  items-center">
 					<input
-						className={` hidden md:flex text-xs  font-sm bg-gray-50 dark:bg-dark px-1 md:py-2 border border-b-gray-300 dark:border-gray-800 focus:border-b-gray-400 dark:border-b-gray-600   rounded-full  text-center focus:outline-none  w-full  `}
+						className={` hidden md:flex text-xs  font-sm dark:bg-dark px-1 md:py-2 border border-gray-100 dark:border-gray-800 focus:border-b-gray-300 dark:border-b-gray-600   rounded-full bg-gray-100 text-center focus:outline-none  w-full bg-transparent `}
 						type="text"
 						id="searchPost"
 						placeholder="Search"
@@ -115,7 +122,7 @@ const NavBar = () => {
 				</form>
 
 				{/* theme  */}
-				<div className=" -ml-[5rem]">
+				<div className=" -ml-[5rem] max-[389px]:ml-0">
 					<Theme />
 				</div>
 				<div className={``}>
@@ -125,7 +132,7 @@ const NavBar = () => {
 							<button
 								ref={iconRef}
 								onClick={() => setShowLogOut(!showLogOut)}
-								className="flex items-center" 
+								className="flex items-center"
 							>
 								<div className=" flex items-center">
 									{/* lazyloading */}

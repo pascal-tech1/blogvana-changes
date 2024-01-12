@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LikesSaveViews, PostUserInfo, LazyLoadImg } from ".";
+import { useScreenWidth } from "../customHooks";
 
 //
 
 const PostInfo = ({ post }) => {
 	const user = useSelector((store) => store?.userSlice?.user);
+	const screenWidth = useScreenWidth();
 
 	return (
 		<div className="flex flex-col mb-2 justify-self-center py-4 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
@@ -52,19 +54,33 @@ const PostInfo = ({ post }) => {
 					aria-label={`${post?.title}-link`}
 					className=" self-center  "
 				>
-					{/* lazyloadingImg */}
-					<LazyLoadImg
-						backgroundClassName={
-							"w-[60vw] min-[350px]:w-[100px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
-						}
-						imgClassName={
-							"absolute inset-0 w-full h-full object-cover rounded-md"
-						}
-						originalImgUrl={post?.image}
-						blurImageStr={post.blurImageUrl}
-						optimizationStr={"q_auto,f_auto,w_400"}
-						paddingBottom={"100%"}
-					/>
+					{screenWidth > 350 ? (
+						<LazyLoadImg
+							backgroundClassName={
+								"w-[85vw] !h-[0.2rem] min-[350px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
+							}
+							imgClassName={
+								"absolute inset-0 w-full h-full object-cover rounded-md"
+							}
+							originalImgUrl={post?.image}
+							blurImageStr={post.blurImageUrl}
+							optimizationStr={"q_auto,f_auto,w_400"}
+							paddingBottom={"100%"}
+						/>
+					) : (
+						<LazyLoadImg
+							backgroundClassName={
+								"w-[85vw] !h-[0.2rem] min-[350px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
+							}
+							imgClassName={
+								"absolute inset-0 w-full h-full object-cover rounded-md"
+							}
+							originalImgUrl={post?.image}
+							blurImageStr={post.blurImageUrl}
+							optimizationStr={"q_auto,f_auto,w_400"}
+							paddingBottom={"50%"}
+						/>
+					)}
 				</Link>
 			</div>
 		</div>

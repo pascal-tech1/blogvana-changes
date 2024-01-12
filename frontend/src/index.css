@@ -335,7 +335,7 @@ th {
 	@apply border border-gray-200 dark:border-neutral-800;
 }
 .ql-syntax {
-	@apply !max-h-fit py-4 px-2 !bg-[#F9F9F9] max-[350px]:text-xs text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
+	@apply !max-h-fit py-4 px-2 !bg-[#F9F9F9]  text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
 }
 .code-div {
 	@apply relative  px-2 py-4 pt-6 pb-2  rounded-lg p-4;
@@ -344,7 +344,7 @@ th {
 	@apply dark:bg-gray-900 drop-shadow-sm text-sm;
 }
 .nav-heading-sm {
-	@apply min-[389px]:hidden max-[389px]:grid   max-[389px]:place-content-center    max-[389px]:shadow-lg  max-[389px]:h-fit  max-[389px]:gap-4 max-[389px]:p-3  max-[389px]:bg-white;
+	@apply min-[389px]:hidden max-[389px]:grid  max-[389px]:place-content-center   max-[389px]:shadow-lg  max-[389px]:h-fit  max-[389px]:gap-4 max-[389px]:p-3  max-[389px]:bg-white;
 }
 
 .nav-heading-big {
