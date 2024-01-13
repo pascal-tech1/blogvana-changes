@@ -23,6 +23,8 @@ import ContactMe from "./ContactMe";
 
 import DashboardCustomDropdown from "./DashboardCustomDropdown";
 import TrendingPost from "./TrendingPost";
+import { LoadingSkeleton } from "./LoadingSkeleton";
+import InitialSpinner from "./InitialSpinner";
 
 export {
 	NavBar,
@@ -45,5 +47,7 @@ export {
 	ContactMe,
 	DashboardCustomDropdown,
 	SuspenseLoadingSpinner,
-	TrendingPost
+	TrendingPost,
+	LoadingSkeleton,
+	InitialSpinner,
 };

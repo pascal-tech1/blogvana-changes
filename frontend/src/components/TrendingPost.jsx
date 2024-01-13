@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { LazyLoadImg } from ".";
-import FollowingBtn from "./FollowingBtn";
-import EditPostBtn from "./EditPostBtn";
-import { PiDotDuotone } from "react-icons/pi";
+
 import { BsDot } from "react-icons/bs";
 
 const TrendingPost = ({ post, index }) => {
@@ -17,7 +15,7 @@ const TrendingPost = ({ post, index }) => {
 	return (
 		<>
 			<div className=" font-inter flex gap-6 items-start justify-start ">
-				<div className="  gap-1 md:hidden lg:flex items-center text-3xl font-bold text-gray-100 dark:text-lightdark ">
+				<div className="  gap-1 md:hidden lg:flex items-center text-3xl font-bold text-gray-200 dark:text-lightdark ">
 					<h1>0</h1>
 					<h1>{index + 1}</h1>
 				</div>

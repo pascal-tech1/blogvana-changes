@@ -8,6 +8,7 @@ import {
 	LazyLoadImg,
 	LikesSaveViews,
 	PostUserInfo,
+	LoadingSpinner,
 } from "../components";
 
 const MorePost = ({ post, status }) => {
@@ -52,9 +53,7 @@ const MorePost = ({ post, status }) => {
 					</div>
 				</div>
 			))}
-			<div className=" grid place-content-center">
-				{status === "loading" && <Spinner />}
-			</div>
+			<div className=" ">{status === "loading" && <LoadingSpinner />}</div>
 		</>
 	);
 };

@@ -14,23 +14,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				inter: [
-					"Graphik-Regular",
-					"Graphik-Black",
-					"Graphik-Bold",
-					"Graphik-",
-					"Graphik-Extralight",
-					"Graphik-light",
-					"Graphik-lightItalic",
-					"Graphik-Medium",
-					"Graphik-MediumItalic",
-					"Graphik-Regular",
-					"Graphik-RegularItalic",
-					"Graphik-Super",
-					"Graphik-SuperItalic",
-					"Graphik-Thin",
-					"sans-serif",
-				],
+				inter: ["Lato", "Open Sans", "Source Sans Pro", "Noto Sans"],
 			},
 			colors: {
 				lightdark: "#202127",

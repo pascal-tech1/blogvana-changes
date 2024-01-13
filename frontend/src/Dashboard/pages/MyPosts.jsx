@@ -243,8 +243,8 @@ const MyPosts = () => {
 								</td>
 								{console.log(post)}
 								<td className="tableData ">
-									<Tooltip info={post.category.title}>
-										{post.category.title}
+									<Tooltip info={post.category?.title}>
+										{post.category?.title}
 									</Tooltip>
 								</td>
 								<td className="tableData ">

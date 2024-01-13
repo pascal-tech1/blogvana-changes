@@ -26,7 +26,12 @@ import { BsEye, BsPostcardFill } from "react-icons/bs";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { MdOutlineFollowTheSigns } from "react-icons/md";
 import { formatNumber } from "../../utils/formatNumbersIn1000";
-import { LoadingSpinner, Tooltip, UserToFollow } from "../../components";
+import {
+	LoadingSkeleton,
+	LoadingSpinner,
+	Tooltip,
+	UserToFollow,
+} from "../../components";
 import { formatDate } from "../../utils/dataFormatter";
 
 const Stats = () => {
@@ -154,7 +159,7 @@ const Stats = () => {
 						</h1>
 						<h3 className=" mb-3">{`${whoViewUserProfileCount} people have view your profile`}</h3>
 						{whoViewUserProfileStatus === "loading" ? (
-							<LoadingSpinner />
+							<LoadingSkeleton />
 						) : (
 							whoViewUserProfile.map((users, index) => {
 								if (users?.viewedBy?.length === 0) {
@@ -206,7 +211,7 @@ const Stats = () => {
 				</h1>
 				<h3 className=" my-3">{`you have ${receivedMessageCount} messages `}</h3>
 				{fetchMessageStatus === "loading" ? (
-					<LoadingSpinner />
+					<LoadingSkeleton />
 				) : (
 					<MessagesComp msg={msg?.slice(0, 5)} />
 				)}

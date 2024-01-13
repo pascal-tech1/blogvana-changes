@@ -51,7 +51,7 @@ const ProfilePhoto = ({ user }) => {
 					imgClassName={"absolute inset-0 w-full h-full rounded-md "}
 					originalImgUrl={user?.profilePhoto}
 					blurImageStr={user?.blurProfilePhoto}
-					optimizationStr={"q_auto,f_auto,w_1000"}
+					optimizationStr={"q_auto,f_auto,w_600"}
 				/>
 			</Modal>
 			{image && (

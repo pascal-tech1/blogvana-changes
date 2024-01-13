@@ -163,7 +163,7 @@ const ContactMe = ({ copyrightNeeded, nameNeeded }) => {
 			{nameNeeded && <h3> Made By Adoh Azubike</h3>}
 			<button
 				onClick={() => setIsModalOpen(true)}
-				className=" text-base hover:bg-blue-600  text-white bg-blue-500 px-1 py-[0.15rem]  rounded-lg transition-all duration-75"
+				className=" text-base shadow-sm hover:bg-blue-500  text-white bg-blue-600 px-1 py-[0.15rem]  rounded-lg transition-all duration-75"
 			>
 				contact me
 			</button>

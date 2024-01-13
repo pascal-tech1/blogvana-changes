@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserWithToken } from "./redux/user/userSlice";
 
-import { LoadingSpinner, SuspenseLoadingSpinner } from "./components";
+import { InitialSpinner, LoadingSpinner, SuspenseLoadingSpinner } from "./components";
 
 import { useDarkMode } from "./customHooks";
 
@@ -71,8 +71,6 @@ const App = () => {
 			document.documentElement.classList.remove("dark");
 		}
 	}, [theme, isSystemInDakMode]);
-	
-
 
 	useEffect(() => {
 		const handleKeyPress = (e) => {
@@ -92,8 +90,8 @@ const App = () => {
 	if (loginUserTokenStatus === "loading") {
 		return (
 			<div className=" grid place-content-center place-items-center h-screen dark:bg-dark">
-				<img src="blogvana.png" alt="" className=" w-20 h-20" />
-				<LoadingSpinner />
+				<h1 className=" mb-6 text-2xl text-blue-600 font-bold drop-shadow-md">Welcome to Blogvana</h1>
+				<InitialSpinner />
 			</div>
 		);
 	}

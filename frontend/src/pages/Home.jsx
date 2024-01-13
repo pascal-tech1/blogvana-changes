@@ -122,6 +122,7 @@ const Home = () => {
 							{numberOfDisplayCategory <= allCategoryArray.length && (
 								<button
 									onClick={handleAddMoreCategoryToDisplay}
+									aria-label="view more categories"
 									className=" bg-blue-500 rounded-md px-1 mt-3 hover:bg-blue-600 shadow-md hover:shadow-none self-center text-white my-2"
 								>
 									<MdExpandMore className=" text-2xl" />

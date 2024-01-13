@@ -44,7 +44,6 @@ const UserPage = () => {
 	useEffect(() => {
 		if (userId) {
 			page === 1 && dispatch(clearCreatorAllPost(userId));
-
 			dispatch(fetchCreatorPosts({ userId: userId, page }));
 		}
 	}, [page, userId]);
@@ -104,13 +103,7 @@ const UserPage = () => {
 					<div className=" flex flex-col gap-4 col-start-1 col-span-2   md:pt-4 h-max ">
 						<div className="w-full">
 							<div className=" w-full  relative">
-								{!postCreatorProfile?.blurCoverPhoto && (
-									<img
-										src={postCreatorProfile?.coverPhoto}
-										alt=""
-										className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md  "
-									/>
-								)}
+								
 								{postCreatorProfile?.blurCoverPhoto && (
 									<div
 										onClick={() => {
@@ -192,7 +185,7 @@ const UserPage = () => {
 										event.preventDefault();
 										setPage(page + 1);
 									}}
-									className=" self-center rounded-md px-2 mb-4 border dark:border-slate-800 bg-blue-400 drop-shadow-md text-white border-gray-300 hover:bg-blue-600 transition-all delay-75"
+									className=" self-center rounded-md px-2 mb-4 border dark:border-slate-800 shadow-sm hover:shadow-none bg-blue-600 drop-shadow-md text-white border-gray-300 hover:bg-blue-500 transition-all delay-75"
 								>
 									load more
 								</button>

@@ -7,7 +7,7 @@ export function formatDate(dateString) {
 	if (currentDate.diff(inputDate, "days") < 1) {
 		return "today";
 	} else if (currentDate.diff(inputDate, "days") === 1) {
-		return "Yesterday";
+		return "yesterday";
 	} else if (currentDate.diff(inputDate, "days") < 7) {
 		return currentDate.diff(inputDate, "days") + " days ago";
 	} else {
