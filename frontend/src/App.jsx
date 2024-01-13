@@ -71,8 +71,8 @@ const App = () => {
 			document.documentElement.classList.remove("dark");
 		}
 	}, [theme, isSystemInDakMode]);
-	let utterance = new SpeechSynthesisUtterance("Hello world!");
-	speechSynthesis.speak(utterance);
+	
+
 
 	useEffect(() => {
 		const handleKeyPress = (e) => {
