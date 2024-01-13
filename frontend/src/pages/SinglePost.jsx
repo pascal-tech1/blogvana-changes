@@ -226,8 +226,8 @@ const SinglePost = ({ singlePost }) => {
 									paddingBottom={"6%"}
 								/>
 
-								<div className=" flex justify-between  items-center">
-									<p className=" font-md mt-3 text-2xl dark:text-slate-200">
+								<div className=" flex justify-between gap-4 items-center flex-wrap">
+									<p className=" font-md text-xl dark:text-slate-200">
 										Written by
 										<span>
 											{post?.user?.firstName} {post?.user?.lastName}
@@ -237,7 +237,7 @@ const SinglePost = ({ singlePost }) => {
 										{/* followingBtn component */}
 										<FollowingBtn
 											userToFollowOrUnfollow={post?.user}
-											className={` border self-center hover:bg-blue-800 text-center px-2 bg-blue-900 text-white hover:text-white rounded-lg transition-all delay-75`}
+											className={` border hover:bg-blue-800 text-center px-2 bg-blue-900 text-white hover:text-white rounded-lg transition-all delay-75`}
 										/>
 
 										{/* message component */}
@@ -247,7 +247,7 @@ const SinglePost = ({ singlePost }) => {
 										/>
 									</div>
 								</div>
-								<div className="flex gap-3">
+								<div className="flex gap-3 flex-wrap">
 									<p>
 										{post?.user?.followers?.length}
 										<span className=" ml-1">Followers</span>

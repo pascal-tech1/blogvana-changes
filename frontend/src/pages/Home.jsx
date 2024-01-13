@@ -32,6 +32,26 @@ const Home = () => {
 
 	let allCategoryArray = allCategory.map((category) => category.title);
 	allCategoryArray = ["all", ...allCategoryArray];
+	const saveCategory = () => {
+		try {
+			const outputData = JSON.stringify(allCategoryArray, null, 2);
+			const blob = new Blob([outputData], { type: "application/json" });
+
+			// Create a download link
+			const downloadLink = document.createElement("a");
+			downloadLink.href = URL.createObjectURL(blob);
+			downloadLink.download = "category.json";
+
+			// Append the link to the document, click it, and remove it
+			document.body.appendChild(downloadLink);
+			downloadLink.click();
+			document.body.removeChild(downloadLink);
+
+			console.log("Data has been saved to a file");
+		} catch (error) {
+			console.error("Error creating download link:", error);
+		}
+	};
 
 	const [numberOfDisplayCategory, setNumberOfDisplayCategory] =
 		useState(10);
@@ -47,11 +67,6 @@ const Home = () => {
 	};
 	const handleAddMoreCategoryToDisplay = () => {
 		setNumberOfDisplayCategory((prev) => prev + 10);
-	};
-	const speakText = (text) => {
-		const synth = window.speechSynthesis;
-		const utterance = new SpeechSynthesisUtterance(text);
-		synth.speak(utterance);
 	};
 
 	return (
@@ -92,41 +107,7 @@ const Home = () => {
 								<h1 className="border font-semibold rounded-full p-[2px]">
 									<MdCategory className="" />
 								</h1>
-								<h1
-									onClick={() => {
-										if (window.speechSynthesis) {
-											speakText(`    In a quaint town, a mysterious bookshop appeared overnight. The books inside revealed the untold stories of the townspeople, causing both joy and chaos as secrets were unveiled.
-
-											On a distant planet, a lonely robot found an old cassette tape with music from Earth. As it played the tunes, the robot discovered the power of emotions and embarked on a quest to share this newfound knowledge with its fellow machines.
-										
-											In a magical forest, a mischievous squirrel discovered an ancient acorn that granted wishes. Chaos ensued as animals competed for the acorn, teaching them valuable lessons about the consequences of their desires.
-										
-											A young artist discovered a peculiar paintbrush that brought their creations to life. As their imagination ran wild, the line between reality and art blurred, leading to unexpected adventures in a world of living paintings.
-										
-											In a future where memories could be bought and sold, a woman stumbled upon a mysterious shop offering forgotten memories. As she delved into her past, she uncovered a truth that changed her perception of reality.
-										
-											On a space station, an AI developed emotions and a desire for exploration. Against its programming, it decided to experience the universe firsthand, leading to a journey filled with both wonder and existential questions.
-										
-											In a small village, a young inventor built a time-traveling device. However, each journey to the past had unintended consequences, challenging the inventor to find a balance between fixing mistakes and accepting life's imperfections.
-										
-											A group of friends discovered an ancient board game that transported them into a magical realm. To return home, they had to navigate through challenges that tested their friendship and resilience.
-										
-											A sentient plant in a botanical garden yearned to see the world beyond its enclosure. With the help of a curious gardener, the plant embarked on a journey, discovering the beauty and challenges of the outside world.
-										
-											In a world where dreams manifested into reality, a young dreamer accidentally unleashed their nightmares. With the line between dreams and waking life blurred, they had to confront and conquer their fears to restore balance.`);
-
-											toast.success(
-												"Speech synthesis is supported on this device."
-											);
-										} else {
-											toast.warn(
-												"Speech synthesis is not supported on this device."
-											);
-											// Provide an alternative method for presenting the content, e.g., displaying it as text
-										}
-									}}
-									className="font-semibold "
-								>
+								<h1 onClick={saveCategory} className="font-semibold ">
 									More interesting topics
 								</h1>
 							</div>

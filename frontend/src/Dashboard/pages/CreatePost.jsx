@@ -60,8 +60,8 @@ const CreatePost = () => {
 	}, [isBlocked]);
 
 	useEffect(() => {
-		// Make sure modules.syntax is defined before calling loadHighlightJs
-		console.log("i have run modules", modules);
+		// Making sure modules.syntax is defined before calling loadHighlightJs
+
 		loadHighlightJS();
 	}, [modules]);
 
@@ -95,7 +95,7 @@ const CreatePost = () => {
 	}, [_id]);
 
 	const allCategorytitle = allCategory.map((category) => category.title);
-	
+
 	const formik = useFormik({
 		initialValues: {
 			title: (isEditing && postToBeEdited?.title) || title,
@@ -109,7 +109,7 @@ const CreatePost = () => {
 		},
 
 		onSubmit: (values) => {
-			if (values.content.length <= 20) {
+			if (values.content.length <= 500) {
 				toast.error(
 					"content is required and cannot be less than 500 characters"
 				);
@@ -127,7 +127,7 @@ const CreatePost = () => {
 			values.readingTime = readingTime;
 			values.title =
 				values.title.charAt(0).toUpperCase() + values.title.slice(1);
-
+			console.log(values);
 			isEditing
 				? dispatch(updatePost(values))
 				: dispatch(createPost(values));

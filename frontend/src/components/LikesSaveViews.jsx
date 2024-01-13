@@ -41,7 +41,7 @@ const LikesSaveViews = ({ post }) => {
 				<button
 					onClick={() => handleLikes(post?._id)}
 					aria-label="like button"
-					className=" text-base hover:cursor-pointer  p-[0.35rem] transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className=" text-base hover:cursor-pointer  p-[0.35rem] mr-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
 				>
 					<AiOutlineLike className="  lg:text-base" />
 				</button>
@@ -51,7 +51,7 @@ const LikesSaveViews = ({ post }) => {
 				<button
 					onClick={() => handleDislikes(post?._id)}
 					aria-label="dislike button"
-					className="text-base hover:cursor-pointer p-[0.35rem] transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className="text-base hover:cursor-pointer p-[0.35rem] mr-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
 				>
 					<AiOutlineDislike className=" lg:text-base" />
 				</button>
@@ -68,7 +68,7 @@ const LikesSaveViews = ({ post }) => {
 					dispatch(savePost(post?._id));
 				}}
 				aria-label="save post button"
-				className=" text-base hover:bg-gray-400 p-[0.35rem] rounded-full hover:text-white"
+				className=" text-base hover:bg-gray-400 p-[0.35rem] mr-1 rounded-full hover:text-white"
 			>
 				<MdOutlineBookmarkAdd className=" lg:text-base" />
 			</button>

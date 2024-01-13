@@ -33,6 +33,7 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 		validateMongoDbUserId(id);
 
 		const user = await User.findById(id);
+		console.log(req.body);
 
 		const $ = cheerio.load(req?.body?.content); // Load your HTML
 		const postContent = $.root().text();
