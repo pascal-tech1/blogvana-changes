@@ -753,7 +753,7 @@ const fetchTrendingPost = expressAsyncHandler(async (req, res) => {
 				],
 			})
 			.select(["title", "readingTime", "updatedAt", "numViews"]);
-		console.log(post);
+
 		res.status(200).json(post);
 	} catch (error) {
 		res.status(500).json("failed to fetch trending Post");

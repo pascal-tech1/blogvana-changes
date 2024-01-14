@@ -59,7 +59,6 @@ const Home = () => {
 		setNumberOfDisplayCategory((prev) => prev + 10);
 	};
 	console.log(trendingPost);
-
 	return (
 		<div className={`font-inter text-lg lg:text-base `}>
 			<div className=" md:grid grid-cols-5 gap-10 ">
@@ -83,15 +82,19 @@ const Home = () => {
 								<h1 className=" font-semibold">Trending on BlogVana </h1>
 							</div>
 
-							{trendingPost?.slice(0, 3).map((post, index) => {
-								return (
-									<div key={index} className=" pr-[2px] my-6 ">
-										{/* The post info's including the user info */}
-										<TrendingPost post={post} index={index} />
-									</div>
-								);
-								//
-							})}
+							{trendingPostStatus === "loading" ? (
+								<TrendingPostSkeleton />
+							) : (
+								trendingPost?.slice(0, 3).map((post, index) => {
+									return (
+										<div key={index} className=" pr-[2px] my-6 ">
+											{/* The post info's including the user info */}
+											<TrendingPost post={post} index={index} />
+										</div>
+									);
+									//
+								})
+							)}
 						</section>
 
 						<section className="flex justify-center flex-col">

@@ -63,11 +63,26 @@ const AllPost = () => {
 				handleClearSearch={handleClearSearch}
 			/>
 
+			{allPost.map((post, index) => {
+				return (
+					<div
+						key={index}
+						ref={allPost.length === index + 1 ? lastPostRef : null}
+						className=" pr-[2px] "
+					>
+						{/* The post info's including the user info */}
+						<PostInfo post={post} />
+					</div>
+				);
+				//
+			})}
+
 			{/* loading Spinner */}
-			<div className="grid place-content-center">
-				{Array.from({ length: loadingSkeletonNumber }).map((_, index) => (
-					<PostInfoLoadingSkeleton key={index} />
-				))}
+			<div className="grid ">
+				{allPostStatus === "loading" &&
+					Array.from({ length: loadingSkeletonNumber }).map((_, index) => (
+						<PostInfoLoadingSkeleton key={index} />
+					))}
 			</div>
 			<div className=" grid place-content-center">
 				{allPostStatus === "failed" && (
