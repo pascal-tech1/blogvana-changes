@@ -7,7 +7,6 @@ const expressAsyncHandler = require("express-async-handler");
 const mailTransporter = require("../../config/sendEmail/sendEmailConfig");
 const crypto = require("crypto");
 
-const email = require("../../config/email");
 const handleCloudinaryUpload = require("../../config/cloundinary/cloudinaryUploadConfig");
 const UserProfileView = require("../../model/userProfileView/userProfileView");
 const { default: mongoose, isValidObjectId } = require("mongoose");
@@ -598,10 +597,7 @@ const ChangeEmailCtrl = expressAsyncHandler(async (req, res) => {
 		const { email } = req?.body;
 		const { password } = req?.body;
 		const { newEmail } = req?.body;
-
 		const loginUser = req.user;
-		if (email === newEmail)
-			throw new Error("old and new Email can't be the same");
 		if (email !== loginUser.email) throw new Error("invalid credentials");
 
 		const foundUser = await User.findOne({ email: newEmail });
@@ -610,6 +606,9 @@ const ChangeEmailCtrl = expressAsyncHandler(async (req, res) => {
 		const isPasswordMatch = await loginUser.isPasswordCorrect(password);
 		if (!isPasswordMatch) throw new Error("invalid credentials");
 
+		if (email === newEmail) {
+			throw new Error("old and new Email can't be the same");
+		}
 		const verificationToken = await loginUser.accountVerificationHandler();
 		await loginUser.save();
 
@@ -628,26 +627,21 @@ const ChangeEmailCtrl = expressAsyncHandler(async (req, res) => {
 		mailTransporter.sendMail(mailDetails, function (err, data) {
 			if (err) {
 				// "throw new Error("failed to send message");"
-				res
-					.status(500)
-					.json({ message: "sending verification mail failed try again" });
-				return;
+
+				throw new Error("sending verification mail failed try again");
 			} else {
 				res.json({
 					message:
 						"verification email sent successfully, check your inbox to verify your new email ",
 					mailDetails,
 				});
+				return;
 			}
 		});
-
-		return;
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({
 			status: "failed",
-			message:
-				"failed to send verification message token, try again later",
+			message: error.message,
 		});
 	}
 });
