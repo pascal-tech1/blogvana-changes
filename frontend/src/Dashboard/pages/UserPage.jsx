@@ -114,7 +114,7 @@ const UserPage = () => {
 
 											openModal();
 										}}
-										className=" h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md"
+										className=" cursor-pointer h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md"
 									>
 										<LazyLoadImg
 											backgroundClassName={
@@ -138,7 +138,7 @@ const UserPage = () => {
 
 										openModal();
 									}}
-									className=" absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600"
+									className=" cursor-pointer absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600"
 								>
 									<LazyLoadImg
 										backgroundClassName={

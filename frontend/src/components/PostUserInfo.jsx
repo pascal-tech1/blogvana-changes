@@ -23,7 +23,7 @@ const PostUserInfo = ({ post }) => {
 						{/* lazyloading image */}
 						<div>
 							<LazyLoadImg
-								backgroundClassName={" rounded-full  w-8 h-8  relative"}
+								backgroundClassName={" rounded-full  w-6 h-6  relative"}
 								imgClassName={
 									"absolute inset-0 w-full h-full  object-cover rounded-full "
 								}

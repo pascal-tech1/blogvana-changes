@@ -17,7 +17,7 @@ const MorePost = ({ post, status }) => {
 			{post?.map((post, index) => (
 				<div
 					key={index}
-					className="   dark:text-slate-300  dark:bg-lightdark bg-gray-100 rounded-lg
+					className=" shadow-sm rounded-lg
 					"
 				>
 					<Link
@@ -26,19 +26,19 @@ const MorePost = ({ post, status }) => {
 						aria-label={`${post?.title}-link`}
 					>
 						<LazyLoadImg
-							backgroundClassName={" w-full rounded-t-md  relative "}
+							backgroundClassName={" w-30% rounded-t-md  relative "}
 							imgClassName={
 								"absolute inset-0 w-full h-full object-cover rounded-t-md"
 							}
 							originalImgUrl={post?.image}
 							blurImageStr={post?.blurImageUrl}
 							optimizationStr={`q_auto,f_auto,w_800`}
-							paddingBottom={"50%"}
+							paddingBottom={"40%"}
 						/>
 					</Link>
 
-					<div className=" px-2 pb-2">
-						<div className=" dark:text-slate-300 mt-1 mb-2">
+					<div className=" pb-2">
+						<div className=" font-bold dark:text-slate-300 mt-1 mb-2">
 							<Tooltip relative={true} info={post?.title}>
 								<h3>
 									{post.title.length > 70

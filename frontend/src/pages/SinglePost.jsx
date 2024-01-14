@@ -5,7 +5,7 @@ import {
 	setSinglePostStatus,
 	setStatus,
 } from "../redux/post/singlePostSlice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { LazyLoadImg, LikesSaveViews, PostSearch } from "../components";
 
@@ -215,19 +215,24 @@ const SinglePost = ({ singlePost }) => {
 
 						<div className=" border-y dark:border-y-lightdark py-4 my-4 ">
 							<div className="flex justify-between flex-col my-4">
-								<LazyLoadImg
-									backgroundClassName={"w-20 h-20 rounded-full relative"}
-									imgClassName={
-										"absolute inset-0 w-full h-full object-cover rounded-full"
-									}
-									originalImgUrl={post?.user?.profilePhoto}
-									blurImageStr={post?.user?.blurProfilePhoto}
-									optimizationStr={`q_auto,f_auto,w_400`}
-									paddingBottom={"6%"}
-								/>
+								<Link
+									to={`/profile/${post?.user?._id}`}
+									className=" cursor-pointer "
+								>
+									<LazyLoadImg
+										backgroundClassName={"w-20 h-20 rounded-full relative"}
+										imgClassName={
+											"absolute inset-0 w-full h-full object-cover rounded-full"
+										}
+										originalImgUrl={post?.user?.profilePhoto}
+										blurImageStr={post?.user?.blurProfilePhoto}
+										optimizationStr={`q_auto,f_auto,w_400`}
+										paddingBottom={"6%"}
+									/>
+								</Link>
 
 								<div className=" flex justify-between gap-4 items-center flex-wrap">
-									<p className=" font-md text-xl dark:text-slate-200">
+									<p className=" flex gap-2 items-center font-md text-xl dark:text-slate-200">
 										Written by
 										<span>
 											{post?.user?.firstName} {post?.user?.lastName}
@@ -269,10 +274,10 @@ const SinglePost = ({ singlePost }) => {
 							</h1>
 						</div>
 
-						<div className="  font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-12 lg:grid-cols-2 w-[100%]">
+						<div className=" border-b py-10 font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-20 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost
-									post={userPost}
+									post={userPostWithCurrentPostRemove}
 									status={userPostStatus}
 									titleLength={43}
 								/>
@@ -280,10 +285,10 @@ const SinglePost = ({ singlePost }) => {
 						</div>
 
 						{/* more post from blogvana */}
-						<div className=" my-6 flex flex-col justify-center items-center mx-auto ">
+						<div className=" py-10 flex flex-col justify-center items-center mx-auto ">
 							<h1
 								id="morePost"
-								className=" flex items-center gap-3  justify-center font-bold text-xl mb-4 dark:text-slate-200"
+								className=" flex items-center gap-3   justify-center font-bold text-xl mb-10 dark:text-slate-200"
 							>
 								More Posts from Blogvana{" "}
 								<span>
@@ -294,7 +299,7 @@ const SinglePost = ({ singlePost }) => {
 									/>
 								</span>
 							</h1>
-							<div className="  font-inter grid max-[650px]:grid-cols-1 max-[768px]:grid-cols-2   gap-12 lg:grid-cols-2 w-[100%]">
+							<div className="  font-inter grid max-[650px]:grid-cols-1 max-[768px]:grid-cols-2   gap-20 lg:grid-cols-2 w-[100%]">
 								{morePost && (
 									<MorePost
 										post={morePost}
