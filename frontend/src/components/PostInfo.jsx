@@ -53,7 +53,9 @@ const PostInfo = ({ post }) => {
 						</Link>
 						<div className=" hidden min-[1200px]:flex ">
 							<p className="text-sm">
-								{`${post?.description?.slice(0, 120)}...`}
+								{post?.description > 120
+									? `${post?.description?.slice(0, 120)}...`
+									: post.title}
 
 								<Link
 									to={`/single-post/${post?._id}`}

@@ -37,7 +37,7 @@ const MorePost = ({ post, status }) => {
 						/>
 					</Link>
 
-					<div className=" pb-2">
+					<div className=" pb-2 mt-4 flex flex-col gap-2">
 						<div className=" font-bold dark:text-slate-300 mt-1 mb-2">
 							<Tooltip relative={true} info={post?.title}>
 								<h3>
