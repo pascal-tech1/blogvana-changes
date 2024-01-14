@@ -15,6 +15,7 @@ const {
 	fetchUserSavedPostCtrl,
 	fetchAllUserPostCtrl,
 	postImageCtrl,
+	fetchTrendingPost,
 } = require("../../controllers/posts/postsCtrl");
 const authMiddleWare = require("../../middlewares/authentication/authMiddleWare");
 const {
@@ -35,6 +36,7 @@ postsRoutes.get(
 postsRoutes.get("/user-history", authMiddleWare, fetchUserPostHistoryCtrl);
 postsRoutes.get("/user-savedPost", authMiddleWare, fetchUserSavedPostCtrl);
 postsRoutes.post("/delete", authMiddleWare, deletePostCtrl);
+postsRoutes.post("/trending-post", fetchTrendingPost);
 
 postsRoutes.post(
 	"/",

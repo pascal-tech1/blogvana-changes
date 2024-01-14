@@ -404,7 +404,7 @@ export const changeEmail = createAsyncThunk(
 export const updateUserEmbedding = createAsyncThunk(
 	"update/UserEmbeddings",
 	async (_, { getState, rejectWithValue }) => {
-		console.log("updating user embedding running")
+		console.log("updating user embedding running");
 		console.log("im here managing user");
 		try {
 			const resp = await customFetch(`/users/update-embedding`, {
@@ -412,7 +412,6 @@ export const updateUserEmbedding = createAsyncThunk(
 					Authorization: `Bearer ${getState().userSlice.token} `,
 				},
 			});
-			toast.success(resp.data.message);
 		} catch (error) {
 			console.log(error);
 			if (!error?.response) {

@@ -736,6 +736,30 @@ const postImageCtrl = expressAsyncHandler(async (req, res) => {
 	res.status(200).json(uploadedImage);
 });
 
+const fetchTrendingPost = expressAsyncHandler(async (req, res) => {
+	console.log("im her more post");
+	const numberOfPost = req.body?.numberOfPost;
+	try {
+		const post = await Post.find({})
+			.sort({ numViews: -1 })
+			.limit(numberOfPost)
+			.populate({
+				path: "user",
+				select: [
+					"firstName",
+					"lastName",
+					"profilePhoto",
+					"blurProfilePhoto",
+				],
+			})
+			.select(["title", "readingTime", "updatedAt", "numViews"]);
+
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(500).json("failed to fetch trending Post");
+	}
+});
+
 module.exports = {
 	createPostCtrl,
 	fetchUserPostCtrl,
@@ -750,4 +774,5 @@ module.exports = {
 	fetchUserSavedPostCtrl,
 	fetchAllUserPostCtrl,
 	postImageCtrl,
+	fetchTrendingPost,
 };

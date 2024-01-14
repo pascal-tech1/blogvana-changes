@@ -7,7 +7,7 @@ import {
 } from "../redux/post/singlePostSlice";
 import { Link, useParams } from "react-router-dom";
 
-import { LazyLoadImg, LikesSaveViews, PostSearch } from "../components";
+import { LazyLoadImg, LikesSaveViews, PostSearch, SinglePostSkeleton } from "../components";
 
 import { clearUserPost, fetchUserPost } from "../redux/post/morePostSlice";
 
@@ -129,7 +129,7 @@ const SinglePost = ({ singlePost }) => {
 	if (status === "loading")
 		return (
 			<div className=" grid place-content-center mt-8">
-				<Spinner />
+				<SinglePostSkeleton />
 			</div>
 		);
 	if (status === "error") {

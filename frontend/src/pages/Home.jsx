@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
 	Category,
+	CategoryListSkeleton,
 	ContactMe,
+	LoadingSkeleton,
 	PostSearch,
 	PostUserInfo,
 	TrendingPost,
+	TrendingPostSkeleton,
 	UserToFollow,
 } from "../components";
 import AllPost from "./AllPost";
@@ -13,6 +16,7 @@ import { fetchRandomUser } from "../redux/user/userSlice";
 
 import {
 	fetchPostByCategory,
+	fetchTrendingPost,
 	setFetchFirstCategory,
 } from "../redux/post/allPostSlice";
 
@@ -24,40 +28,26 @@ import { toast } from "react-toastify";
 const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { allPost, allPostStatus, searchQuery, hasMore } = useSelector(
-		(store) => store.allPostSlice
+	const {
+		allPost,
+		trendingPost,
+		trendingPostStatus,
+		allPostStatus,
+		searchQuery,
+		hasMore,
+	} = useSelector((store) => store.allPostSlice);
+	const { allCategory, status } = useSelector(
+		(store) => store.categorySlice
 	);
-	const { allCategory } = useSelector((store) => store.categorySlice);
-	const { randomUsers } = useSelector((store) => store.userSlice);
 
 	let allCategoryArray = allCategory.map((category) => category.title);
 	allCategoryArray = ["all", ...allCategoryArray];
-	const saveCategory = () => {
-		try {
-			const outputData = JSON.stringify(allCategoryArray, null, 2);
-			const blob = new Blob([outputData], { type: "application/json" });
-
-			// Create a download link
-			const downloadLink = document.createElement("a");
-			downloadLink.href = URL.createObjectURL(blob);
-			downloadLink.download = "category.json";
-
-			// Append the link to the document, click it, and remove it
-			document.body.appendChild(downloadLink);
-			downloadLink.click();
-			document.body.removeChild(downloadLink);
-
-			console.log("Data has been saved to a file");
-		} catch (error) {
-			console.error("Error creating download link:", error);
-		}
-	};
 
 	const [numberOfDisplayCategory, setNumberOfDisplayCategory] =
 		useState(10);
 
 	useEffect(() => {
-		dispatch(fetchRandomUser(4));
+		dispatch(fetchTrendingPost(4));
 	}, []);
 
 	const handleSelected = (filter) => {
@@ -68,6 +58,7 @@ const Home = () => {
 	const handleAddMoreCategoryToDisplay = () => {
 		setNumberOfDisplayCategory((prev) => prev + 10);
 	};
+	console.log(trendingPost);
 
 	return (
 		<div className={`font-inter text-lg lg:text-base `}>
@@ -91,15 +82,20 @@ const Home = () => {
 								</h1>
 								<h1 className=" font-semibold">Trending on BlogVana </h1>
 							</div>
-							{allPost?.slice(0, 3).map((post, index) => {
-								return (
-									<div key={index} className=" pr-[2px] my-6 ">
-										{/* The post info's including the user info */}
-										<TrendingPost post={post} index={index} />
-									</div>
-								);
-								//
-							})}
+
+							{trendingPostStatus === "loading" ? (
+								<TrendingPostSkeleton />
+							) : (
+								trendingPost?.slice(0, 3).map((post, index) => {
+									return (
+										<div key={index} className=" pr-[2px] my-6 ">
+											{/* The post info's including the user info */}
+											<TrendingPost post={post} index={index} />
+										</div>
+									);
+									//
+								})
+							)}
 						</section>
 
 						<section className="flex justify-center flex-col">
@@ -107,17 +103,19 @@ const Home = () => {
 								<h1 className="border font-semibold rounded-full p-[2px]">
 									<MdCategory className="" />
 								</h1>
-								<h1 onClick={saveCategory} className="font-semibold ">
-									More interesting topics
-								</h1>
+								<h1 className="font-semibold ">More interesting topics</h1>
 							</div>
-							<Category
-								allCategory={allCategoryArray.slice(
-									0,
-									numberOfDisplayCategory
-								)}
-								handleSelected={handleSelected}
-							/>
+							{status === "loading" ? (
+								<CategoryListSkeleton />
+							) : (
+								<Category
+									allCategory={allCategoryArray.slice(
+										0,
+										numberOfDisplayCategory
+									)}
+									handleSelected={handleSelected}
+								/>
+							)}
 
 							{numberOfDisplayCategory <= allCategoryArray.length && (
 								<button

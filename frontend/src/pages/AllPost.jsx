@@ -1,7 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useCallback } from "react";
-import { ClearSearch, PostInfo, Spinner } from "../components";
+import {
+	ClearSearch,
+	PostInfo,
+	PostInfoLoadingSkeleton,
+	Spinner,
+} from "../components";
 import {
 	IncreasePageNumber,
 	fetchPostByCategory,
@@ -15,6 +20,7 @@ const AllPost = () => {
 		(store) => store.allPostSlice
 	);
 	const token = getUserFromLocalStorage();
+	const loadingSkeletonNumber = 10;
 
 	const { user } = useSelector((store) => store.userSlice);
 
@@ -32,9 +38,7 @@ const AllPost = () => {
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && hasMore) {
-					console.log('im fetching posts')
 					dispatch(IncreasePageNumber());
-					console.log("im her fetch post allpost");
 					dispatch(fetchPostByCategory());
 				}
 			});
@@ -51,6 +55,7 @@ const AllPost = () => {
 		e.preventDefault();
 		searchQuery.length === 0 && dispatch(fetchPostByCategory());
 	};
+
 	return (
 		<>
 			<ClearSearch
@@ -73,8 +78,11 @@ const AllPost = () => {
 			})}
 
 			{/* loading Spinner */}
-			<div className=" grid place-content-center">
-				{allPostStatus === "loading" && <Spinner />}
+			<div className="grid place-content-center">
+				{allPostStatus === "loading" &&
+					Array.from({ length: loadingSkeletonNumber }).map((_, index) => (
+						<PostInfoLoadingSkeleton key={index} />
+					))}
 			</div>
 			<div className=" grid place-content-center">
 				{allPostStatus === "failed" && (

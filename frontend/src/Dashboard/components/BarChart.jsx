@@ -12,12 +12,19 @@ import { Bar } from "react-chartjs-2";
 
 import { setChartSelectedFilter } from "../../redux/user/userSlice";
 import { useSelector } from "react-redux";
-import { DashboardCustomDropdown } from "../../components";
+import {
+	DashboardCustomDropdown,
+	LoadingSkeleton,
+	LoadingSpinner,
+} from "../../components";
+import ChartLoadingSkeleton from "./chartLoadingSkeleton";
 
 function BarChart() {
-	const { chartSelectedFilter, userPostImpression } = useSelector(
-		(store) => store.userSlice
-	);
+	const {
+		chartSelectedFilter,
+		userPostImpression,
+		userPostImpressionStatus,
+	} = useSelector((store) => store.userSlice);
 
 	ChartJS.register(
 		CategoryScale,
@@ -27,7 +34,9 @@ function BarChart() {
 		Tooltip,
 		Legend
 	);
-
+	function isWholeNumber(number) {
+		return Math.floor(number) === number;
+	}
 	const options = {
 		responsive: true,
 		maintainAspectRatio: false,
@@ -64,17 +73,38 @@ function BarChart() {
 			x: {
 				ticks: {
 					callback: function (value) {
-						return value;
+						return value + 1;
 					},
 					color: "#94bef9",
+				},
+				title: {
+					display: true,
+					text: "Recent Post",
+					color: "#94bef9",
+				},
+				grid: {
+					display: false,
 				},
 			},
 			y: {
 				ticks: {
 					callback: function (value) {
-						return value >= 1000 ? value / 1000 + "k" : value; // Convert values greater than or equal to 1000 to "1k" format
+						console.log(value);
+						return value >= 1000
+							? value / 1000 + "k"
+							: isWholeNumber(value)
+							? value
+							: "";
 					},
 					color: "#94bef9",
+				},
+				title: {
+					display: true,
+					text: "count",
+					color: "#94bef9",
+				},
+				grid: {
+					color: "#63636427",
 				},
 			},
 		},
@@ -128,6 +158,7 @@ function BarChart() {
 	};
 
 	const allFilter = ["likes and dislikes", "number of views"];
+	console.log(data);
 
 	return (
 		<div className="w-full h-[300px]  flex flex-col  py-2 rounded-lg font-inter">
@@ -140,8 +171,16 @@ function BarChart() {
 					left={"l-3"}
 				/>
 			</div>
-
-			<Bar options={options} data={data} />
+			<div className=" h-full w-full relative">
+				<Bar options={options} data={data} />
+				<div
+					className={`${
+						userPostImpressionStatus === "loading" ? "" : "hidden"
+					} absolute -top-11 left-0 w-full h-full overflow-y-hidden`}
+				>
+					<ChartLoadingSkeleton />
+				</div>
+			</div>
 		</div>
 	);
 }

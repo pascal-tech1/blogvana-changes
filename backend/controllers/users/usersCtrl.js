@@ -963,13 +963,16 @@ const fetchWhoViewedUserProfileCtrl = expressAsyncHandler(
 const fetchPostImpressionsCount = expressAsyncHandler(async (req, res) => {
 	const userId = req.user._id;
 
-	const { filter } = req.query;
+	const { filter, numberPerPage } = req.query;
+	console.log(numberPerPage);
 
 	try {
 		const { Posts } = await User.findById(userId).populate({
 			path: "Posts",
 			select: ["likes", "disLikes", "numViews", "title"],
+			limit: numberPerPage,
 		});
+
 		const postsTitle = Posts.map((post) => post.title);
 
 		if (filter === "likes and dislikes") {

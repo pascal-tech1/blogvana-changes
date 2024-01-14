@@ -25,6 +25,10 @@ import DashboardCustomDropdown from "./DashboardCustomDropdown";
 import TrendingPost from "./TrendingPost";
 import { LoadingSkeleton } from "./LoadingSkeleton";
 import InitialSpinner from "./InitialSpinner";
+import PostInfoLoadingSkeleton from "./PostInfoLoadingSkeleton";
+import CategoryListSkeleton from "./categoryListSkeleton";
+import { TrendingPostSkeleton } from "./TrendingCategorySkeleton";
+import SinglePostSkeleton from "./singlePostSkeleton";
 
 export {
 	NavBar,
@@ -50,4 +54,8 @@ export {
 	TrendingPost,
 	LoadingSkeleton,
 	InitialSpinner,
+	PostInfoLoadingSkeleton,
+	CategoryListSkeleton,
+	TrendingPostSkeleton,
+	SinglePostSkeleton,
 };

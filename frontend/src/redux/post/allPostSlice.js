@@ -39,6 +39,24 @@ export const fetchPostByCategory = createAsyncThunk(
 	}
 );
 
+export const fetchTrendingPost = createAsyncThunk(
+	"fetch/TrendingPost",
+	async (numberOfPost, { rejectWithValue }) => {
+		try {
+			const resp = await customFetch.post("/posts/trending-post", {
+				numberOfPost,
+			});
+
+			return resp.data;
+		} catch (error) {
+			if (!error.response) {
+				throw new Error(error);
+			}
+			return rejectWithValue(error?.response?.data);
+		}
+	}
+);
+
 const initialState = {
 	allPostStatus: "idle",
 	allPost: [],
@@ -149,6 +167,17 @@ const allPostSlice = createSlice({
 				state.allPostStatus = "failed";
 				toast.error("fetching post failed try again later");
 			}
+		},
+		[fetchTrendingPost.pending]: (state, { payload }) => {
+			state.trendingPostStatus = "loading";
+		},
+		[fetchTrendingPost.fulfilled]: (state, { payload }) => {
+			state.trendingPostStatus = "success";
+			console.log(payload);
+			state.trendingPost = payload;
+		},
+		[fetchTrendingPost.rejected]: (state, { payload }) => {
+			state.trendingPostStatus = "failed";
 		},
 	},
 });
