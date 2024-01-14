@@ -3,16 +3,12 @@ import {
 	Category,
 	CategoryListSkeleton,
 	ContactMe,
-	LoadingSkeleton,
 	PostSearch,
-	PostUserInfo,
 	TrendingPost,
 	TrendingPostSkeleton,
-	UserToFollow,
 } from "../components";
 import AllPost from "./AllPost";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRandomUser } from "../redux/user/userSlice";
 
 import {
 	fetchPostByCategory,
@@ -23,19 +19,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MdCategory, MdExpandMore } from "react-icons/md";
 import { IoIosTrendingUp } from "react-icons/io";
-import { toast } from "react-toastify";
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const {
-		allPost,
-		trendingPost,
-		trendingPostStatus,
-		allPostStatus,
-		searchQuery,
-		hasMore,
-	} = useSelector((store) => store.allPostSlice);
+	const { trendingPost, trendingPostStatus } = useSelector(
+		(store) => store.allPostSlice
+	);
 	const { allCategory, status } = useSelector(
 		(store) => store.categorySlice
 	);
@@ -47,6 +37,7 @@ const Home = () => {
 		useState(10);
 
 	useEffect(() => {
+		if (trendingPost.length > 0) return;
 		dispatch(fetchTrendingPost(4));
 	}, []);
 
@@ -58,7 +49,7 @@ const Home = () => {
 	const handleAddMoreCategoryToDisplay = () => {
 		setNumberOfDisplayCategory((prev) => prev + 10);
 	};
-	console.log(trendingPost);
+
 	return (
 		<div className={`font-inter text-lg lg:text-base `}>
 			<div className=" md:grid grid-cols-5 gap-10 ">
