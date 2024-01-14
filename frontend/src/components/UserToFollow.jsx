@@ -23,9 +23,9 @@ const UserToFollow = ({ user, index, date }) => {
 				{/* lazy loading image */}
 				<div>
 					<LazyLoadImg
-						backgroundClassName={" rounded-full  w-6 h-6  relative"}
+						backgroundClassName={" rounded-md  w-8 h-8  relative"}
 						imgClassName={
-							"absolute inset-0 w-full h-full  object-cover rounded-full "
+							"absolute inset-0 w-full h-full  object-cover rounded-md "
 						}
 						originalImgUrl={user?.profilePhoto}
 						blurImageStr={user?.blurProfilePhoto}

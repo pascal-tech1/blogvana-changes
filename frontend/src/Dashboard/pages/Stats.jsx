@@ -168,7 +168,7 @@ const Stats = () => {
 											<img
 												src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blq…auto,w_200/ank-profile-picture-973460_960_720.png"
 												alt=""
-												className=" rounded-full  w-6 h-6 "
+												className=" rounded-md  w-8 h-8 "
 											/>
 											<div>
 												<Tooltip
@@ -177,7 +177,7 @@ const Stats = () => {
 														"this user is deleted contact admin for more info"
 													}
 												>
-													<h3 className=" text-red-400 gap-2 font-light capitalize">
+													<h3 className=" text-pink-400 gap-2 font-light capitalize">
 														deleted user
 													</h3>
 												</Tooltip>

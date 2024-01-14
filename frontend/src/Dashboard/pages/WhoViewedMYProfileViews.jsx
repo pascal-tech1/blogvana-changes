@@ -76,7 +76,7 @@ const WhoViewedMyProfile = () => {
 													"this user is deleted contact admin for more info"
 												}
 											>
-												<h3 className=" text-red-400 gap-2 font-light capitalize">
+												<h3 className=" text-pink-400 gap-2 font-light capitalize">
 													deleted user
 												</h3>
 											</Tooltip>
