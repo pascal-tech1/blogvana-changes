@@ -153,18 +153,6 @@ const Stats = () => {
 						<BarChart />
 					</div>
 					{/* viewedBy */}
-					{/* messages */}
-					<div className=" md:hidden  lg:col-start-10 lg:col-span-full row-start-1  bg-white dark:bg-dark py-2 rounded-md drop-shadow-sm px-2 overflow-x-auto custom-scrollbar ">
-						<h1 className=" font-bold text-gray-800 mb-3 dark:text-slate-200">
-							Recent Mesaages
-						</h1>
-						<h3 className=" my-3">{`you have ${receivedMessageCount} messages `}</h3>
-						{fetchMessageStatus === "loading" ? (
-							<LoadingSkeleton />
-						) : (
-							<MessagesComp msg={msg?.slice(0, 5)} />
-						)}
-					</div>
 					<div className=" col-start-8 col-span-4 font-inter  lg:w-[37%]  bg-white dark:bg-dark py-2  rounded-md shadow-sm px-4 ">
 						<h1 className=" font-bold text-gray-800 mb-3 mt-4 lg:mt-0 dark:text-slate-300 ">
 							Who's Viewed your profile
@@ -217,7 +205,7 @@ const Stats = () => {
 			</div>
 
 			{/* messages */}
-			<div className="  lg:col-start-10 lg:col-span-full row-start-1  bg-white dark:bg-dark py-2 rounded-md drop-shadow-sm px-2 overflow-x-auto custom-scrollbar ">
+			<div className=" lg:col-start-10 lg:col-span-full row-start-1  bg-white dark:bg-dark py-2 rounded-md drop-shadow-sm px-2  ">
 				<h1 className=" font-bold text-gray-800 mb-3 dark:text-slate-200">
 					Recent Mesaages
 				</h1>
