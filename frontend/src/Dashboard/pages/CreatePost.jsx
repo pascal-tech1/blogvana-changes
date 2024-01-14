@@ -224,7 +224,7 @@ const CreatePost = () => {
 								type="file"
 								name="image"
 								id="image"
-								accept=".jpg, .png, .jpeg"
+								accept="image/*"
 								onBlur={formik.handleBlur("image")}
 								onChange={(event) => {
 									formik.setFieldValue(
@@ -246,7 +246,11 @@ const CreatePost = () => {
 						</div>
 						{url && (
 							<div className="  ">
-								<img src={url} alt="" className=" h-16 w-16 rounded-md" />
+								<img
+									src={url}
+									alt=""
+									className=" h-10 w-10  md:h-16 md:w-16 rounded-md"
+								/>
 							</div>
 						)}
 					</div>

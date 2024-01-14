@@ -30,7 +30,7 @@ postsRoutes.get("/", fetchPostByCategoryCtrl);
 postsRoutes.get(
 	"/admin-all-post",
 	authMiddleWare,
-	// adminMiddleWare,
+	adminMiddleWare,
 	fetchAllUserPostCtrl
 );
 postsRoutes.get("/user-history", authMiddleWare, fetchUserPostHistoryCtrl);

@@ -33,11 +33,17 @@ const {
 	profilePhotoUpload,
 	ProfilePhotResize,
 } = require("../../middlewares/uploads/PhotoUpload");
+const adminMiddleWare = require("../../middlewares/authentication/authAdminCheck");
 
 const userRoutes = express.Router();
 
 userRoutes.get("/user-details-Count", authMiddleWare, fetchUserCountsCtrl);
-userRoutes.get("/admin-all-users", authMiddleWare, fetchAllUserCtrl);
+userRoutes.get(
+	"/admin-all-users",
+	authMiddleWare,
+	adminMiddleWare,
+	fetchAllUserCtrl
+);
 userRoutes.get("/viewedBy", authMiddleWare, fetchWhoViewedUserProfileCtrl);
 userRoutes.get("/following", fetchUserFollowingListCtrl);
 userRoutes.get("/followers", fetchUserFollowersListCtrl);
@@ -49,6 +55,7 @@ userRoutes.get(
 userRoutes.post(
 	"/blockOrUnblock-user",
 	authMiddleWare,
+	adminMiddleWare,
 	blockOrUnblockUserCtrl
 );
 userRoutes.get(
@@ -61,7 +68,12 @@ userRoutes.post("/random-users", fetchRandomUserCtrl);
 userRoutes.get("/loginWithToken", authMiddleWare, userLoginWithTokenCtrl);
 userRoutes.post("/login", userLoginCtrl);
 
-userRoutes.post("/delete", authMiddleWare, deleteUserCtrl);
+userRoutes.post(
+	"/delete",
+	authMiddleWare,
+	adminMiddleWare,
+	deleteUserCtrl
+);
 // userRoutes.get("/:USERID", authMiddleWare, fetchUserDetailsCtrl);
 userRoutes.get("/profile/:userId", authMiddleWare, fetchUserDetailsCtrl);
 userRoutes.post("/save-post", authMiddleWare, savePostCtrl);
@@ -81,6 +93,11 @@ userRoutes.post("/follow", authMiddleWare, followingUserCtrl);
 userRoutes.post("/unfollow", authMiddleWare, unFollowingUserCtrl);
 userRoutes.post("/update-password", authMiddleWare, updatePasswordCtrl);
 userRoutes.put("/:USERID", authMiddleWare, updateUserDetailsCtrl);
-userRoutes.post("/toggleAdminStatus", authMiddleWare, toggleAdminUserCtrl);
+userRoutes.post(
+	"/toggleAdminStatus",
+	authMiddleWare,
+	adminMiddleWare,
+	toggleAdminUserCtrl
+);
 
 module.exports = userRoutes;

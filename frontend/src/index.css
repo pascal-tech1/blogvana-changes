@@ -146,6 +146,22 @@
 	color: white !important;
 	border: none;
 }
+ol {
+	list-style-type: decimal; /* Use 'decimal' for normal numbers, 'lower-alpha' for lowercase letters, etc. */
+	margin-left: 20px;
+}
+
+/* Set unordered lists to have dots */
+ul {
+	list-style-type: disc; /* Use 'disc' for filled dots, 'circle' for hollow circles, etc. */
+	margin-left: 14px;
+}
+ul li {
+	padding-left: 8px;
+}
+ol li {
+	padding-left: 15px;
+}
 @media (hover: hover) {
 	.ql-syntax::-webkit-scrollbar {
 		width: 7px;
@@ -198,8 +214,8 @@ tr {
 	position: relative;
 }
 
-td:last-child,
-th:last-child {
+th:last-child,
+td:last-child {
 	position: sticky;
 	position: -webkit-sticky;
 	right: 0;
@@ -215,10 +231,14 @@ th:first-child {
 
 th:first-child,
 th:last-child {
+	position: sticky;
+	position: -webkit-sticky;
 	z-index: 10;
 }
 td:first-child,
 td:last-child {
+	position: sticky;
+	position: -webkit-sticky;
 	z-index: 1;
 }
 th {
@@ -335,13 +355,13 @@ th {
 	@apply border border-gray-200 dark:border-neutral-800;
 }
 .ql-syntax {
-	@apply !max-h-fit py-4 px-2 !bg-[#F9F9F9]  text-sm  dark:!bg-[#282C34] !overflow-y-auto !shadow-md !rounded-md;
+	@apply !max-h-fit py-4 px-2 !overflow-y-auto !shadow-md !rounded-md;
 }
 .code-div {
-	@apply relative  px-2 py-4 pt-6 pb-2  rounded-lg p-4;
+	@apply relative  px-2 py-4 pt-6 pb-2 !bg-[rgb(249,249,249)]  text-sm  dark:!bg-[#282C34]  rounded-lg p-4;
 }
 .copy-button {
-	@apply dark:bg-gray-900 drop-shadow-sm text-sm;
+	@apply dark:bg-gray-900 drop-shadow-sm text-sm mt-1;
 }
 .nav-heading-sm {
 	@apply min-[389px]:hidden max-[389px]:grid  max-[389px]:place-content-center   max-[389px]:shadow-lg  max-[389px]:h-fit  max-[389px]:gap-4 max-[389px]:p-3  max-[389px]:bg-white;
@@ -350,8 +370,6 @@ th {
 .nav-heading-big {
 	@apply min-[389px]:flex w-full font-inter  min-[389px]:items-center min-[389px]:justify-between border-b py-2 md:py-[0.2rem]  dark:border-b-slate-800 gap-4 dark:bg-lightdark px-4 md:px-8 dark:text-slate-200;
 }
-
-
 
 button {
 	outline: none;

@@ -44,7 +44,7 @@ const PostUserInfo = ({ post }) => {
 						{loginUser?._id !== post?.user?._id ? (
 							<FollowingBtn
 								userToFollowOrUnfollow={post?.user}
-								className="  text-blue-300 border dark:border-slate-700 hover:dark:bg-gray-700  px-2 my-[0.2rem] rounded-lg hover:bg-blue-200 transition-all delay-75  text-sm  "
+								className="  text-blue-600 shadow-sm hover:shadow-lg focus:shadow-sm  px-2 my-[0.2rem] rounded-lg hover:text-blue-500 transition-all delay-75  text-sm  "
 							/>
 						) : (
 							<EditPostBtn post={post} postId={post?._id} />

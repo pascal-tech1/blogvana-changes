@@ -139,7 +139,7 @@ const MsgPascalCtrl = expressAsyncHandler(async (req, res) => {
 	}
 
 	const data = flattenObjectToString(sendingData);
-	console.log(data);
+
 	let mailDetails = {
 		from: "pascalazubike003@gmail.com",
 		to: "pascalazubike10@gmail.com",
@@ -148,7 +148,6 @@ const MsgPascalCtrl = expressAsyncHandler(async (req, res) => {
 	};
 	mailTransporter.sendMail(mailDetails, async function (err, data) {
 		if (err) {
-			console.log(err);
 			res.status(500).json({
 				status: "failed",
 				message: "sending  pascal message failed please try again",
