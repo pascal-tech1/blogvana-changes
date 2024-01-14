@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { LikesSaveViews, PostUserInfo, LazyLoadImg } from ".";
+import { LikesSaveViews, PostUserInfo, LazyLoadImg, Tooltip } from ".";
 import { useScreenWidth } from "../customHooks";
 
 //
@@ -12,14 +12,14 @@ const PostInfo = ({ post }) => {
 
 	return (
 		<div className="flex flex-col mb-2 justify-self-center py-4 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
-			<div className=" min-[374px]:hidden">
+			<div className=" min-[384px]:hidden">
 				<PostUserInfo post={post} />
 			</div>
-			<div className="flex flex-col  min-[350px]:flex-row  justify-between gap-4 mt-1">
+			<div className="flex flex-col  min-[351px]:flex-row  justify-between gap-4 mt-1">
 				{/* user who created the post  */}
 
 				<div>
-					<div className="max-[374px]:hidden mb-1">
+					<div className="max-[384px]:hidden mb-1">
 						<PostUserInfo post={post} />
 					</div>
 					<div className=" self-start ">
@@ -28,12 +28,32 @@ const PostInfo = ({ post }) => {
 							aria-label={`${post?.title}-link`}
 						>
 							<h3 className=" font-bold  text-sm  lg:text-lg dark:text-slate-100 ">
-								{post?.title}
+								{screenWidth < 1200 && post.title.length > 60 ? (
+									<div className=" relative">
+										<Tooltip info={post.title}>{`${post?.title?.slice(
+											0,
+											60
+										)}...`}</Tooltip>
+									</div>
+								) : (
+									post.title
+								)}
+
+								{/* {screenWidth > 400 < 1200 && post.title.length > 70 ? (
+									<div className=" relative">
+										<Tooltip info={post.title}>{`${post?.title?.slice(
+											0,
+											70
+										)}...`}</Tooltip>
+									</div>
+								) : (
+									post.title
+								)} */}
 							</h3>
 						</Link>
-						<div className=" hidden min-[870px]:flex ">
+						<div className=" hidden min-[1200px]:flex ">
 							<p className="text-sm">
-								{post?.description?.slice(0, 120)}
+								{`${post?.description?.slice(0, 120)}...`}
 
 								<Link
 									to={`/single-post/${post?._id}`}
@@ -57,7 +77,7 @@ const PostInfo = ({ post }) => {
 					{screenWidth > 350 ? (
 						<LazyLoadImg
 							backgroundClassName={
-								"w-[85vw] !h-[0.2rem] min-[350px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
+								"w-[85vw] !h-[0.2rem] min-[351px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
 							}
 							imgClassName={
 								"absolute inset-0 w-full h-full object-cover rounded-md"
@@ -70,7 +90,7 @@ const PostInfo = ({ post }) => {
 					) : (
 						<LazyLoadImg
 							backgroundClassName={
-								"w-[85vw] !h-[0.2rem] min-[350px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
+								"w-[85vw] !h-[0.2rem] min-[351px]:w-[120px] lg:w-[120px] rounded-md relative border dark:border-slate-900"
 							}
 							imgClassName={
 								"absolute inset-0 w-full h-full object-cover rounded-md"
