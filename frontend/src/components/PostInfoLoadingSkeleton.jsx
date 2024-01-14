@@ -4,7 +4,7 @@ const PostInfoLoadingSkeleton = () => {
 	return (
 		<div
 			role="status"
-			className=" min-[351px]:grid grid-cols-4 max-[351px]:flex max-[351px]:flex-col max-[351px]:max-w-[90vw] max-[351px]:gap-4 max-w-[80vw] md:max-w-[50vw] lg:max-w-[80vw] gap-[5rem] mb-2 animate-pulse justify-self-center py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 "
+			className=" flex justify-between md:grid mx-10 grid-cols-4 max-[351px]:flex max-[351px]:flex-col max-[351px]:max-w-[90vw] max-[351px]:gap-4 md:max-w-[50vw] lg:max-w-[80vw] gap-[5rem] mb-2 animate-pulse py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md "
 		>
 			<div className=" col-start-1 col-span-3">
 				<div className="flex items-center mb-4">
