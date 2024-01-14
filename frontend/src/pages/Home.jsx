@@ -37,7 +37,7 @@ const Home = () => {
 		useState(10);
 
 	useEffect(() => {
-		if (trendingPost.length > 0) return;
+		if (trendingPost?.length > 0) return;
 		dispatch(fetchTrendingPost(4));
 	}, []);
 
