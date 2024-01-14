@@ -13,11 +13,6 @@ const {
 	NotFoundErrorhandler,
 } = require("./middlewares/error/errorhandler");
 const messageRoutes = require("./route/message/messageRoutes");
-const fs = require("fs");
-const ffmpeg = require("fluent-ffmpeg");
-// const { query } = require("./utils/getEmbeddins");
-const { HfInference } = require("@huggingface/inference");
-const hf = new HfInference("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");
 
 const app = express();
 
