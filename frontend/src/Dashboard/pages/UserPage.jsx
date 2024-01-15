@@ -102,7 +102,7 @@ const UserPage = () => {
 					</Modal>
 					<div className=" flex flex-col gap-4 col-start-1 col-span-2   md:pt-4 h-max ">
 						<div className="w-full">
-							<div className=" w-full  relative">
+							<div className=" w-ful mb-5  relative">
 								
 								{postCreatorProfile?.blurCoverPhoto && (
 									<div
@@ -114,7 +114,7 @@ const UserPage = () => {
 
 											openModal();
 										}}
-										className=" cursor-pointer h-[25vw] min-[400px]:h-[20vw] md:h-[14vw] lg:h-[12vw]  w-full rounded-md"
+										className=" cursor-pointer h-[30vw] min-[400px]:h-[27vw] md:h-[16vw] lg:h-[15vw]  w-full rounded-md"
 									>
 										<LazyLoadImg
 											backgroundClassName={
@@ -138,7 +138,7 @@ const UserPage = () => {
 
 										openModal();
 									}}
-									className=" cursor-pointer absolute top-1/4  h-[18vw] w-[18vw] md:h-[12vw] md:w-[12vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600"
+									className=" cursor-pointer absolute top-1/4  h-[21vw] w-[21vw] md:h-[15vw] md:w-[15vw] lg:h-[10vw] lg:w-[10vw]   rounded-full border border-blue-600"
 								>
 									<LazyLoadImg
 										backgroundClassName={

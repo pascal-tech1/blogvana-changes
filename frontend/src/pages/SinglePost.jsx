@@ -7,7 +7,12 @@ import {
 } from "../redux/post/singlePostSlice";
 import { Link, useParams } from "react-router-dom";
 
-import { LazyLoadImg, LikesSaveViews, PostSearch, SinglePostSkeleton } from "../components";
+import {
+	LazyLoadImg,
+	LikesSaveViews,
+	PostSearch,
+	SinglePostSkeleton,
+} from "../components";
 
 import { clearUserPost, fetchUserPost } from "../redux/post/morePostSlice";
 
@@ -29,6 +34,8 @@ import MessageUser from "../Dashboard/components/MessageUser";
 import loadHighlightJS from "../utils/quil";
 import FollowingBtn from "../components/FollowingBtn";
 import { updateUserEmbedding } from "../redux/user/userSlice";
+import EditPostBtn from "../components/EditPostBtn";
+import { PiDotDuotone } from "react-icons/pi";
 
 const SinglePost = ({ singlePost }) => {
 	const { id } = useParams();
@@ -46,7 +53,7 @@ const SinglePost = ({ singlePost }) => {
 	const { isTableOfContentClciked } = useSelector(
 		(store) => store.categorySlice
 	);
-
+	const loginUser = useSelector((store) => store.userSlice.user);
 	useEffect(() => {
 		const contentWithIds = addIdsToHeadings(post?.content);
 		setHtmlContent(contentWithIds);
@@ -182,9 +189,22 @@ const SinglePost = ({ singlePost }) => {
 								</h1>
 							</div>
 							{/* about the user who created the post and post likes and views */}
-							<div className="flex flex-wrap flex-col gap-1">
+							<div className="flex flex-wrap flex-col gap-1 ">
 								<PostUserInfo post={post} />
-								<LikesSaveViews post={post} />
+
+								<div className=" flex flex-col">
+									<LikesSaveViews post={post} />
+									<div className=" mt-1">
+										{loginUser?._id !== post?.user?._id ? (
+											<FollowingBtn
+												userToFollowOrUnfollow={post?.user}
+												className="  text-blue-600 shadow-sm hover:shadow-lg focus:shadow-sm px-2  rounded-lg hover:text-blue-500 transition-all delay-75  text-sm  "
+											/>
+										) : (
+											<EditPostBtn post={post} postId={post?._id} />
+										)}
+									</div>
+								</div>
 							</div>
 							<div>
 								<p className="text-sm text-gray-500 my-2 ">
