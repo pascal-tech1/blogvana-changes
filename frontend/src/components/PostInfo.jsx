@@ -27,7 +27,7 @@ const PostInfo = ({ post }) => {
 							to={`/single-post/${post?._id}`}
 							aria-label={`${post?.title}-link`}
 						>
-							<h3 className=" font-bold  text-sm mt-2 mb-4 lg:text-lg dark:text-slate-100 ">
+							<h3 className=" font-bold  text-sm mt-2 mb-2 md:mb-4  lg:text-lg dark:text-slate-100 ">
 								{screenWidth < 1200 ? (
 									post.title.length > 60 ? (
 										<div className=" relative">

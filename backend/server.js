@@ -13,6 +13,12 @@ const {
 	NotFoundErrorhandler,
 } = require("./middlewares/error/errorhandler");
 const messageRoutes = require("./route/message/messageRoutes");
+// const PlayHT = require("playht");
+
+// PlayHT.init({
+// 	apiKey: "<YOUR API KEY>",
+// 	userId: "<YOUR API KEY>",
+// });
 
 const app = express();
 
