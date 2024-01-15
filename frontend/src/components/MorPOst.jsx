@@ -17,7 +17,7 @@ const MorePost = ({ post, status }) => {
 			{post?.map((post, index) => (
 				<div
 					key={index}
-					className=" shadow-sm rounded-lg
+					className="  rounded-lg
 					"
 				>
 					<Link
@@ -33,7 +33,7 @@ const MorePost = ({ post, status }) => {
 							originalImgUrl={post?.image}
 							blurImageStr={post?.blurImageUrl}
 							optimizationStr={`q_auto,f_auto,w_800`}
-							paddingBottom={"40%"}
+							paddingBottom={"48%"}
 						/>
 					</Link>
 

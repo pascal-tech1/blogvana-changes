@@ -6,6 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { likeOrDislikePost } from "../redux/post/generalPostSlice";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { savePost } from "../redux/user/userSlice";
+import { SlDislike } from "react-icons/sl";
+import { FcLike } from "react-icons/fc";
+import { HiOutlineHandThumbUp } from "react-icons/hi2";
+import { HiOutlineHandThumbDown } from "react-icons/hi2";
+import { GoThumbsdown } from "react-icons/go";
+import { GoThumbsup } from "react-icons/go";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -13,6 +19,8 @@ import {
 	setFetchFirstCategory,
 } from "../redux/post/allPostSlice";
 import { formatNumber } from "../utils/formatNumbersIn1000";
+import { CiBookmarkPlus, CiSaveUp2 } from "react-icons/ci";
+import { BsHandThumbsUp } from "react-icons/bs";
 
 const LikesSaveViews = ({ post }) => {
 	const location = useLocation();
@@ -36,14 +44,14 @@ const LikesSaveViews = ({ post }) => {
 		dispatch(likeOrDislikePost({ choice: "disLike", postId: id }));
 	};
 	return (
-		<div className="  flex gap-2 font-inter items-center text-sm dark:text-slate-300 flex-wrap justify-start  ">
+		<div className="  flex gap-2 font-inter items-center  dark:text-slate-300 flex-wrap justify-start  ">
 			<span className="flex gap-1 items-center">
 				<button
 					onClick={() => handleLikes(post?._id)}
 					aria-label="like button"
-					className=" text-base hover:cursor-pointer  p-[0.35rem] mr-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className=" text-base hover:cursor-pointer  p-[0.35rem] mr-1 transition-all delay-75 hover:dark:bg-gray-800 hover:bg-gray-300 rounded-full "
 				>
-					<AiOutlineLike className="  lg:text-base" />
+					<GoThumbsup className=" text-lg" />
 				</button>
 				<span>{post?.likes?.length}</span>
 			</span>
@@ -51,9 +59,9 @@ const LikesSaveViews = ({ post }) => {
 				<button
 					onClick={() => handleDislikes(post?._id)}
 					aria-label="dislike button"
-					className="text-base hover:cursor-pointer p-[0.35rem] mr-1 transition-all delay-75 hover:bg-gray-400 rounded-md hover:text-white"
+					className="text-base hover:cursor-pointer p-[0.25rem]   transition-all delay-75 hover:bg-gray-200 hover:dark:bg-gray-800 rounded-full "
 				>
-					<AiOutlineDislike className=" lg:text-base" />
+					<GoThumbsdown className=" text-lg" />
 				</button>
 				<span>{post?.disLikes?.length}</span>
 			</span>
@@ -68,12 +76,12 @@ const LikesSaveViews = ({ post }) => {
 					dispatch(savePost(post?._id));
 				}}
 				aria-label="save post button"
-				className=" text-base hover:bg-gray-400 p-[0.35rem] mr-1 rounded-full hover:text-white"
+				className=" text-base hover:bg-gray-200 p-[0.35rem] hover:dark:bg-gray-800 mr-1 rounded-full "
 			>
-				<MdOutlineBookmarkAdd className=" lg:text-base" />
+				<CiSaveUp2 className=" text-lg" />
 			</button>
-			<span className="flex gap-1 items-center flex-nowrap">
-				<span className="  ">{formatNumber(post?.numViews)}</span>
+			<span className="flex gap-1 items-center text-sm flex-nowrap">
+				<span className=" ">{formatNumber(post?.numViews)}</span>
 				{post?.numViews > 1 ? "views" : "view"}
 			</span>
 			{post?.readingTime && (

@@ -27,7 +27,7 @@ const PostInfo = ({ post }) => {
 							to={`/single-post/${post?._id}`}
 							aria-label={`${post?.title}-link`}
 						>
-							<h3 className=" font-bold  text-sm  lg:text-lg dark:text-slate-100 ">
+							<h3 className=" font-bold  text-sm mt-2 lg:text-lg dark:text-slate-100 ">
 								{screenWidth < 1200 ? (
 									post.title.length > 60 ? (
 										<div className=" relative">
@@ -51,19 +51,11 @@ const PostInfo = ({ post }) => {
 								)}
 							</h3>
 						</Link>
-						<div className=" hidden min-[1200px]:flex ">
+						<div className=" hidden min-[600px]:flex items-center ">
 							<p className="text-sm flex gap-2 items-center my-2">
 								{post?.description > 120
 									? `${post?.description?.slice(0, 120)}...`
 									: post.title}
-
-								<Link
-									to={`/single-post/${post?._id}`}
-									className="ml-1  text-blue-600 dark:text-colorPrimary hover:text-blue-500 transition-all cursor-pointer"
-									aria-label={`Read more about the post titled "${post?.title}"`}
-								>
-									<h3>Read more</h3>
-								</Link>
 							</p>
 						</div>
 						<div className=" text-md md:text-sm ">

@@ -324,7 +324,7 @@ th {
 }
 
 .form-input {
-	@apply my-1 dark:bg-lightdark   rounded-lg py-2 border  border-gray-200 dark:border-gray-800 focus:outline-none  focus:border-b-blue-400 dark:focus:border-b-gray-500 w-full px-2;
+	@apply my-1 dark:bg-lightdark shadow-sm  rounded-lg py-2 border  border-gray-200 dark:border-gray-800 focus:outline-none  focus:border-b-blue-400  w-full px-2;
 }
 
 .form-container {

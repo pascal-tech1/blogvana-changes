@@ -274,7 +274,7 @@ const SinglePost = ({ singlePost }) => {
 							</h1>
 						</div>
 
-						<div className=" border-b py-10 font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-20 lg:grid-cols-2 w-[100%]">
+						<div className=" border-b dark:border-b-gray-800 py-6 font-inter grid grid-cols-1 max-[650px]:grid-cols-1 max-[768px]:grid-cols-2  gap-20 lg:grid-cols-2 w-[100%]">
 							{userPost && (
 								<MorePost
 									post={userPostWithCurrentPostRemove}
@@ -285,7 +285,7 @@ const SinglePost = ({ singlePost }) => {
 						</div>
 
 						{/* more post from blogvana */}
-						<div className=" py-10 flex flex-col justify-center items-center mx-auto ">
+						<div className=" py-6 flex flex-col justify-center items-center mx-auto ">
 							<h1
 								id="morePost"
 								className=" flex items-center gap-3   justify-center font-bold text-xl mb-10 dark:text-slate-200"

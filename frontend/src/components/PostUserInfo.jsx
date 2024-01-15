@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { LazyLoadImg } from ".";
+import { PiDotDuotone } from "react-icons/pi";
 import FollowingBtn from "./FollowingBtn";
 import EditPostBtn from "./EditPostBtn";
 
@@ -34,22 +35,13 @@ const PostUserInfo = ({ post }) => {
 							/>
 						</div>
 
-						<div>
+						<div className="flex items-center gap-1">
 							<p className=" text-xs">{` ${post?.user?.firstName} ${post?.user?.lastName}  `}</p>
+							<PiDotDuotone />
 							<p className=" text-xs">{formatDate(post?.updatedAt)}</p>
 						</div>
 					</Link>
 					{/* if its not the user that created the post render the follow button else render the edit button */}
-					<div>
-						{loginUser?._id !== post?.user?._id ? (
-							<FollowingBtn
-								userToFollowOrUnfollow={post?.user}
-								className="  text-blue-600 shadow-sm hover:shadow-lg focus:shadow-sm  px-2 my-[0.2rem] rounded-lg hover:text-blue-500 transition-all delay-75  text-sm  "
-							/>
-						) : (
-							<EditPostBtn post={post} postId={post?._id} />
-						)}
-					</div>
 				</div>
 			)}
 		</>
