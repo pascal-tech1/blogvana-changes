@@ -271,7 +271,7 @@ const CreatePost = () => {
 					<div
 						className={`my-2 ${
 							quillIsFocus
-								? " h-[80vh]    relative top-0  z-50"
+								? " h-[70vh]  lg:h-[75vh]   relative top-0  z-50"
 								: "h-[30vh]"
 						}`}
 					>
