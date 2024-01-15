@@ -155,14 +155,11 @@ const CreatePost = () => {
 		<div className={`font-inter  dark:bg-dark p-4 rounded-md h-full `}>
 			<form onSubmit={formik.handleSubmit} className=" ">
 				<div
-					className={`flex flex-col gap-4 ${
+					className={`flex flex-col gap-4 md:max-w-[60vw]  ${
 						quillIsFocus && " absolute -top-[15rem]"
 					}`}
 				>
-					<div className="grid grid-cols-3 items-center w-11/12 lg:w-3/6 relative ">
-						<label className=" col-start-1 col-span-1" htmlFor="title">
-							Title
-						</label>
+					<div className=" ">
 						<input
 							value={formik.values.title}
 							onChange={formik.handleChange("title")}
@@ -170,7 +167,8 @@ const CreatePost = () => {
 							type="text"
 							name="title"
 							id="title"
-							className=" col-start-2 col-span-full  w-full px-2 rounded-lg py-2 outline-none border dark:border-gray-800 dark:focus:border-gray-600 border-blue-300 focus:border-blue-800  dark:bg-lightdark "
+							placeholder="Title"
+							className="form-input text-center "
 						/>
 						<div className=" relative mb-2 place-self-end">
 							<h1 className=" form-error-text">
@@ -178,27 +176,8 @@ const CreatePost = () => {
 							</h1>
 						</div>
 					</div>
-					<div className="grid grid-cols-3 items-center  w-11/12 lg:w-3/6 ">
-						<label className=" col-start-1 col-span-1" htmlFor="category">
-							Category
-						</label>
 
-						<div className=" ">
-							<DashboardCustomDropdown
-								allFilters={allCategorytitle}
-								setSelectedFilter={setSelectedFilter}
-								selectedFilter={selectedFilter}
-								dropdownWidth={"w-[50vw]"}
-							/>
-						</div>
-					</div>
-					<div className="grid grid-cols-3 items-center  w-11/12 lg:w-3/6 ">
-						<label
-							className=" col-start-1 col-span-1"
-							htmlFor="description"
-						>
-							Description
-						</label>
+					<div className="">
 						<input
 							value={formik.values.description}
 							onChange={formik.handleChange("description")}
@@ -206,7 +185,8 @@ const CreatePost = () => {
 							type="text"
 							name="description"
 							id="description"
-							className=" col-start-2 col-span-full w-full rounded-lg px-2 py-2 outline-none border dark:border-gray-800 dark:focus:border-gray-600 dark:bg-lightdark  border-blue-300 focus:border-blue-800"
+							placeholder="Description"
+							className=" form-input text-center"
 						/>
 						<div className=" relative mb-2 place-self-end">
 							<h1 className=" form-error-text">
@@ -214,8 +194,19 @@ const CreatePost = () => {
 							</h1>
 						</div>
 					</div>
+					<div className="">
+						<div className="form-input ">
+							<DashboardCustomDropdown
+								allFilters={allCategorytitle}
+								setSelectedFilter={setSelectedFilter}
+								selectedFilter={selectedFilter}
+								buttonBorder={true}
+								dropdownWidth={"w-[50vw]"}
+							/>
+						</div>
+					</div>
 					<div className=" flex gap-4 items-center">
-						<label className=" flex items-center self-start relative border border-dashed p-3 rounded-sm  cursor-pointer text-white">
+						<label className=" flex items-center self-start relative border border-dashed p-1 md:p-3  mb rounded-sm  cursor-pointer text-white">
 							<input
 								type="file"
 								name="image"
@@ -231,7 +222,7 @@ const CreatePost = () => {
 								}}
 								className=" hidden z-50"
 							/>
-							<h1 className="bg-blue-400 dark:bg-colorPrimary py-2 rounded-md px-3">
+							<h1 className="bg-blue-400 dark:bg-colorPrimary py-[0.2rem] md:py-2 rounded-md px-3">
 								Upload Image
 							</h1>
 						</label>
@@ -252,8 +243,8 @@ const CreatePost = () => {
 					</div>
 				</div>
 
-				<div className=" mb-6 relative">
-					<div className=" flex gap-2 items-center justify-center  absolute -top-5 right-0 ">
+				<div className={` ${quillIsFocus && "mt-0"} mb-6  mt-8 md:mt-0 relative`}>
+					<div className=" flex gap-2  items-center justify-center  absolute -top-5 right-0 ">
 						<label class="switch">
 							<input
 								onClick={() => setQuillIsFocus(!quillIsFocus)}
@@ -281,7 +272,7 @@ const CreatePost = () => {
 						className={`my-2 ${
 							quillIsFocus
 								? " h-[80vh]    relative top-0  z-50"
-								: "h-[40vh]"
+								: "h-[30vh]"
 						}`}
 					>
 						<ReactQuill

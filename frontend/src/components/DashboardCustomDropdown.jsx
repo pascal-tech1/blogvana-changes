@@ -10,6 +10,7 @@ const DashboardCustomDropdown = ({
 	left,
 	handleSelected,
 	setSelectedFilter,
+	buttonBorder,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const dispatch = useDispatch();
@@ -55,7 +56,9 @@ const DashboardCustomDropdown = ({
 				ref={iconRef}
 				type="button"
 				onClick={toggleDropdown}
-				className="bg-white gap-1 cursor-pointer dark:bg-lightdark text-sm  dark:text-slate-200 border dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none "
+				className={`${
+					buttonBorder === undefined ? "border" : ""
+				} bg-white gap-1 cursor-pointer dark:bg-lightdark text-sm  dark:text-slate-200  dark:border-gray-700 justify-center py-[0.3rem] md:text-sm outline-none focus:border-gray-400 capitalize whitespace-nowrap  px-3 flex font-inter  items-center rounded-lg text-gray-700 focus:outline-none`}
 			>
 				{selectedFilter}
 				{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
