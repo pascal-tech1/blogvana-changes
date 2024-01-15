@@ -539,10 +539,9 @@ const userSlice = createSlice({
 			toast.success(payload.message);
 		},
 		[loginUser.rejected]: (state, { payload }) => {
+			const anyError = payload?.message;
+			toast.error(anyError);
 			state.isLoading = false;
-
-			const error = payload?.message || error?.message;
-			toast.error(error);
 		},
 		[loginUserWithToken.pending]: (state) => {
 			state.loginUserTokenStatus = "loading";

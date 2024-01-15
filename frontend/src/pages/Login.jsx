@@ -125,13 +125,18 @@ const Login = () => {
 						{formik.touched.password && formik.errors.password}
 					</h1>
 				</div>
-				<button type="submit" className="form-btn mt-4 font-inter">
-					{isLoading ? <LoadingSpinner /> : "login"}
+				{console.log(isLoading)}
+				<button
+					disabled={isLoading}
+					type="submit"
+					className="form-btn mt-4 font-inter text-white"
+				>
+					{isLoading ? <LoadingSpinner /> : <h3>login</h3>}
 				</button>
 
 				<h3
 					onClick={() => setIsOpen(true)}
-					className=" cursor-pointer self-end text-blue-600 hover:text-blue-500 transition-all delay-75"
+					className=" cursor-pointer mt-2 self-end text-blue-600 hover:text-blue-500 transition-all delay-75"
 				>
 					forget password
 				</h3>

@@ -165,7 +165,6 @@ const allPostSlice = createSlice({
 				toast.error("fetching more Post faild try again later");
 			} else {
 				state.allPostStatus = "failed";
-				toast.error("fetching post failed try again later");
 			}
 		},
 		[fetchTrendingPost.pending]: (state, { payload }) => {

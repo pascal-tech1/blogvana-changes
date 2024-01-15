@@ -95,7 +95,7 @@ const Layout = () => {
 					<div
 						className={`${
 							isSideBarOpen ? "flex" : "hidden"
-						} bg-white w-[50vw] md:w-full overflow-y-hidden overflow-x-hidden h-screen dark:bg-dark shadow-lg md:shadow-sm rounded-md`}
+						} bg-white w-[50vw] max-[350px]:w-[80vw] border-r md:border-none shadow-xl dark:border-gray-800 md:w-full overflow-y-hidden overflow-x-hidden h-screen dark:bg-dark md:shadow-sm rounded-md`}
 					>
 						<Suspense fallback={<SuspenseLoadingSpinner />}>
 							<DashboardSideBar />
