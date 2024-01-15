@@ -202,6 +202,7 @@ const CreatePost = () => {
 								selectedFilter={selectedFilter}
 								buttonBorder={true}
 								dropdownWidth={"w-[50vw]"}
+								left={"l-10"}
 							/>
 						</div>
 					</div>
