@@ -19,6 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MdCategory, MdExpandMore } from "react-icons/md";
 import { IoIosTrendingUp } from "react-icons/io";
+import { useScreenWidth } from "../customHooks";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -35,9 +36,9 @@ const Home = () => {
 
 	const [numberOfDisplayCategory, setNumberOfDisplayCategory] =
 		useState(10);
-
+	const screenWidth = useScreenWidth();
 	useEffect(() => {
-		if (trendingPost?.length > 0) return;
+		if (trendingPost?.length > 0 || screenWidth <= 768) return;
 		dispatch(fetchTrendingPost(4));
 	}, []);
 

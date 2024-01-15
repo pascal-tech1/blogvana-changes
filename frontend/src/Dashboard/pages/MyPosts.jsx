@@ -24,6 +24,8 @@ import {
 	setSearchTermInStore,
 } from "../../redux/user/userSlice";
 import EditPostBtn from "../../components/EditPostBtn";
+import { FiDelete } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 
 const MyPosts = () => {
 	const {
@@ -51,6 +53,7 @@ const MyPosts = () => {
 	const lastPostRef = useCallback(
 		(node) => {
 			if (creatorPostStatus !== "loading") {
+				console.log(hasMore);
 				if (observer.current) observer.current.disconnect();
 				observer.current = new IntersectionObserver((entries) => {
 					if (entries[0].isIntersecting && hasMore) {
@@ -162,8 +165,9 @@ const MyPosts = () => {
 			<div className="flex gap-4 flex-wrap items-center  pb-4 ">
 				<button
 					onClick={openModal}
-					className="  py-[0.15] rounded-lg hover:text-red-700 text-red-400 outline-none"
+					className=" flex gap-1 items-center  py-[0.15] rounded-l hover:text-red-300  text-red-400 outline-none"
 				>
+					<MdDelete />
 					delete
 				</button>
 				<div className="">
@@ -241,7 +245,7 @@ const MyPosts = () => {
 								<td className="tableData ">
 									<Tooltip info={post.numViews}>{post.numViews}</Tooltip>
 								</td>
-								{console.log(post)}
+
 								<td className="tableData ">
 									<Tooltip info={post.category?.title}>
 										{post.category?.title}

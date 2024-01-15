@@ -10,7 +10,7 @@ import {
 } from "../../redux/category/categorySlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { MdDoneAll, MdEdit } from "react-icons/md";
+import { MdDelete, MdDoneAll, MdEdit } from "react-icons/md";
 
 import { toast } from "react-toastify";
 import {
@@ -41,7 +41,7 @@ const AdminAllCategory = () => {
 		activeEditingCategory: Yup.string()
 			.required("Category is Required.")
 			.min(2, "Category is too short - should be 2 chars minimum."),
-	})
+	});
 
 	const formik = useFormik({
 		initialValues: {
@@ -155,8 +155,9 @@ const AdminAllCategory = () => {
 				{isCategoryEditing && (
 					<button
 						onClick={openModal}
-						className="  py-[0.15] rounded-lg hover:text-red-700 text-red-400 outline-none"
+						className=" flex gap-1 items-center  py-[0.15] rounded-l hover:text-red-300  text-red-400 outline-none"
 					>
+						<MdDelete />
 						delete
 					</button>
 				)}

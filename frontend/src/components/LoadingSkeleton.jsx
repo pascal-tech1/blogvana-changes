@@ -68,7 +68,7 @@ export const LoadingSkeleton = () => {
 			</div>
 			<div className="flex items-center gap-4 pt-4">
 				<svg
-					className=" w-8 h-8 text-gray-200 dark:text-gray-700"
+					className=" w-8 h-8 me-3 text-gray-200 dark:text-gray-700"
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					fill="currentColor"
@@ -81,7 +81,6 @@ export const LoadingSkeleton = () => {
 					<div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
 				</div>
 			</div>
-			<span className="sr-only">Loading...</span>
 		</div>
 	);
 };

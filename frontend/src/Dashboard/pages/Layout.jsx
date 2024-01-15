@@ -81,7 +81,7 @@ const Layout = () => {
 						isSideBarOpen
 							? "col-start-1 md:col-start-4 lg:col-start-3 "
 							: " col-start-1 md:col-start-1 "
-					}  col-span-full row-start-2 overflow-y-auto px-4 mt-4 md:px-8 scroll-m-0 z-10 scroll-smooth  custom-scrollbar  `}
+					}  col-span-full row-start-2 overflow-y-auto px-4  mt-4 md:px-8 scroll-m-0 z-10 scroll-smooth  custom-scrollbar  `}
 				>
 					<Suspense fallback={<SuspenseLoadingSpinner />}>
 						<Outlet />

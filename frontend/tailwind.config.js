@@ -14,7 +14,9 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				inter: ["Lato", "Open Sans", "Source Sans Pro", "Noto Sans"],
+				inter: ["Graphik", "sans"],
+				// Or create a separate font family:
+				// graphik: ['Graphik'],
 			},
 			colors: {
 				lightdark: "#202127",

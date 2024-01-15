@@ -28,7 +28,9 @@ const LazyLoadImg = ({
 
 	return (
 		<div
-			className={backgroundClassName}
+			className={`${backgroundClassName} ${
+				isLoaded ? "" : "animate-pulse"
+			}`}
 			style={{
 				backgroundImage:
 					blurImageStr && `url(data:image/png;base64,${blurImageStr})`,

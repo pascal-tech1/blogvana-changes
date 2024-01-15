@@ -14,11 +14,11 @@ const UserToFollow = ({ user, index, date }) => {
 	return (
 		<div
 			key={index}
-			className="flex justify-between pb-3 items-start font-inter  dark:text-slate-300"
+			className="flex justify-between pb-4 items-start font-inter  dark:text-slate-300  "
 		>
 			<Link
 				to={loginUser?._id ? `/profile/${user._id}` : `/login`}
-				className="flex gap-4 justify-start "
+				className="flex gap-6  justify-start "
 			>
 				{/* lazy loading image */}
 				<div>
@@ -34,7 +34,7 @@ const UserToFollow = ({ user, index, date }) => {
 					/>
 				</div>
 
-				<div>
+				<div className="flex flex-col">
 					<div className=" flex items-center  gap-2 ">
 						<div className=" flex flex-wrap gap-1">
 							<h1 className=" capitalize">{user?.firstName}</h1>

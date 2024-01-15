@@ -170,7 +170,7 @@ const Register = () => {
 						Already Have an account?
 						<span>
 							<Link
-								className=" text-blue-400 ml-2 hover:text-blue-600 transition-all"
+								className=" text-blue-600 ml-2 hover:text-blue-500 transition-all"
 								href="#"
 								to="/login"
 							>

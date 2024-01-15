@@ -27,6 +27,7 @@ import {
 	setSearchTermInStore,
 } from "../../redux/user/userSlice";
 import MessageUser from "../../Dashboard/components/MessageUser";
+import { MdDelete } from "react-icons/md";
 
 const AllUsersPosts = () => {
 	const {
@@ -163,8 +164,9 @@ const AllUsersPosts = () => {
 			<div className="flex gap-4 flex-wrap items-center  pb-4 ">
 				<button
 					onClick={openModal}
-					className="  py-[0.15] rounded-lg hover:text-red-700 text-red-400 outline-none"
+					className=" flex gap-1 items-center  py-[0.15] rounded-l hover:text-red-300  text-red-400 outline-none"
 				>
+					<MdDelete />
 					delete
 				</button>
 				<div className="">

@@ -152,11 +152,7 @@ const CreatePost = () => {
 	};
 
 	return (
-		<div
-			className={`${
-				quillIsFocus && ""
-			}font-inter font-medium  gap-7 pb-6  dark:bg-dark p-4 rounded-md  `}
-		>
+		<div className={`font-inter  dark:bg-dark p-4 rounded-md h-full `}>
 			<form onSubmit={formik.handleSubmit} className=" ">
 				<div
 					className={`flex flex-col gap-4 ${
@@ -257,7 +253,7 @@ const CreatePost = () => {
 				</div>
 
 				<div className=" mb-6 relative">
-					<div className=" flex gap-2 items-center justify-center  absolute -top-8 right-0 ">
+					<div className=" flex gap-2 items-center justify-center  absolute -top-5 right-0 ">
 						<label class="switch">
 							<input
 								onClick={() => setQuillIsFocus(!quillIsFocus)}
@@ -282,9 +278,9 @@ const CreatePost = () => {
 					</div>
 
 					<div
-						className={`my-6 ${
+						className={`my-2 ${
 							quillIsFocus
-								? " h-[65vh]  md:h-[75vh]  relative top-0  z-50"
+								? " h-[80vh]    relative top-0  z-50"
 								: "h-[40vh]"
 						}`}
 					>

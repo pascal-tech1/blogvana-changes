@@ -131,7 +131,7 @@ const Login = () => {
 
 				<h3
 					onClick={() => setIsOpen(true)}
-					className=" cursor-pointer self-end text-blue-600 hover:text-blue-800 transition-all delay-75"
+					className=" cursor-pointer self-end text-blue-600 hover:text-blue-500 transition-all delay-75"
 				>
 					forget password
 				</h3>
@@ -142,7 +142,7 @@ const Login = () => {
 						<span>
 							<Link
 								to="/register"
-								className=" text-blue-400  ml-2 hover:text-blue-600 transition-all"
+								className=" text-blue-600  ml-2 hover:text-blue-500 transition-all"
 							>
 								Register
 							</Link>

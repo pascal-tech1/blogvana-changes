@@ -164,13 +164,13 @@ const Stats = () => {
 							whoViewUserProfile.map((users, index) => {
 								if (users?.viewedBy?.length === 0) {
 									return (
-										<div key={index} className=" flex gap-3 mb-3 ">
+										<div key={index} className=" flex gap-6 pb-4  ">
 											<img
 												src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blq…auto,w_200/ank-profile-picture-973460_960_720.png"
 												alt=""
 												className=" rounded-md  w-8 h-8 "
 											/>
-											<div>
+											<div className=" flex flex-col">
 												<Tooltip
 													relative={true}
 													info={
@@ -186,7 +186,7 @@ const Stats = () => {
 										</div>
 									);
 								} else
-									return users?.viewedBy?.map((viewedBy, index) => {
+									return users?.viewedBy?.slice(0,5)?.map((viewedBy, index) => {
 										return (
 											<div key={index}>
 												<UserToFollow

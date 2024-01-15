@@ -11,7 +11,7 @@ const PostInfo = ({ post }) => {
 	const screenWidth = useScreenWidth();
 
 	return (
-		<div className="flex flex-col mb-2 justify-self-center py-4 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
+		<div className="flex flex-col mb-2 justify-self-center py-8 md:py-6 border-b dark:border-b dark:border-b-lightdark mt-1 rounded-md px-3 ">
 			<div className=" min-[384px]:hidden">
 				<PostUserInfo post={post} />
 			</div>
@@ -52,14 +52,14 @@ const PostInfo = ({ post }) => {
 							</h3>
 						</Link>
 						<div className=" hidden min-[1200px]:flex ">
-							<p className="text-sm">
+							<p className="text-sm flex gap-2 items-center my-2">
 								{post?.description > 120
 									? `${post?.description?.slice(0, 120)}...`
 									: post.title}
 
 								<Link
 									to={`/single-post/${post?._id}`}
-									className="ml-1 text-blue-600 dark:text-colorPrimary mt-2 hover:text-blue-500 transition-all cursor-pointer"
+									className="ml-1  text-blue-600 dark:text-colorPrimary hover:text-blue-500 transition-all cursor-pointer"
 									aria-label={`Read more about the post titled "${post?.title}"`}
 								>
 									<h3>Read more</h3>

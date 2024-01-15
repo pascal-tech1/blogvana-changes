@@ -70,7 +70,7 @@ export const fetchCreatorPosts = createAsyncThunk(
 		const { creatorAllPostPageNumber } = getState().generalPostSlice;
 		try {
 			const resp = await customFetch.put(
-				`/posts/user-post?page=${params.page}&postNumberPerPage=${postNumberPerPage}&filter=${params.filter}&searchTerm=${dashboardSearchTerm}`,
+				`/posts/user-post?page=${creatorAllPostPageNumber}&postNumberPerPage=${postNumberPerPage}&filter=${params.filter}&searchTerm=${dashboardSearchTerm}`,
 				params
 			);
 
@@ -179,7 +179,8 @@ const generalPostSlice = createSlice({
 			state.creatorAllPost = [...state.creatorAllPost, ...payload.posts];
 			state.creatorAllPostTotalPages = payload.totalPages;
 
-			if (payload.posts.length < 10) state.hasMore = false;
+			if (state.creatoPostTotalNumber <= state.creatorAllPost.length)
+				state.hasMore = false;
 			else state.hasMore = true;
 		},
 		[fetchCreatorPosts.rejected]: (state, action) => {

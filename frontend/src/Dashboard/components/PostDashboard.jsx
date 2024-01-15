@@ -36,7 +36,7 @@ const PostDashboard = ({ posts, status, title, page }) => {
 								originalImgUrl={item?.post?.image}
 								blurImageStr={item?.post?.blurImageUrl}
 								optimizationStr={"q_auto,f_auto,w_200"}
-								paddingBottom={"80%"}
+								paddingBottom={"60%"}
 							/>
 
 							<div className=" font-medium text-sm w-full self-start ">

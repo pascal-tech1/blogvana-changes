@@ -27,6 +27,7 @@ const AllPost = () => {
 	useEffect(() => {
 		if (token && !user) return;
 		if (allPost.length === 0) {
+			console.log('i have fetch all post')
 			searchQuery.length === 0 && dispatch(fetchPostByCategory());
 		}
 	}, [token, user]);
@@ -48,6 +49,7 @@ const AllPost = () => {
 	);
 	const handleClearSearch = () => {
 		dispatch(setEmptySearch());
+		
 		dispatch(fetchPostByCategory());
 	};
 

@@ -172,14 +172,13 @@ function BarChart() {
 				/>
 			</div>
 			<div className=" h-full w-full relative">
-				<Bar options={options} data={data} />
-				<div
-					className={`${
-						userPostImpressionStatus === "loading" ? "" : "hidden"
-					} absolute -top-11 left-0 w-full h-full overflow-y-hidden`}
-				>
-					<ChartLoadingSkeleton />
-				</div>
+				{userPostImpressionStatus === "loading" ? (
+					<div className="absolute -top-11 left-0 w-full h-full overflow-y-hidden">
+						<ChartLoadingSkeleton />
+					</div>
+				) : (
+					<Bar options={options} data={data} />
+				)}
 			</div>
 		</div>
 	);

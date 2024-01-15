@@ -14,7 +14,7 @@ const SinglePostSkeleton = () => {
 				<div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
 				<div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
 			</div>
-			<div className=" w-full">
+			<div className=" w-full lg:max-w-[50rem] ">
 				<div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 mb-4"></div>
 				<div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 w-44  mb-2.5"></div>
 				<div class="flex items-center mb-4">
