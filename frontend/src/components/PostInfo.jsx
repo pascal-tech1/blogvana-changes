@@ -27,7 +27,7 @@ const PostInfo = ({ post }) => {
 							to={`/single-post/${post?._id}`}
 							aria-label={`${post?.title}-link`}
 						>
-							<h3 className=" font-bold  text-sm mt-2 lg:text-lg dark:text-slate-100 ">
+							<h3 className=" font-bold  text-sm mt-2 mb-4 lg:text-lg dark:text-slate-100 ">
 								{screenWidth < 1200 ? (
 									post.title.length > 60 ? (
 										<div className=" relative">
@@ -52,7 +52,7 @@ const PostInfo = ({ post }) => {
 							</h3>
 						</Link>
 						<div className=" hidden min-[600px]:flex items-center ">
-							<p className="text-sm flex gap-2 items-center my-2">
+							<p className="text-sm flex gap-2 items-center pb-2">
 								{post?.description > 120
 									? `${post?.description?.slice(0, 120)}...`
 									: post.title}
