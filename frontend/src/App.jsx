@@ -87,14 +87,14 @@ const App = () => {
 		};
 	}, []);
 
-	if (loginUserTokenStatus === "loading") {
-		return (
-			<div className=" grid place-content-center place-items-center h-screen dark:bg-dark">
-				<h1 className=" mb-6 text-2xl text-blue-600 font-bold drop-shadow-md">Welcome to Blogvana</h1>
-				<InitialSpinner />
-			</div>
-		);
-	}
+	// if (loginUserTokenStatus === "loading") {
+	// 	return (
+	// 		<div className=" grid place-content-center place-items-center h-screen dark:bg-dark">
+	// 			<h1 className=" mb-6 text-2xl text-blue-600 font-bold drop-shadow-md">Welcome to Blogvana</h1>
+	// 			<InitialSpinner />
+	// 		</div>
+	// 	);
+	// }
 
 	return (
 		<BrowserRouter>
