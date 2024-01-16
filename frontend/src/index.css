@@ -318,9 +318,14 @@ th {
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 /* custom tailwind styles */
+.post-content a {
+	@apply text-blue-500 hover:text-blue-400 drop-shadow-sm
+}
+blockquote {
+	@apply dark:bg-gray-800 pl-6 py-2 bg-slate-200 border-l-blue-500 border-l-2  drop-shadow-md ;
+}
 
 .form-label {
-	@apply text-sm mt-2 text-gray-400 self-start;
 }
 
 .form-input {
@@ -361,7 +366,7 @@ th {
 	@apply relative  px-2 py-4 pt-6 pb-2 !bg-[rgb(249,249,249)]  text-sm  dark:!bg-[#282C34]  rounded-lg p-4;
 }
 .copy-button {
-	@apply dark:bg-gray-900 drop-shadow-sm text-sm mt-1;
+	@apply dark:bg-gray-900 drop-shadow-sm text-sm mt-1 mr-4;
 }
 .nav-heading-sm {
 	@apply min-[389px]:hidden max-[389px]:grid  max-[389px]:place-content-center   max-[389px]:shadow-lg  max-[389px]:h-fit  max-[389px]:gap-4 max-[389px]:p-3  max-[389px]:bg-white;

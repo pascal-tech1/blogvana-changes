@@ -41,27 +41,27 @@ const createPostCtrl = expressAsyncHandler(async (req, res) => {
 		const enteredDetails =
 			req?.body?.title + "" + req?.body?.description + "" + postContent;
 
-		const profaneWords = enteredDetails
-			.split(" ")
-			.filter((word) => checkProfanity(word));
-		if (profaneWords.length > 0) {
-			user.isProfaneCount += 1;
-			await user.save();
+		// const profaneWords = enteredDetails
+		// 	.split(" ")
+		// 	.filter((word) => checkProfanity(word));
+		// if (profaneWords.length > 0) {
+		// 	user.isProfaneCount += 1;
+		// 	await user.save();
 
-			if (user.isProfaneCount >= 3) {
-				user.isBlocked = true;
-				await user.save();
-				throw new Error(
-					"Post contains profane words and account is blocked"
-				);
-			} else {
-				throw new Error(
-					`Post not created because it contains profane words (${profaneWords.join(
-						", "
-					)}). Account will be blocked after the third time.`
-				);
-			}
-		}
+		// 	if (user.isProfaneCount >= 3) {
+		// 		user.isBlocked = true;
+		// 		await user.save();
+		// 		throw new Error(
+		// 			"Post contains profane words and account is blocked"
+		// 		);
+		// 	} else {
+		// 		throw new Error(
+		// 			`Post not created because it contains profane words (${profaneWords.join(
+		// 				", "
+		// 			)}). Account will be blocked after the third time.`
+		// 		);
+		// 	}
+		// }
 
 		uploadedImage = await handleCloudinaryUpload(
 			req.image,
@@ -280,25 +280,25 @@ const updatePostCtrl = expressAsyncHandler(async (req, res) => {
 		const enteredDetails =
 			req?.body?.title + "" + req?.body?.description + "" + postContent;
 
-		const profaneWords = enteredDetails
-			.split(" ")
-			.filter((word) => checkProfanity(word));
-		if (profaneWords.length > 0) {
-			user.isProfaneCount += 1;
-			await user.save();
+		// const profaneWords = enteredDetails
+		// 	.split(" ")
+		// 	.filter((word) => checkProfanity(word));
+		// if (profaneWords.length > 0) {
+		// 	user.isProfaneCount += 1;
+		// 	await user.save();
 
-			if (user.isProfaneCount >= 3) {
-				user.isBlocked = true;
-				await user.save();
-				throw new Error(
-					"Post contains profane words and account is blocked"
-				);
-			} else {
-				throw new Error(
-					`Post not created because it contains profane words (${profaneWords}). Account will be blocked after the third time.`
-				);
-			}
-		}
+		// 	if (user.isProfaneCount >= 3) {
+		// 		user.isBlocked = true;
+		// 		await user.save();
+		// 		throw new Error(
+		// 			"Post contains profane words and account is blocked"
+		// 		);
+		// 	} else {
+		// 		throw new Error(
+		// 			`Post not created because it contains profane words (${profaneWords}). Account will be blocked after the third time.`
+		// 		);
+		// 	}
+		// }
 
 		if (req?.file) {
 			uploadedImage = await handleCloudinaryUpload(
