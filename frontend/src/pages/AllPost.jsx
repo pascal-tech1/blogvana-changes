@@ -81,7 +81,7 @@ const AllPost = () => {
 
 			{/* loading Spinner */}
 			<div className="grid ">
-				{(allPostStatus !== "success" || allPostStatus !== "failed") &&
+				{(allPostStatus === "loading" || allPostStatus === "idle") &&
 					Array.from({ length: loadingSkeletonNumber }).map((_, index) => (
 						<PostInfoLoadingSkeleton key={index} />
 					))}
